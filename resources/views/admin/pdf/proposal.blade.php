@@ -83,18 +83,28 @@
         <td style="border: none;">
             <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific - {{ $totalItems }}</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
-                Mansion, Dr,<br> Meisheri Road, Dongri, Mumbai - 400 009.</p>
-            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra, India</p>
+                Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
+            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: 27AYQPS9651P1Z2</p>
+        </td>
+        <td style='text-align:right;border: none;'>
+        <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
         </td>
     </tr>
 </table>
 </span>
 </p>
-<h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1>
-<p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-<p style="text-indent: 0pt;text-align: left;"><br/></p>
-<table class='center table-quotation'>
+
+<table class='center table-quotation no-border'>
+    <tr>
+        <th style="text-align:center;" colspan='8'>
+            QUOTATION
+            <!-- <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1> -->
+        </th>
+    </tr>
+    <tr class='no-border'>
+        <th class='no-border'>&nbsp;</th>
+    </tr>
     <tr>
         <th colspan='4' class='left-align'>To</th>
         <th colspan='4' class='left-align'></th>
@@ -117,12 +127,12 @@
     </tr>
 
     <tr>
-        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">CONTACT PERSON: {{ $model->user->full_name }}</td>
+        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->user->full_name }}</td>
     </tr>
     <tr>
         <td  class='no-border' colspan='8' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
-            <span style="padding-right: 120px;float: left;">MOBILE: {{ $model->user->phone_number }}</span>
-            <span style="padding-right: 13px;float: right;">Email:{{ $model->user->email }}</span>
+            <span style="padding-right: 120px;float: left;">TEL: {{ $model->user->phone_number }}</span>
+            <span style="padding-right: 13px;float: right;">Email: {{ $model->user->email }}</span>
         </td>
     </tr>
     <tr>
@@ -139,20 +149,22 @@
         <td width="10px" style="padding: 100px 0px 100px 0px;">{{ ++$key }}</td>
         <td>{{ $item->product->pn_no }}</td>
         <td>{{ $item->product->hsn_no }}</td>
-        <td colspan='2' style="text-align: center">
-            {{ $item->product->name }}
+        <td colspan='2' style="text-align: left">
+            <b>{{ $item->product->name }}</b>
             <br />
-            @if($item->product)
-                @foreach($item->product->images as $image)
-                    <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />
-                @endforeach
-            @endif
+            <div style="text-align: center">
+                @if($item->product)
+                    @foreach($item->product->images as $image)
+                        <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
+                    @endforeach
+                @endif
+            </div>
             <br />
             {{ $item->product->short_description }}
         </td>
         <td>{{ $item->quantity }}</td>
-        <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
-        <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+        <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+        <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
     </tr>
     <!-- repeatable -->
 @if($key++ == $totalItems)
@@ -212,18 +224,19 @@
     @endif
     <tr>
         <td colspan='3' class='no-border' >Delivery Period:</td>
-        <td colspan='3' class='no-border text-right'>IGST</td>
-        <td colspan='2'>{{ $model->i_gst }}%</td>
+        <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
+        <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
     </tr>
     <tr>
         <td colspan='3' class='no-border' >Installation: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
-        <td colspan='3' class='no-border text-right'>CGST</td>
-        <td colspan='2'>{{$model->c_gst }}%</td>
+        <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
+        <td colspan='2'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
+        
     </tr>
     <tr>
         <td colspan='3' class='no-border' >Freight: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>
-        <td colspan='3' class='no-border text-right'>SGST</td>
-        <td colspan='2'>{{$model->s_gst }}%</td>
+        <td colspan='3' class='no-border text-right'></td>
+        <td colspan='2'></td>
     </tr>
     <tr>
         <td colspan='3' class='no-border' >Validity - 90 Days</td>
