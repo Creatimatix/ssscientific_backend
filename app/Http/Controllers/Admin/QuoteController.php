@@ -77,6 +77,7 @@ class QuoteController extends Controller
             $quotes->phone_number = $request->input('phone_number');
             $quotes->email = $request->input('email');
             $quotes->address = $request->input('address');
+            $quotes->gst_no = $request->input('gst_no');
             $quotes->apt_no = $request->input('apt_no');
             $quotes->zipcode = $request->input('zipcode');
             $quotes->city = $request->input('city');
@@ -178,6 +179,7 @@ class QuoteController extends Controller
         $quote->email = $request->input('email');
         $quote->address = $request->input('address');
         $quote->apt_no = $request->input('apt_no');
+        $quote->gst_no = $request->input('gst_no');
         $quote->zipcode = $request->input('zipcode');
         $quote->city = $request->input('city');
         $quote->state = $request->input('state');

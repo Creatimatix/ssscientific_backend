@@ -49,6 +49,7 @@ class Quote extends BaseModel
         'email',
         'address',
         'apt_no',
+        'gst_no',
         'zipcode',
         'city',
         'state',
