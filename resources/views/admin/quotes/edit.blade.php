@@ -82,6 +82,10 @@
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
                                             <input type="email" name="email" id="email"  value="{{ $model->email }}" class="form-control fixedOption">
                                         </div>
+                                        <div class="col-md-4">
+                                            <label for="relation">GST No:<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control"  value="" name="gst_no" id="gst_no" />
+                                        </div>
                                         <div class="col-md-4 depend_on_tendor" style="display:none">
                                             <label for="tendor_no">Tendor Number:</label>
                                             <input type="text" name="tendor_no" id="tendor_no" value="{{ $model->tendor_no }}" class="form-control fixedOption" required>
@@ -130,7 +134,7 @@
                                     </div>
                                 </div>
                                 <h6 class="" style="display:flex">
-                                    <span class="title_in_caps">Bill To:</span><span class="noValidateClass">(optional)</span>&nbsp;
+                                    <span class="title_in_caps">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;
                                     <div class="icheck-primary d-inline billingCheckbox">
                                         <input type="checkbox" name="billingChk" id="billingChk"
                                                onclick="fillBillingAddress()" class="" {{ $model->billing_option?'checked':'' }}>

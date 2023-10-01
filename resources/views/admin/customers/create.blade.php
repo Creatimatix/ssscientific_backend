@@ -49,7 +49,7 @@
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
-                                            <input type="email" name="email" id="email" class="form-control fixedOption">
+                                            <input type="email" name="email" id="email" class="form-control fixedOption" value="{{ old('email') }}">
                                         </div>
                                         @if(!in_array($type, ['customer','vendor']))
                                             <div class="col-md-4">

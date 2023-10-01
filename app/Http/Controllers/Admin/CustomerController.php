@@ -42,6 +42,10 @@ class CustomerController extends Controller
 
     public function updateCustomerForm(Request $request){
         $id = $request->get('id');
+        $validated = $request->validate([
+            'email' => 'required|unique:users,email,'.$id,
+            'phone_number' => 'required|unique:users,phone_number,'.$id
+        ]);
         $customer = User::updateOrCreate(
             ['id' => $id],
             [
@@ -57,7 +61,7 @@ class CustomerController extends Controller
         );
 
         if(!$id){
-            $customer->password = decrypt('password');
+            $customer->password = Hash::make('password');
         }
 
         return redirect()->back()->with('customerMsg',"Details ".($id> 0?'updated': 'added')." successfully");

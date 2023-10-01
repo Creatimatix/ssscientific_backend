@@ -37,7 +37,10 @@
         @endphp
         <tr class="strong-line">
             <td>IMage</td>
-            <td>{{ $item->product->name }}</td>
+            <td>
+                {{ $item->product->name }} <br />
+                <a href="javascript:void(0)">Add Accessories</a>
+            </td>
             <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$item->asset_value }}</td>
             <td>{{ $item->quantity }}</td>
             <td>{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($item->asset_value * $item->quantity) }}</td>
@@ -56,6 +59,21 @@
             </td>
         </tr>
     @endforeach
+    <tr class="table-summary">
+        <td colspan="5" class="text-right" style="text-align: left !important;">
+            @if($quote && !$quote->discount && count($items) > 0)
+                <div class="pull-left">
+                    <form name="discountForm" action="{{ route('applyDiscount') }}" id="discountForm" method="post">
+                        <div class="form-group" style="display:flex">
+                            <input type="text" name="discount" id="discount" class="form-control" style="width: 200px;"/>
+                            <input type="button" id="discountBtn" class="btn btn-sm" value="Apply Discount" onclick="itemlist.applyDiscount(this)">
+                        </div>
+                    </form>
+                </div>
+            @endif
+        </td>
+        <td></td>
+    </tr>
     @if(count($items) > 0)
         <tr class="table-summary">
             <td colspan="6" class="text-right" style="text-align: left !important;">
@@ -107,10 +125,17 @@
                         </div>
                         <div class="row">
                             <div class="form-check">
-                                <div style="margin-top: 0px;margin-left: -22px;width: 168px;display: flex;">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 307px;display: flex;">
                                     <label class="form-check-label" for="freight" style="width:158px">
                                         Freight ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
                                     </label>
+                                    <div class="form-group">
+                                        <select class="form-control form-control-border" style=" width: 127px;">
+                                            <option>Type</option>
+                                            <option value="0">Fixed</option>
+                                            <option value="%">Pecentage</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-border" id="freight" name="freight" placeholder="Freight"  value="{{ $quote->freight? $quote->freight : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">
                                     </div>
@@ -119,10 +144,17 @@
                         </div>
                         <div class="row">
                             <div class="form-check">
-                                <div style="margin-top: 0px;margin-left: -22px;width: 168px;display: flex;">
-                                    <label class="form-check-label" for="freight" style="width:158px">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 380px;display: flex;">
+                                    <label class="form-check-label" for="freight" style="width:420px">
                                         Installation Charges ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
                                     </label>
+                                    <div class="form-group">
+                                        <select class="form-control form-control-border" style="    width: 127px;">
+                                            <option>Type</option>
+                                            <option value="0">Fixed</option>
+                                            <option value="%">Pecentage</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-border" id="installation" name="installation" placeholder="Installation"  value="{{ $quote->installation? $quote->installation : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">
                                     </div>
@@ -141,16 +173,6 @@
     @endif
     <tr class="table-summary">
         <td colspan="2" class="text-right" style="text-align: left !important;">
-            @if($quote && !$quote->discount && count($items) > 0)
-            <div class="pull-left">
-                <form name="discountForm" action="{{ route('applyDiscount') }}" id="discountForm" method="post">
-                    <div class="form-group" style="display:flex">
-                        <input type="text" name="discount" id="discount" class="form-control" style="width: 152px;"/>
-                        <input type="button" id="discountBtn" class="btn btn-sm" value="Apply Discount" onclick="itemlist.applyDiscount(this)">
-                    </div>
-                </form>
-            </div>
-            @endif
         </td>
         <td colspan="2" class="text-right">Sub Total</td>
         <td class="text-right">

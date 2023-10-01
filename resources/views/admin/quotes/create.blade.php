@@ -84,6 +84,10 @@
                                                 <option value="2">Inactive</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-4">
+                                            <label for="relation">GST No:<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" value="" name="gst_no" id="gst_no" />
+                                        </div>
                                     </div>
                                     <div class="row margin-bottom-20 depend_on_tendor" style="display:none">
                                         <div class="col-md-4">
@@ -133,7 +137,7 @@
                                     </div>
                                 </div>
                                 <h6 class="" style="display:flex">
-                                    <span class="title_in_caps">Bill To:</span><span class="noValidateClass">(optional)</span>&nbsp;
+                                    <span class="title_in_caps">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;
                                     <div class="icheck-primary d-inline billingCheckbox">
                                         <input type="checkbox" name="billingChk" id="billingChk"
                                                onclick="fillBillingAddress()" class="">
