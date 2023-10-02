@@ -595,6 +595,7 @@ class QuoteController extends Controller
             $quote->freight = $freight;
             $quote->installation = $installation;
             $quote->freight_type = $freightType;
+            $quote->freight_percentage = $freightPercentage;
             $quote->installation_type = $installationType;
             $quote->installation_percentage = $installationPercentage;
             if($amended_on){

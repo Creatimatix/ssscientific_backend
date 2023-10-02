@@ -113,6 +113,16 @@
     <tr>
         <td colspan='4'>
             <p>
+                {{ $model->property_address }}
+            </p>
+        </td>
+        <td colspan='4'>
+            <p>{{ $model->shipto_address }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan='4'>
+            <p>
                 {{ $model->user->full_name }} <br />
                 {{ $model->property_address }}
             </p>
@@ -231,7 +241,7 @@
         <td colspan='3' class='no-border' >Installation: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
         <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
         <td colspan='2'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
-        
+
     </tr>
     <tr>
         <td colspan='3' class='no-border' >Freight: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>

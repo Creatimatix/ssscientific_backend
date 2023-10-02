@@ -124,11 +124,13 @@
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="clear: both">
                                             <label class="" for="state">State<span class="validateClass">*</span></label>
-                                            <select class="form-control" id="state" name="state">
-                                                <option value="">Select State</option>
-                                                <option value="1" {{ $model->state == 1?'selected':'' }}>MH</option>
+{{--                                            <select class="form-control" id="state" name="state">--}}
+{{--                                                <option value="">Select State</option>--}}
+{{--                                                <option value="1" {{ $model->state == 1?'selected':'' }}>MH</option>--}}
 
-                                            </select>
+{{--                                            </select>--}}
+
+                                            <input type="text" name="state" id="state" value="{{ $model->state }}" class="form-control">
                                             <span class="text-danger" id="state_error"></span>
                                         </div>
                                     </div>

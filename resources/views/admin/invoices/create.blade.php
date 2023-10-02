@@ -59,16 +59,19 @@
                                                 <option value="">Select Purchase Order</option>
                                             </select>
                                         </div>
-                                        @if($type == \App\Models\Admin\Invoice::INVOICE)
-                                            <div class="col-md-4">
-                                                <label for="freight">Freight Rate:</label>
-                                                <input type="text" name="freight" id="freight" class="form-control fixedOption">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="installation">Installation</label>
-                                                <input type="text" name="installation" id="installation" value="" class="form-control fixedOption">
-                                            </div>
-                                        @endif
+                                        <div class="col-md-4">
+                                            <label for="pan_no">Pan No:</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="form-control fixedOption">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="freight">Freight Rate:</label>
+                                            <input type="text" name="freight" id="freight" class="form-control fixedOption">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="installation">Installation</label>
+                                            <input type="text" name="installation" id="installation" value="" class="form-control fixedOption">
+                                        </div>
+
                                         <div class="col-md-4">
                                             <label for="relation">Status:</label>
                                             <select name="status" id="status" class="form-control" required>

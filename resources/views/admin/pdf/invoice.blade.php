@@ -92,6 +92,7 @@
                 {{ $invoice->invoice_no }} <br />
                 Date: {{date('d-m-Y', strtotime($invoice->created_at)) }} <br />
                 GST NO: {{ $invoice->gst_no  }} <br />
+                PAN NO: {{ $invoice->pan_no  }} <br />
             </p>
         </td>
         <td colspan='4'>

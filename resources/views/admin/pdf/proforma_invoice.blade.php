@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>INVOICE</title>
+    <title>{{ (request()->get('invoiceType') == \App\Models\Admin\Invoice::INVOICE)?"INVOICE":"PROFORMA INVOICE" }} </title>
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
         /** {margin:0; padding:0; text-indent:0; }*/
@@ -68,7 +68,7 @@
         </table>
     </span>
 </p>
-<h1 style="padding-top: 1pt;text-align:center; font-size:13pt">INVOICE</h1>
+<h1 style="padding-top: 1pt;text-align:center; font-size:13pt">{{ (request()->get('invoiceType') == \App\Models\Admin\Invoice::INVOICE)?"INVOICE":"PROFORMA INVOICE" }}</h1>
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
 <p style="text-indent: 0pt;text-align: left;"><br/></p>
 <table class='center table-quotation'>
@@ -83,6 +83,7 @@
                 {{ $invoice->invoice_no }} <br />
                 Date: {{date('d-m-Y', strtotime($invoice->created_at)) }} <br />
                 GST NO: {{ $invoice->gst_no  }} <br />
+                PAN NO: {{ $invoice->pan_no  }} <br />
             </p>
         </td>
         <td colspan='4'>

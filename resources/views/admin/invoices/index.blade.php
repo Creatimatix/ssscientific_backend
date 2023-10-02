@@ -23,13 +23,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        @if(request()->get('type') == \App\Models\Admin\Invoice::INVOICE)
                         <div class="card-header">
                             <div class="pull-right">
                                 <a href="{{ route('create.invoice', ['type' => request()->get('type')]) }}" class="pull-right btn btn-primary" >Add</a>
                             </div>
                         </div>
-                        @endif
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="invoiceTable" class="table table-bordered table-striped">

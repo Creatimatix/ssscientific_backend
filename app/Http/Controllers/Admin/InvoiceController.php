@@ -64,19 +64,19 @@ class InvoiceController extends Controller
        $invoice->status =  $request->get('status');
        $invoice->created_by =  Auth::user()->id;
        $invoice->save();
-       if($invoice->id > 0){
-           $piInvoice = new Invoice();
-           $piInvoice->id_invoice = $invoice->id;
-           $piInvoice->quote_id =  $request->get('quote_id');
-           $piInvoice->invoice_no =  Invoice::invoiceNumber(1);
-           $piInvoice->po_no =  $request->get('po_id');
-           $piInvoice->freight =  $request->get('freight');
-           $piInvoice->installation =  $request->get('installation');
-           $piInvoice->type = 1;
-           $piInvoice->status =  $request->get('status');
-           $piInvoice->created_by =  Auth::user()->id;
-           $piInvoice->save();
-       }
+//       if($invoice->id > 0){
+//           $piInvoice = new Invoice();
+//           $piInvoice->id_invoice = $invoice->id;
+//           $piInvoice->quote_id =  $request->get('quote_id');
+//           $piInvoice->invoice_no =  Invoice::invoiceNumber(1);
+//           $piInvoice->po_no =  $request->get('po_id');
+//           $piInvoice->freight =  $request->get('freight');
+//           $piInvoice->installation =  $request->get('installation');
+//           $piInvoice->type = 1;
+//           $piInvoice->status =  $request->get('status');
+//           $piInvoice->created_by =  Auth::user()->id;
+//           $piInvoice->save();
+//       }
        return redirect()->route('invoices',['type' => $type])->with("invoiceSuccessMsg",'Invoice create successfully.');
    }
 

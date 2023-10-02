@@ -66,7 +66,7 @@
                     <form name="discountForm" action="{{ route('applyDiscount') }}" id="discountForm" method="post">
                         <div class="form-group" style="display:flex">
                             <input type="text" name="discount" id="discount" class="form-control" style="width: 200px;"/>
-                            <input type="button" id="discountBtn" class="btn btn-sm" value="Apply Discount" onclick="itemlist.applyDiscount(this)">
+                            <input type="button" id="discountBtn" class="btn btn-sm pButton" value="Apply Discount" onclick="itemlist.applyDiscount(this)">
                         </div>
                     </form>
                 </div>

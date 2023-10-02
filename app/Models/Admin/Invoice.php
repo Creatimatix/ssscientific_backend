@@ -13,16 +13,16 @@ class Invoice extends Model
     const PROFORMA_INVOICE = 1;
 
     protected $fillable = [
-        'quote_id','invoice_no','po_no','freight','status','installation','created_by'
+        'quote_id','invoice_no','po_no','freight','status','installation','created_by','pan_no'
     ];
 
     public static function invoiceNumber($type){
         if($type == 1){
-            $intial = "SSS/PI.";
+            $intial = "SSS/PI/";
         }else{
-            $intial = "SSS/INV.";
+            $intial = "SSS/INV/";
         }
-        return $intial.(SELF::latest()->value('id')+1)."./FY ".getFinancialYear();
+        return $intial.(SELF::latest()->value('id')+1)."/".getFinancialYear();
     }
 
     public function quote(){

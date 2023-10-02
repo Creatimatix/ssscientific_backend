@@ -76,7 +76,7 @@ class Quote extends BaseModel
         'updated_at',
     ];
 
-    protected $appends = ['property_address'];
+    protected $appends = ['property_address','shipto_address'];
 
     public function user(){
         return $this->belongsTo(User::class,'cust_id','id');
@@ -93,6 +93,18 @@ class Quote extends BaseModel
 
         $array = array_filter($array);
         return implode(', ', $array).' '.$this->zip_code;
+    }
+    public function getShiptoAddressAttribute() {
+        $array = [
+            $this->billing_address,
+            $this->billing_apt_no,
+            $this->billing_city,
+            $this->billing_state,
+            $this->billing_zipcode,
+        ];
+
+        $array = array_filter($array);
+        return implode(', ', $array);
     }
 
     public function items(){
