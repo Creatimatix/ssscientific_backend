@@ -13,7 +13,7 @@ class Invoice extends Model
     const PROFORMA_INVOICE = 1;
 
     protected $fillable = [
-        'quote_id','invoice_no','po_no','gst_no','freight','status','created_by'
+        'quote_id','invoice_no','po_no','freight','status','installation','created_by'
     ];
 
     public static function invoiceNumber($type){

@@ -103,7 +103,7 @@ class QuoteController extends Controller
             }
             $quotes->save();
             if($quotes->wasRecentlyCreated){
-                $quoteNo = generateQuoteNo($quotes->id);
+                $quoteNo = generateQuoteNo('Quote',$quotes->id);
                 $quotes->quote_no = $quoteNo;
                 $quotes->save();
                 return response()->json([
@@ -199,12 +199,21 @@ class QuoteController extends Controller
         $quote->created_by = Auth::user()->id;
         if($request->get('order_type') == Quote::ORDER_TYPE_TENDOR){
             $quote->tendor_no = $request->get('tendor_no');
-            $quote->due_date = date('Y-m-d',$request->get('due_date'));
+            $quote->due_date = date('Y-m-d',strtotime($request->get('due_date')));
         }else{
             $quote->tendor_no = '';
             $quote->due_date = '';
         }
+        if(array_key_exists('change_quote_no', $request->all()) && !empty($request->get('change_quote_no'))){
+            $quoteNo = explode('/',$quote->quote_no);
+            $change_quote_no = $request->get('change_quote_no');
+            $quoteNo[1] = $change_quote_no;
+            $newQuoteNo = implode('/',$quoteNo);
+            $quote->quote_no = $newQuoteNo;
+        }
         $quote->save();
+
+
 
         return response()->json([
             "status" => 200,
@@ -569,18 +578,28 @@ class QuoteController extends Controller
         $iGST = $request->get('i_gst');
         $cGST = $request->get('c_gst');
         $sGST = $request->get('s_gst');
+        $amended_on = $request->get('amended_on');
         $freight = $request->get('freight');
         $installation = $request->get('installation');
+        $freightType = $request->get('freightType');
+        $freightPercentage = $request->get('freightPercentage');
+        $installationType = $request->get('installationType');
+        $installationPercentage = $request->get('installationPercentage');
 
         $quote = Quote::where('id',$quoteId)->get()->first();
 
         if($quote){
-
             $quote->i_gst = $iGST;
             $quote->c_gst = $cGST;
             $quote->s_gst = $sGST;
             $quote->freight = $freight;
             $quote->installation = $installation;
+            $quote->freight_type = $freightType;
+            $quote->installation_type = $installationType;
+            $quote->installation_percentage = $installationPercentage;
+            if($amended_on){
+                $quote->amended_on = date("Y-m-d",strtotime($amended_on));
+            }
             $quote->save();
             return response()->json([
                 'statusCode' => Response::HTTP_OK,
@@ -595,6 +614,32 @@ class QuoteController extends Controller
                 'data' => '',
             ], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function getInstallationCharge(Request $request){
+        $quoteId = $request->get('quoteId');
+        $type = $request->get('type');
+        $val = $request->get('val');
+        $config = Config::get('INSTALLATION');
+        $installtion = $config['value'];
+        if($type == '%'){
+           $finalTotal = Quote::getQuoteTotal($quoteId);
+            $installtion = round($finalTotal['totalAmount'] * $val / 100);
+        }
+        return $installtion;
+    }
+
+    public function getFreightCharge(Request $request){
+        $quoteId = $request->get('quoteId');
+        $type = $request->get('type');
+        $val = $request->get('val');
+        $config = Config::get('FREIGHTCHARGE');
+        $freight = $config['value'];
+        if($type == '%'){
+           $finalTotal = Quote::getQuoteTotal($quoteId);
+            $freight = round($finalTotal['totalAmount'] * $val / 100);
+        }
+        return $freight;
     }
 
 }

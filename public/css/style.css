@@ -39,11 +39,6 @@ label{
     text-align: right;
 }
 
-button.btn {
-    height: 35px;
-    width: 174px;
-}
-
 .btnRowList a {
     height: 35px !important;
 }
@@ -55,10 +50,6 @@ button.btn {
 
 .error{
     color:red;
-}
-
-.btn {
-    background-color: orange;
 }
 
 .main-sidebar{

@@ -415,6 +415,9 @@ function getUserDetails(val,type, isUpdate = false){
             if(data.phone_number){
                 $('#phone_number').val(data.phone_number);
             }
+            if(data.gst_no){
+                $('#gst_no').val(data.gst_no);
+            }
         }
     });
 }
@@ -449,6 +452,14 @@ $(document).on('change','.trm_cond_checkbox', function(e){
     }
 });
 
+$(document).on('click','#is_amended', function(e){
+    if($(this).prop('checked') == true){
+        $('#amended_on').show();
+    }else{
+        $('#amended_on').val('');
+        $('#amended_on').hide();
+    }
+});
 $(document).on('click','#terms_condition_btn', function(e){
     const selectedCheckboxes = $('.trm_cond_checkbox:checked');
     var is_i_gst = $('#is_i_gst').val();
@@ -484,6 +495,19 @@ $(document).on('click','#terms_condition_btn', function(e){
             }
         }
 
+
+        if($('#is_amended').prop('checked') == true){
+            if($('#amended_on').val() == ''){
+                messages.error("T&C", "Please choose amended date.");
+                return false;
+            }
+        }
+
+        var freightType = $('#getFreightCharge').val();
+        var freightPercentage = $('#freight_percentage').val();
+        var installationType = $('#getInstallationCharge').val();
+        var installationPercentage = $('#percentage').val();
+
         $.ajax({
             type: 'post',
             url: "/ajax/update-terms-n-conditions",
@@ -494,6 +518,11 @@ $(document).on('click','#terms_condition_btn', function(e){
                 's_gst':$('#s_gst').val(),
                 'freight':$('#freight').val(),
                 'installation':$('#installation').val(),
+                'freightType': freightType,
+                'freightPercentage': freightPercentage,
+                'installationType': installationType,
+                'installationPercentage': installationPercentage,
+                'amended_on': $('#amended_on').val(),
             },
             success: function (response) {
                 if(response.statusCode == 200){
@@ -509,3 +538,63 @@ $(document).on('click','#terms_condition_btn', function(e){
         return false;
     }
 });
+
+
+$(document).on('blur','#freight_percentage',function(e) {
+    if($(this).val() > 0){
+        getFreight();
+    }
+});
+$(document).on('change','#getFreightCharge',function(e){
+    getFreight();
+});
+
+$(document).on('blur','#percentage',function(e) {
+    if($(this).val() > 0){
+        getInstalltion();
+    }
+});
+$(document).on('change','#getInstallationCharge',function(e){
+    getInstalltion();
+});
+
+function getInstalltion(){
+    quoteId = $('#quote_id').val();
+    type = $('#getInstallationCharge').val();
+    if(type == '%'){
+        $('#percentage').show();
+    }else{
+        $('#percentage').val(0);
+        $('#percentage').hide();
+    }
+    percentage = $('#percentage').val();
+    $.ajax({
+        type: 'get',
+        url: "/ajax/getInstallationCharge",
+        data: {quoteId:quoteId,type:type,val:percentage},
+        success: function (data) {
+            console.log('data',data)
+            $('#installation').val(data);
+        }
+    });
+}
+function getFreight(){
+    quoteId = $('#quote_id').val();
+    type = $('#getFreightCharge').val();
+    if(type == '%'){
+        $('#freight_percentage').show();
+    }else{
+        $('#freight_percentage').val(0);
+        $('#freight_percentage').hide();
+    }
+    percentage = $('#freight_percentage').val();
+    $.ajax({
+        type: 'get',
+        url: "/ajax/getFreightCharge",
+        data: {quoteId:quoteId,type:type,val:percentage},
+        success: function (data) {
+            console.log('data',data)
+            $('#freight').val(data);
+        }
+    });
+}

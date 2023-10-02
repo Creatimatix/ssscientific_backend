@@ -68,14 +68,14 @@
                                                 @endif
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="gst_no">GST NO:</label>
-                                            <input type="text" name="gst_no" id="gst_no" value="{{ $model->gst_no }}" class="form-control fixedOption">
-                                        </div>
                                         @if($type == \App\Models\Admin\Invoice::INVOICE)
                                         <div class="col-md-4">
                                             <label for="freight">Freight Rate:</label>
                                             <input type="text" name="freight" id="freight" value="{{ $model->freight }}" class="form-control fixedOption">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="installation">Installation</label>
+                                            <input type="text" name="installation" id="installation" value="{{ $model->installation }}" class="form-control fixedOption">
                                         </div>
                                         @endif
                                         <div class="col-md-4">

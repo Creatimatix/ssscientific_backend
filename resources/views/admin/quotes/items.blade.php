@@ -123,6 +123,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="form-check" style=" display: flex; ">
+                                <input type="checkbox" class="form-check-input " id="is_amended" name="is_amended" {{ ($quote->amended_on || $quote->amended_on)?'checked':'' }}>
+                                <div style="margin-top: 0px;margin-left: 13px;width: 375px;display: flex;">
+                                    <label class="form-check-label" for="is_amended">
+                                        IS Amended?
+                                    </label>
+                                    <div class="form-group">
+                                        <input type="date" class="form-control form-control-border" id="amended_on" name="amended_on" placeholder="Amended On" value="{{ $quote->amended_on? $quote->amended_on : 0 }}"  style="display: {{ $quote->amended_on?'block': 'none' }};">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-check">
                                 <div style="margin-top: 0px;margin-left: -22px;width: 307px;display: flex;">
@@ -130,11 +143,13 @@
                                         Freight ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
                                     </label>
                                     <div class="form-group">
-                                        <select class="form-control form-control-border" style=" width: 127px;">
-                                            <option>Type</option>
-                                            <option value="0">Fixed</option>
-                                            <option value="%">Pecentage</option>
+                                        <select class="form-control form-control-border" id="getFreightCharge" style=" width: 127px;">
+                                            <option value="0"  {{ $quote->freight_type != '%'?'selected':'' }}>Fixed</option>
+                                            <option value="%" {{ $quote->freight_type == '%'?'selected':'' }}>Pecentage</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-border" id="freight_percentage" name="freight_percentage" value="{{ $quote->freight_percentage }}" placeholder="%"  style=" margin-top: -4px; margin-left: 16px; display: {{ $quote->freight_type == '%'?'block':'none' }}; ">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-border" id="freight" name="freight" placeholder="Freight"  value="{{ $quote->freight? $quote->freight : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">
@@ -149,11 +164,13 @@
                                         Installation Charges ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
                                     </label>
                                     <div class="form-group">
-                                        <select class="form-control form-control-border" style="    width: 127px;">
-                                            <option>Type</option>
-                                            <option value="0">Fixed</option>
-                                            <option value="%">Pecentage</option>
+                                        <select class="form-control form-control-border" id="getInstallationCharge" style="    width: 127px;">
+                                            <option value="0"  {{ $quote->installation_type != '%'?'selected':'' }}>Fixed</option>
+                                            <option value="%" {{ $quote->installation_type == '%'?'selected':'' }}>Pecentage</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group" style=" margin-right: 30px; ">
+                                        <input type="text" class="form-control form-control-border" id="percentage" name="percentage" placeholder="%" value="{{ $quote->installation_percentage }}" style=" margin-top: -4px; margin-left: 16px; display: {{ $quote->installation_type == '%'?'block':'none' }};">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-border" id="installation" name="installation" placeholder="Installation"  value="{{ $quote->installation? $quote->installation : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">

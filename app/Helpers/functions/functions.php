@@ -3,8 +3,21 @@
 use Carbon\Carbon;
 
 if (!function_exists('generateQuoteNo')) {
-    function generateQuoteNo($id){
-        return "Quote-".time().'-'.$id;
+    function generateQuoteNo($category,$id){
+
+        $currentDate = new DateTime();
+
+        if ($currentDate->format('n') < 4) {
+            $financialYearStart = (date('Y') - 1) . '-04-01';
+            $financialYearEnd = date('Y') . '-03-31';
+        } else {
+            $financialYearStart = date('Y') . '-04-01';
+            $financialYearEnd = (date('Y') + 1) . '-03-31';
+        }
+
+        $financialYear = date('y', strtotime($financialYearStart)) . '-' . date('y', strtotime($financialYearEnd));
+
+        return "SSS/".$category.'/'.$id.'/'.$financialYear;
     }
 }
 

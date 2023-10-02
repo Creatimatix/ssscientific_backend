@@ -188,11 +188,27 @@
                 </tr>
                 <tr>
                     <td colspan='6' class='no-border' >Installation</td>
-                    <td colspan="10">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
+                    <td colspan="10">
+                        @php
+                            $installation = $model->installation;
+                            if($invoice->installation){
+                                $installation = $invoice->installation;
+                            }
+                        @endphp
+
+                        {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$installation }}
+                    </td>
                 </tr>
                 <tr>
                     <td colspan='6' class='no-border' >Freight</td>
-                    <td colspan="10">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>
+                    <td colspan="10">
+                        @php
+                            $freight = $model->freight;
+                            if($invoice->freight){
+                                $freight = $invoice->freight;
+                            }
+                        @endphp
+                        {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$freight }}</td>
                 </tr>
 
                 @php

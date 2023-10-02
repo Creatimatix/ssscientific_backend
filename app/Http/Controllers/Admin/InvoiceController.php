@@ -58,8 +58,8 @@ class InvoiceController extends Controller
        $invoice->quote_id =  $request->get('quote_id');
        $invoice->invoice_no =  Invoice::invoiceNumber($type);
        $invoice->po_no =  $request->get('po_id');
-       $invoice->gst_no =  $request->get('gst_no');
        $invoice->freight =  $request->get('freight');
+       $invoice->installation =  $request->get('installation');
        $invoice->type = $type;
        $invoice->status =  $request->get('status');
        $invoice->created_by =  Auth::user()->id;
@@ -70,8 +70,8 @@ class InvoiceController extends Controller
            $piInvoice->quote_id =  $request->get('quote_id');
            $piInvoice->invoice_no =  Invoice::invoiceNumber(1);
            $piInvoice->po_no =  $request->get('po_id');
-           $piInvoice->gst_no =  $request->get('gst_no');
            $piInvoice->freight =  $request->get('freight');
+           $piInvoice->installation =  $request->get('installation');
            $piInvoice->type = 1;
            $piInvoice->status =  $request->get('status');
            $piInvoice->created_by =  Auth::user()->id;
@@ -104,8 +104,8 @@ class InvoiceController extends Controller
 
            $invoice->quote_id =  $request->get('quote_id');
            $invoice->po_no =  $request->get('po_id');
-           $invoice->gst_no =  $request->get('gst_no');
            $invoice->freight =  $request->get('freight');
+           $invoice->installation =  $request->get('installation');
            $invoice->status =  $request->get('status');
            $invoice->save();
 

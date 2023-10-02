@@ -95,6 +95,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/quote/change-status/{quote_id}', 'changeStatus')->name('quote.changeStatus');
         Route::get('/quote/send-quote', 'sendQuote')->name('quote.sendQuote');
         Route::post('/ajax/update-terms-n-conditions', 'updateTermCondition')->name('quote.updateTermCondition');
+        Route::get('/ajax/getInstallationCharge', 'getInstallationCharge')->name('quote.getInstallationCharge');
+        Route::get('/ajax/getFreightCharge', 'getFreightCharge')->name('quote.getFreightCharge');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');

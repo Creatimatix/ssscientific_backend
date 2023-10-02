@@ -37,7 +37,7 @@
                                         <th>Created Date</th>
                                         <th>Quotation No</th>
                                         <th>Customer Name</th>
-                                        <th>Product Description</th>
+                                        <th>Description</th>
                                         <th>Total Price</th>
                                         <th>Created By</th>
                                         <th>Status</th>

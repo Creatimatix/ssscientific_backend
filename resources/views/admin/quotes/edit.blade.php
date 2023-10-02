@@ -84,7 +84,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">GST No:<span class="validateClass">*</span></label>
-                                            <input type="text" class="form-control"  value="" name="gst_no" id="gst_no" />
+                                            <input type="text" class="form-control"  value="{{ $model->gst_no }}" name="gst_no" id="gst_no" />
                                         </div>
                                         <div class="col-md-4 depend_on_tendor" style="display:none">
                                             <label for="tendor_no">Tendor Number:</label>
@@ -182,17 +182,21 @@
                                 <div class="proposal-boxx--View">
                                     <div class="form-group margin-bottom-20  m-t-5 depend_on_order_type">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="reference_from" style="min-height: 33px">How did you hear about US?<span class="noValidateClass">(optional)</span></label>
+                                            <div class="col-md-3">
+                                                <label for="reference_from" style="min-height: 33px">How did you hear about US?</label>
                                                 <input type="text" name="reference_from"  value="{{ $model->reference_from }}" id="reference_from" class="form-control">
                                             </div>
-                                            <div class="col-md-4 depend">
-                                                <label for="referral_person" style="min-height: 33px">Who referred us to you?<span class="noValidateClass">(optional)</span><br> (Name)</label>
+                                            <div class="col-md-3 depend">
+                                                <label for="referral_person" style="min-height: 33px">Who referred us to you?</label>
                                                 <input type="text" name="referral"  value="{{ $model->referral }}" id="referral" class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <label for="is_enquired" style="min-height: 33px">Is previously enquired?<span class="noValidateClass">(optional)</span></label>
+                                            <div class="col-md-3">
+                                                <label for="is_enquired" style="min-height: 33px">Is previously enquired?</label>
                                                 <input type="text" name="is_enquired" id="is_enquired" class="form-control" value="{{ $model->is_enquired }}" required>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="change_quote_no" style="min-height: 33px">Change Quote No <small>({{ $model->quote_no }})</small></label>
+                                                <input type="text" name="change_quote_no" id="change_quote_no" class="form-control" value="{{ $model->is_enquired }}" required>
                                             </div>
                                         </div>
                                     </div>

@@ -83,43 +83,6 @@
                                             <input type="gst_no" name="gst_no" id="gst_no" class="form-control fixedOption">
                                         </div>
                                     </div>
-                                    <h6 class="" style="margin-top: 21px;display:flex;margin-bottom: -18px;">
-                                        <span class="title_in_caps">Bill To:</span>
-                                    </h6>
-                                    <div class="row">
-                                        <div class="col-md-8 margin-bottom-20">
-                                            <label for="billing_address">Address:</label>
-                                            <input type="text" class="form-control" name="billing_address" id="billing_address" placeholder="Address" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="billing_apt_no">Billing Apt No</label>
-                                            <input type="text" class="form-control" name="billing_apt_no" id="billing_apt_no" placeholder="Billing Apt No">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="billing_city">Billing City<span class="validateClassOption">*</span></label>
-                                            <input type="text" class="form-control" name="billing_city" id="billing_city" placeholder="Billing City" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="billing_zipcode">Billing Zipcode<span class="validateClassOption">*</span></label>
-                                            <input type="text" class="form-control" name="billing_zipcode" id="billing_zipcode" placeholder="Billing Zipcode" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="">Billing State<span class="validateClassOption">*</span></label>
-                                                <input type="text" name="billing_state" id="billing_state" class="form-control">
-                                            </div>
-                                            <span class="text-danger" id="billing_state_error"></span>
-                                        </div>
-                                        <div class="col-md-4" style="margin-top: -10px;">
-                                            <label for="relation">Status:</label>
-                                            <select name="status" id="status" class="form-control" required>
-                                                <option value="">Select Option</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
                              </form>

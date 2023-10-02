@@ -77,7 +77,7 @@ class HomeController extends Controller
 
         $rawSql = DB::raw('CONCAT(IFNULL('.$tblUser.'.first_name, \'\'), " ", IFNULL('.$tblUser.'.last_name, \'\')) AS full_name ');
 
-        $result = $source->paginate($limit, ['users.id','users.first_name','users.last_name','users.email',$rawSql]);
+        $result = $source->paginate($limit, ['users.id','users.first_name','users.last_name','users.email','users.gst_no',$rawSql]);
 
         return response()->json($result);
     }
