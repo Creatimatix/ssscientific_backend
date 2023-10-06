@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/accessories/create','createAccessories')->name('create.accessories');
             Route::get('/edit/accessories/{id_accessory}','editAccessory')->name('edit.accessory');
             Route::get('/delete/accessories/{id_accessory}','deleteProduct')->name('delete.accessory');
-
+            Route::get('/ajax/accessories','getAccessories')->name('ajax.accessories');
         });
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/customers','getCustomers')->name('customers');

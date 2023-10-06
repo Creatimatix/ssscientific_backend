@@ -198,6 +198,11 @@ var itemlist = {
             messages.saved('Discount', 'discount applied successfully.');
             itemlist.refreshView();
         });
+    },
+    getAccessories: function(itemId){
+        $('#accessoriesModal').modal('show');
+        getAccessories('',itemId);
+        // $('#accessoriesTable').DataTable();
     }
 }
 
@@ -578,6 +583,7 @@ function getInstalltion(){
         }
     });
 }
+
 function getFreight(){
     quoteId = $('#quote_id').val();
     type = $('#getFreightCharge').val();
@@ -595,6 +601,18 @@ function getFreight(){
         success: function (data) {
             console.log('data',data)
             $('#freight').val(data);
+        }
+    });
+}
+
+function getAccessories(textSearch = '', itemId){
+    $('#accessoriesRowData').html("<td colspan='4' style='text-align:center;padding:10px'>loading....</td>");
+    $.ajax({
+        type: 'get',
+        url: "/admin/ajax/accessories",
+        data: {textSearch: textSearch,itemId: itemId},
+        success: function (data) {
+            $('#accessoriesRowData').html(data.htmlView);
         }
     });
 }

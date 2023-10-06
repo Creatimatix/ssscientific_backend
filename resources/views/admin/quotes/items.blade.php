@@ -39,7 +39,7 @@
             <td>IMage</td>
             <td>
                 {{ $item->product->name }} <br />
-                <a href="javascript:void(0)">Add Accessories</a>
+                <a href="javascript:void(0)" onclick="return itemlist.getAccessories({{ $item->product->id }})">Add Accessories</a>
             </td>
             <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$item->asset_value }}</td>
             <td>{{ $item->quantity }}</td>

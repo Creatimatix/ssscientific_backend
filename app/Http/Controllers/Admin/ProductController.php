@@ -260,12 +260,32 @@ class ProductController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function getAccessories(){
+    public function getAccessories(Request $request){
+
         $accessories = Product::with('category')
             ->where('status', 1)
             ->where('type', 1)
             ->get()
             ->all();
+
+        if($request->ajax()){
+            $itemId = $request->get('itemId');
+            $html =  '';
+            $url = route('product.additem');
+            foreach($accessories as $accessory){
+                $onclick = "itemlist.add(this, '$url' , '$accessory->sku')";
+                $html .= "<tr>";
+                $html .= "<td>$accessory->name</td>";
+                $html .= "<td>$accessory->pn_no</td>";
+                $html .= "<td>$accessory->hsn_no</td>";
+                $html .= "<td><a href='javascript:void(0)' onclick='$onclick'><i class='fa fa-plus'></i></a></td>";
+                $html .= "</tr>";
+            }
+
+            return \response()->json([
+                'htmlView' => $html
+            ]);
+        }
         return view('admin.products.accessories',[
             'accessories' => $accessories
         ]);
