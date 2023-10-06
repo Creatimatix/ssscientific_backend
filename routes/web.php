@@ -45,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/product/{id_product}','edit')->name('edit.product');
             Route::post('/product/update','update')->name('update.product');
             Route::get('/ajax/product/delete-image','deleteProductImage')->name('ajax.deleteProductImage');
+            // Accessories
+            Route::get('/accessories','getAccessories')->name('accessories');
+            Route::get('/accessories/create','createAccessories')->name('create.accessories');
+            Route::get('/edit/accessories/{id_accessory}','editAccessory')->name('edit.accessory');
+            Route::get('/delete/accessories/{id_accessory}','deleteProduct')->name('delete.accessory');
+
         });
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/customers','getCustomers')->name('customers');

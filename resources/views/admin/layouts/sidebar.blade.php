@@ -107,9 +107,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('products') }}" class="nav-link {{ $controllerName == 'ProductController'?'active':'' }}">
+                            <a href="{{ route('products') }}" class="nav-link {{ ($controllerName == 'ProductController'  && $segments != 'accessories')?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('accessories') }}" class="nav-link {{ ($controllerName == 'ProductController'  && $segments == 'accessories')?'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Accessories</p>
                             </a>
                         </li>
                     </ul>

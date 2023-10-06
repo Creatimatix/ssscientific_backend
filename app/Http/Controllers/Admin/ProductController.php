@@ -15,7 +15,11 @@ use Image;
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product::with('category')->get()->all();
+        $products = Product::with('category')
+                    ->where('status', 1)
+                    ->where('type', 0)
+                    ->get()
+                    ->all();
         return view('admin.products.index',[
             'products' => $products
         ]);
@@ -103,6 +107,9 @@ class ProductController extends Controller
         $product->features = 1;
         $product->is_featured = 1;
         $product->is_reusable = 0;
+        if(array_key_exists('type', $request->all())){
+            $product->type = $request->get('type', 1);
+        }
         $product->save();
 
         if($request->hasFile('images'))
@@ -119,8 +126,14 @@ class ProductController extends Controller
         }
 
         if($product->id > 0){
+            if(array_key_exists('type', $request->all())){
+                return redirect()->route('accessories')->with('productSuccessMsg',"Accessories created successfully.");
+            }
             return redirect()->route('products')->with('productSuccessMsg',"Product created successfully.");
         }else{
+            if(array_key_exists('type', $request->all())){
+                return redirect()->route('accessories')->with('productErrorMsg',"something went wrong.");
+            }
             return redirect()->route('products')->with('productErrorMsg',"something went wrong.");
         }
     }
@@ -245,5 +258,32 @@ class ProductController extends Controller
             'message' => 'Terms and Conditions updated successfully',
             'data' => $idImage,
         ], Response::HTTP_OK);
+    }
+
+    public function getAccessories(){
+        $accessories = Product::with('category')
+            ->where('status', 1)
+            ->where('type', 1)
+            ->get()
+            ->all();
+        return view('admin.products.accessories',[
+            'accessories' => $accessories
+        ]);
+    }
+
+    public function createAccessories(Request $request){
+        $categories =  Category::where('status', 1)->get()->all();
+        return view('admin.products.create_accessories',[
+            'categories' => $categories
+        ]);
+    }
+
+    public function editAccessory(Request $request,$accessoryId = null){
+        $accessories = Product::where('id', $accessoryId)->get()->first();
+        $categories =  Category::where('status', 1)->get()->all();
+        return view('admin.products.edit_accessories',[
+            'accessory' => $accessories,
+            'categories' => $categories
+        ]);
     }
 }
