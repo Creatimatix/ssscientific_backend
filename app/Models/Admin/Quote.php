@@ -108,7 +108,8 @@ class Quote extends BaseModel
     }
 
     public function items(){
-        return $this->hasMany(ProductCartItems::class,'quote_id','id')
+        return $this->hasMany(ProductCartItems::class,'quote_id','id')->whereNull('item_id')
+            ->with('accessories')
             ->with('product');
     }
 

@@ -157,6 +157,44 @@ var itemlist = {
         });
 
     },
+    addAccessories:function (e, url, product_sku) {
+        $('.cartItemsBlock').html('<div class="loadProducts">Please wait..</div>');
+        var $tr = $(e).closest('tr');
+
+        if($tr.find('._Qty').val()==''){
+            messages.error('Required','Please enter qty of product');
+            $tr.find('._Qty').focus();
+            return;
+        }
+        if($tr.find('._AssetValue').val()==''){
+            messages.error('Required','Please enter purchase cost');
+            $tr.find('._AssetValue').focus();
+            return;
+        }
+
+        var productId = $tr.find('._productId').val();
+        var qty = $tr.find('._Qty').val();
+        var assetValue = $tr.find('._AssetValue').val();
+        var itemId = $tr.find('._itemId').val();
+        var originalAssetValue=$('._originalAssetValue').val();
+
+        $.post(url, {
+            quote_id: $('#quote_id').val(),
+            productId: productId,
+            quantity: qty,
+            assetValue:assetValue,
+            originalAssetValue:originalAssetValue,
+            itemId:itemId
+        }, function(data){
+            if(data.status){
+                messages.saved('','Item added successfully');
+            }else{
+                messages.error('Product','data already added in cart');
+            }
+            itemlist.refreshView();
+        });
+
+    },
     refreshView:function(url, e){
         // if(typeof url === typeof undefined){
         //     url = itemsUrl;

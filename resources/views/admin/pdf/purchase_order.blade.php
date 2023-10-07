@@ -123,7 +123,7 @@
 
     <!-- Repeatable -->
     @if($purchaseOrder && $purchaseOrder->products)
-        @foreach( $purchaseOrder->products as $key => $product)
+        @foreach($purchaseOrder->products as $key => $product)
             <tr style="text-align:center">
                 <td width="10px">{{ ++$key }}</td>
                 <td>{{ $product->product->pn_no }}</td>

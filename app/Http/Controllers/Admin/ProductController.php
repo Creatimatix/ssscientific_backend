@@ -270,20 +270,14 @@ class ProductController extends Controller
 
         if($request->ajax()){
             $itemId = $request->get('itemId');
-            $html =  '';
-            $url = route('product.additem');
-            foreach($accessories as $accessory){
-                $onclick = "itemlist.add(this, '$url' , '$accessory->sku')";
-                $html .= "<tr>";
-                $html .= "<td>$accessory->name</td>";
-                $html .= "<td>$accessory->pn_no</td>";
-                $html .= "<td>$accessory->hsn_no</td>";
-                $html .= "<td><a href='javascript:void(0)' onclick='$onclick'><i class='fa fa-plus'></i></a></td>";
-                $html .= "</tr>";
-            }
+
+            $htmlView = view('admin.products.accessory_list', [
+                'accessories' => $accessories,
+                'itemId' => $itemId
+            ])->render();
 
             return \response()->json([
-                'htmlView' => $html
+                'htmlView' => $htmlView
             ]);
         }
         return view('admin.products.accessories',[

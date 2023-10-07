@@ -149,6 +149,7 @@
                 <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
                 <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
             </tr>
+
         @endforeach
     @endif
     <!-- repeatable -->

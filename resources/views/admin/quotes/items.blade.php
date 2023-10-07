@@ -30,16 +30,17 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($items as $item)
+    @foreach($items as $key => $item)
         @php
+            $itemKey = ++$key;
             $subPrice += $item->asset_value * $item->quantity;
             $totalPrice += $item->asset_value * $item->quantity;
         @endphp
         <tr class="strong-line">
-            <td>IMage</td>
+            <td>{{ $itemKey }}</td>
             <td>
                 {{ $item->product->name }} <br />
-                <a href="javascript:void(0)" onclick="return itemlist.getAccessories({{ $item->product->id }})">Add Accessories</a>
+                <a href="javascript:void(0)" onclick="return itemlist.getAccessories({{ $item->id }})">Add Accessories</a>
             </td>
             <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$item->asset_value }}</td>
             <td>{{ $item->quantity }}</td>
@@ -58,6 +59,30 @@
                 {!! table_buttons($buttons, false) !!}
             </td>
         </tr>
+        @foreach($item->accessories as $aKey => $accessory)
+            <tr class="strong-line">
+                <td>{{ $itemKey.'.'.++$aKey }}</td>
+                <td>
+                    {{ $accessory->product->name }}
+                </td>
+                <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$accessory->asset_value }}</td>
+                <td>{{ $accessory->quantity }}</td>
+                <td>{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($accessory->asset_value * $accessory->quantity) }}</td>
+                <td>
+                    @php
+                        $buttons = [
+                            'trash' => [
+                                'label' => 'Delete',
+                                'attributes' => [
+                                    'href' => route('item.remove', ['item' => $accessory->id]),
+                                ]
+                            ]
+                        ];
+                    @endphp
+                    {!! table_buttons($buttons, false) !!}
+                </td>
+            </tr>
+        @endforeach
     @endforeach
     <tr class="table-summary">
         <td colspan="5" class="text-right" style="text-align: left !important;">

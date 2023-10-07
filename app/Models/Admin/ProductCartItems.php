@@ -28,4 +28,7 @@ class ProductCartItems extends BaseModel
         return $this->asset_value * $this->quantity;
     }
 
+    public function accessories(){
+        return $this->hasMany(SELF::class, 'item_id', 'id')->with('product');
+    }
 }

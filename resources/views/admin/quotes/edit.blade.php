@@ -366,6 +366,7 @@
                             <th scope="col">SR NO</th>
                             <th scope="col">Accessories Name</th>
                             <th scope="col">SKU</th>
+                            <th scope="col">Asset Value</th>
                             <th scope="col">ADD</th>
                         </tr>
                         </thead>

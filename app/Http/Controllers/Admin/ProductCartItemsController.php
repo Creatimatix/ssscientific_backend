@@ -15,7 +15,12 @@ class ProductCartItemsController extends Controller
         $quantity = $request->get('quantity');
         $assetValue = $request->get('assetValue');
         $originalAssetValue = $request->get('originalAssetValue');
-        $isProductAdded = ProductCartItems::where(['quote_id'=>$quote_id,'product_id' => $product_id])->get()->count();
+
+        if(array_key_exists('itemId', $request->alL())){
+            $isProductAdded = ProductCartItems::where(['quote_id'=>$quote_id,'product_id' => $product_id,'item_id' => $request->get('itemId')])->get()->count();
+        }else{
+            $isProductAdded = ProductCartItems::where(['quote_id'=>$quote_id,'product_id' => $product_id])->get()->count();
+        }
         if($isProductAdded > 0){
             return response()->json([
                 'message' => 'product already added.',
@@ -28,6 +33,9 @@ class ProductCartItemsController extends Controller
             $cartItem->quantity = $quantity;
             $cartItem->asset_value = $assetValue;
             $cartItem->original_asset_value = $originalAssetValue;
+            if(array_key_exists('itemId', $request->alL())){
+                $cartItem->item_id = $request->get('itemId');
+            }
             $cartItem->save();
         }
 
@@ -42,7 +50,12 @@ class ProductCartItemsController extends Controller
 //        dd($request->all());
 //        $quote_id = $request->get('quote_id');
         $html = '';
-        $items = ProductCartItems::where('quote_id',$quote_id)->with('product')->get()->all();
+        $items = ProductCartItems::where('quote_id',$quote_id)
+                    ->with('product')
+                    ->with('accessories')
+                    ->whereNull('item_id')
+                    ->get()
+                    ->all();
         $quote = Quote::where('id',$quote_id)->get()->first();
         if($quote){
             $html =  view('admin.quotes.items',[
