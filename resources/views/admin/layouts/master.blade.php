@@ -7,6 +7,9 @@
     <title>SSS | Dashboard</title>
     <!-- @vite(['resources/js/app.js']) -->
     @include('admin.layouts.css')
+    <script>
+        var siteUrl = "{{ url('/').'/admin/' }}"
+    </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
+use App\Models\Admin\ProductCartItems;
 use App\Models\Admin\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -298,6 +299,23 @@ class ProductController extends Controller
         return view('admin.products.edit_accessories',[
             'accessory' => $accessories,
             'categories' => $categories
+        ]);
+    }
+
+    public function updateAccessoriesPaymentStatus(Request $request){
+        $itemId = $request->get('itemId');
+        $isPayable = $request->get('isPayable');
+
+        $item = ProductCartItems::where('id', $itemId)->get()->first();
+
+        if($item){
+            $item->is_payable = $isPayable;
+            $item->save();
+        }
+
+        return \response()->json([
+            'statusCode' => 200,
+            'message' => ($isPayable == 1)?'Accessories applied for payable':'Accessories applied for non payable'
         ]);
     }
 }

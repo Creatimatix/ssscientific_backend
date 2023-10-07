@@ -75,10 +75,18 @@
                                         @else
                                             <input type="hidden" value="{{ ($type == 'customer' ? \App\Models\Admin\Role::ROLE_CUSTOMER: \App\Models\Admin\Role::ROLE_VENDOR) }}" name="role">
                                         @endif
-                                        <div class="col-md-4">
-                                            <label for="gst_no">GST No:<span class="validateClass">*</span></label>
-                                            <input type="text" name="gst_no" id="gst_no" value="{{ $model->gst_no }}" class="form-control fixedOption">
-                                        </div>
+                                        @if(in_array($type, ['customer']))
+                                            <div class="col-md-4">
+                                                <label for="gst_no">GST No:<span class="validateClass">*</span></label>
+                                                <input type="text" name="gst_no" id="gst_no" value="{{ $model->gst_no }}" class="form-control fixedOption">
+                                            </div>
+                                        @endif
+                                        @if(in_array($type, ['vendor']))
+                                            <div class="col-md-4">
+                                                <label for="vendor_code">Vendor Code:</label>
+                                                <input type="vendor_code" name="vendor_code" id="vendor_code"  value="{{ $model->vendor_code }}" class="form-control fixedOption">
+                                            </div>
+                                        @endif
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
                                             <select name="status" id="status" class="form-control" required>

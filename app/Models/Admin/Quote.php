@@ -117,11 +117,18 @@ class Quote extends BaseModel
         $totalAmount = 0;
         $quote = SELF::where('id',$quoteId)->get()->first();
         if($quote){
-            $items = ProductCartItems::select(DB::raw('sum(asset_value * quantity) as totalamount'))->where("quote_id", $quote->id)->get()->all();
+            $items = ProductCartItems::select(DB::raw('sum(asset_value * quantity) as totalamount'))->with('accessories')->where("quote_id", $quote->id)->get()->all();
 
             if($items){
                 foreach ($items as $item){
                     $totalAmount += $item->totalamount;
+                    if($item->accessories){
+                        foreach($item->accessories as $accessory){
+                            if($accessory->is_payable){
+                                $totalAmount += $accessory->asset_value;
+                            }
+                        }
+                    }
                 }
             }
             if($quote && $quote->discount > 0){

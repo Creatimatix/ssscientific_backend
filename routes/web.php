@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/accessories/{id_accessory}','editAccessory')->name('edit.accessory');
             Route::get('/delete/accessories/{id_accessory}','deleteProduct')->name('delete.accessory');
             Route::get('/ajax/accessories','getAccessories')->name('ajax.accessories');
+            Route::post('/ajax/accessories/charge', 'updateAccessoriesPaymentStatus')->name('quote.updateAccessoriesPaymentStatus');
         });
         Route::controller(CustomerController::class)->group(function () {
             Route::get('/customers','getCustomers')->name('customers');

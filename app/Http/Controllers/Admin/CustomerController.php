@@ -56,12 +56,17 @@ class CustomerController extends Controller
                 'gst_no' => $request->get('gst_no'),
                 'role_id' => $request->get('role'),
                 'id_manager' => $request->get('id_manager'),
-                'status' => $request->get('status'),
+                'status' => $request->get('status', 1),
             ],
         );
 
+        if(array_key_exists('vendor_code',$request->all())){
+            $customer->vendor_code = $request->get('vendor_code');
+            $customer->save();
+        }
         if(!$id){
             $customer->password = Hash::make('password');
+            $customer->save();
         }
 
         return redirect()->back()->with('customerMsg',"Details ".($id> 0?'updated': 'added')." successfully");

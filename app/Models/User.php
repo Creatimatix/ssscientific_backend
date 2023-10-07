@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'id_manager',
         'role_id',
+        'vendor_code',
         'status',
     ];
 

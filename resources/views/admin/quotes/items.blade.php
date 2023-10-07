@@ -60,10 +60,16 @@
             </td>
         </tr>
         @foreach($item->accessories as $aKey => $accessory)
+            @php
+                $subPrice += $accessory->asset_value * $accessory->quantity;
+                $totalPrice += $accessory->asset_value * $accessory->quantity;
+            @endphp
             <tr class="strong-line">
-                <td>{{ $itemKey.'.'.++$aKey }}</td>
+                <td style=" text-align: right; ">
+                    <input type="checkbox" name="is_payable" id="is_payable" class="is_payable" data-id="{{ $accessory->id }}" {{ $accessory->is_payable?'checked': '' }} />
+                </td>
                 <td>
-                    {{ $accessory->product->name }}
+                    {{ $itemKey.'.'.++$aKey }}  {{ $accessory->product->name }}
                 </td>
                 <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$accessory->asset_value }}</td>
                 <td>{{ $accessory->quantity }}</td>
