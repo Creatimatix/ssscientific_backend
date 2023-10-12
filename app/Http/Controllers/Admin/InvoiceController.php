@@ -141,6 +141,7 @@ class InvoiceController extends Controller
             'model' => $invoice->quote,
             'configs' => $configs,
         ];
+
         if($invoiceType == Invoice::INVOICE){
             $prefix='Invoice';
             $page = 'admin.pdf.invoice';

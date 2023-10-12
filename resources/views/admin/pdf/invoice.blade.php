@@ -99,6 +99,9 @@
             <p>P.O. No.: {{ $invoice->purchaseOrder->po_no }}</p>
             <p>Place of Supply: {{ $model->property_address }}</p>
             <p>CUSTOMER GST NO.: XYZ00021</p>
+            @if($invoice->purchaseOrder->vendor)
+                <p>Vendor Code: {{ $invoice->purchaseOrder->vendor->vendor_code }}</p>
+            @endif
         </td>
     </tr>
     <tr>
@@ -128,10 +131,11 @@
     @if($model && $model->items)
         @foreach($model->items as $key => $item)
             @php
+                $itemKey = ++$key;
                 $totalAmount = $totalAmount + $item->asset_value;
             @endphp
             <tr style="text-align:center">
-                <td width="10px">{{ ++$key }}</td>
+                <td width="10px">{{ $itemKey }}</td>
                 <td>{{ $item->product->pn_no }}</td>
                 <td>{{ $item->product->hsn_no }}</td>
                 <td colspan='2' style="text-align: center">
@@ -149,6 +153,22 @@
                 <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
                 <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
             </tr>
+
+            @foreach($item->accessories as $aKey => $accessory)
+                <tr style="text-align:center">
+                    <td width="10px">{{ $itemKey.'.'.++$aKey }}</td>
+                    <td>{{ $accessory->product->pn_no }}</td>
+                    <td>{{ $accessory->product->hsn_no }}</td>
+                    <td colspan='2' style="text-align: center">
+                        {{ $accessory->product->name }}
+                        <br />
+                        {{ $accessory->product->short_description }}
+                    </td>
+                    <td>{{ $accessory->quantity }}</td>
+                    <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+                    <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+                </tr>
+            @endforeach
 
         @endforeach
     @endif

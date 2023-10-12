@@ -601,6 +601,33 @@ $(document).on('change','#getInstallationCharge',function(e){
     getInstalltion();
 });
 
+$(document).on('change','.is_payable',function(e){
+    var isPayable = null;
+    var itemId = $(this).attr('data-id');
+    if($(this).prop('checked') == true){
+        isPayable = 1;
+    }else{
+        isPayable = 0;
+    }
+
+    $.ajax({
+        type: 'post',
+        url: siteUrl+"ajax/accessories/charge",
+        data: {
+            'itemId':itemId,
+            'isPayable':isPayable
+        },
+        success: function (response) {
+            if(response.statusCode == 200){
+                messages.saved('T&C', response.message);
+                itemlist.refreshView();
+            }else{
+                messages.error('T&C', response.message);
+            }
+        }
+    });
+});
+
 function getInstalltion(){
     quoteId = $('#quote_id').val();
     type = $('#getInstallationCharge').val();

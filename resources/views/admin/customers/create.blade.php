@@ -48,13 +48,13 @@
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="margin-top: 2px;">
-                                            <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
+                                            <label for="email">E-Mail Address:</label>
                                             <input type="email" name="email" id="email" class="form-control fixedOption" value="{{ old('email') }}">
                                         </div>
                                         @if(!in_array($type, ['customer','vendor']))
                                             <div class="col-md-4">
                                                 <label for="relation">Role:</label>
-                                                <select name="role" id="role" class="form-control" required>
+                                                <select name="role" id="role" class="form-control">
                                                     <option value="">Select Option</option>
                                                     @foreach($roles as $role)
                                                         @if(in_array($role->id, [\App\Models\Admin\Role::ROLE_ADMIN,\App\Models\Admin\Role::ROLE_BUSINESS_HEAD,\App\Models\Admin\Role::ROLE_EXECUTIVE]))
@@ -77,11 +77,18 @@
                                                    value="{{ ($type == 'customer' ? \App\Models\Admin\Role::ROLE_CUSTOMER: \App\Models\Admin\Role::ROLE_VENDOR) }}"
                                                    name="role">
                                         @endif
-
-                                        <div class="col-md-4">
-                                            <label for="gst_no">GST No:<span class="validateClass">*</span></label>
-                                            <input type="gst_no" name="gst_no" id="gst_no" class="form-control fixedOption">
-                                        </div>
+                                        @if(in_array($type, ['customer']))
+                                            <div class="col-md-4">
+                                                <label for="gst_no">GST No:</label>
+                                                <input type="gst_no" name="gst_no" id="gst_no" class="form-control fixedOption">
+                                            </div>
+                                        @endif
+                                        @if(in_array($type, ['vendor']))
+                                            <div class="col-md-4">
+                                                <label for="vendor_code">Vendor Code:</label>
+                                                <input type="vendor_code" name="vendor_code" id="vendor_code" class="form-control fixedOption">
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
