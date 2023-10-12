@@ -57,7 +57,13 @@
             border:0px;
         }
 
-
+        .no-top-border{
+            border-top : 0px;
+        }
+        
+        .no-bottom-border{
+            border-bottom : 0px;
+        }
 
         .left-align{
             text-align:left;
@@ -70,6 +76,14 @@
         }
         .text-right{
             text-align: right;
+        }
+
+        .text-top{
+            vertical-align: text-top;
+        }
+
+        .top-grey-border{
+            border-top : 2px solid #D3D3D3;
         }
 
 
@@ -157,13 +171,13 @@
     </tr>
 
     <tr style="text-align: center">
-        <td width="10px" style="padding: 100px 0px 100px 0px;">{{ $itemKey }}</td>
-        <td>{{ $item->product->pn_no }}</td>
-        <td>{{ $item->product->hsn_no }}</td>
-        <td colspan='2' style="text-align: left">
+        <td width="10px" style="padding: 100px 0px 100px 0px;" class='no-bottom-border'><b>{{ $itemKey }}</b></td>
+        <td class='no-bottom-border'>{{ $item->product->pn_no }}</td>
+        <td class='no-bottom-border'>{{ $item->product->hsn_no }}</td>
+        <td colspan='2'  class='no-bottom-border text-left'>
             <b>{{ $item->product->name }}</b>
             <br />
-            <div style="text-align: center">
+            <div class='text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
                         <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
@@ -173,23 +187,23 @@
             <br />
             {{ $item->product->short_description }}
         </td>
-        <td>{{ $item->quantity }}</td>
-        <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
-        <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+        <td class="text-top text-right no-bottom-border">{{ $item->quantity }}</td>
+        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
-        <tr style="text-align: center">
-            <td width="10px" style="padding: 100px 0px 100px 0px;">{{ $itemKey.'.'.++$aKey }}</td>
-            <td>{{ $accessory->product->pn_no }}</td>
-            <td>{{ $accessory->product->hsn_no }}</td>
-            <td colspan='2' style="text-align: left">
+        <tr style="text-align: center; outline: thin solid">
+            <td width="10px" style="padding: 10px 0px 10px 0px" class="top-grey-border no-bottom-border">{{ $itemKey.'.'.++$aKey }}</td>
+            <td class="top-grey-border no-bottom-border">{{ $accessory->product->pn_no }}</td>
+            <td class="top-grey-border no-bottom-border">{{ $accessory->product->hsn_no }}</td>
+            <td colspan='2' class="top-grey-border text-left no-bottom-border">
                 <b>{{ $accessory->product->name }}</b>
                 <br />
                 {{ $accessory->product->short_description }}
             </td>
-            <td>{{ $accessory->quantity }}</td>
-            <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
-            <td style="text-align: right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+            <td class="top-grey-border no-bottom-border">{{ $accessory->quantity }}</td>
+            <td class="text-top text-right top-grey-border no-bottom-border" >{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+            <td class="text-top text-right top-grey-border no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
         </tr>
     @endforeach
     <!-- repeatable -->
@@ -262,7 +276,7 @@
     <tr>
         <td colspan='3' class='no-border' >Freight: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>
         <td colspan='3' class='no-border text-right'></td>
-        <td colspan='2'></td>
+        <td colspan='2' class='no-border'></td>
     </tr>
     <tr>
         <td colspan='3' class='no-border' >Validity - 90 Days</td>
