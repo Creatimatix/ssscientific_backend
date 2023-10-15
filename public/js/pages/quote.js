@@ -612,7 +612,7 @@ $(document).on('change','.is_payable',function(e){
 
     $.ajax({
         type: 'post',
-        url: siteUrl+"/ajax/accessories/charge",
+        url: siteUrl+"/admin/ajax/accessories/charge",
         data: {
             'itemId':itemId,
             'isPayable':isPayable
