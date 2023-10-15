@@ -8,7 +8,7 @@
     <!-- @vite(['resources/js/app.js']) -->
     @include('admin.layouts.css')
     <script>
-        var siteUrl = "{{ url('/').'/admin/' }}"
+        var siteUrl = "{{ url('/') }}"
     </script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

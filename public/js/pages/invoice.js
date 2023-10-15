@@ -2,7 +2,7 @@
 function initializeQuoteSelect2(){
     $('#quoteNo').select2({
         ajax: {
-            url: "/quote/details",
+            url: siteUrl+"/quote/details",
             dataType: 'json',
             delay: 250,
             method: 'post',
@@ -57,7 +57,7 @@ function initializeQuoteSelect2(){
 function initializePurchaseOrderSelect2(){
     $('#poNo').select2({
         ajax: {
-            url: "/purchase-order/details",
+            url: siteUrl+"/purchase-order/details",
             dataType: 'json',
             delay: 250,
             method: 'post',

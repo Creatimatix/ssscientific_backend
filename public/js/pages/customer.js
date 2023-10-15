@@ -107,7 +107,7 @@ $(document).on('click','#savePasswordBtn',function(e){
         return false;
     }
 
-    $.post('/admin/customer/change-password', {
+    $.post(siteUrl+'/admin/customer/change-password', {
         customer_id,
         password,
         confirm_password

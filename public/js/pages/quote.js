@@ -204,7 +204,7 @@ var itemlist = {
             e = '.cartItemsBlock';
         }
         var quote_id = $('#quote_id').val();
-        itemsUrl = '/quote/items/'+quote_id;
+        itemsUrl = siteUrl+'/quote/items/'+quote_id;
         $.get(itemsUrl, function(data){
             $(e).html(data.html);
         });
@@ -326,7 +326,7 @@ $(function (){
 function initializeCustomerSelect2(){
     $('#quoteCustomer').select2({
         ajax: {
-            url: "/user/details",
+            url: siteUrl+"/user/details",
             dataType: 'json',
             delay: 250,
             method: 'post',
@@ -387,7 +387,7 @@ function initializeCustomerSelect2(){
 function initializeProductSelect2(){
     $('#ddlProducts').select2({
         ajax: {
-            url: "/admin/ajax/products",
+            url: siteUrl+"/admin/ajax/products",
             dataType: 'json',
             delay: 250,
             method: 'get',
@@ -448,7 +448,7 @@ function initializeProductSelect2(){
 function getUserDetails(val,type, isUpdate = false){
     $.ajax({
         type: 'get',
-        url: "/user/info",
+        url: siteUrl+"/user/info",
         data: {id:val},
         success: function (data) {
             console.log('data',data)
@@ -473,7 +473,7 @@ function searchProduct(val,type, isUpdate = false){
     $('.productResultContainer').html('<p>Loading...</p>');
     $.ajax({
         type: 'get',
-        url: "/admin/ajax/product",
+        url: siteUrl+"/admin/ajax/product",
         data: {id:val},
         success: function (data) {
             console.log('data',data)
@@ -553,7 +553,7 @@ $(document).on('click','#terms_condition_btn', function(e){
 
         $.ajax({
             type: 'post',
-            url: "/ajax/update-terms-n-conditions",
+            url: siteUrl+"/ajax/update-terms-n-conditions",
             data: {
                 'quote_id':$('#quote_id').val(),
                 'i_gst':$('#i_gst').val(),
@@ -612,7 +612,7 @@ $(document).on('change','.is_payable',function(e){
 
     $.ajax({
         type: 'post',
-        url: siteUrl+"ajax/accessories/charge",
+        url: siteUrl+"/ajax/accessories/charge",
         data: {
             'itemId':itemId,
             'isPayable':isPayable
@@ -640,7 +640,7 @@ function getInstalltion(){
     percentage = $('#percentage').val();
     $.ajax({
         type: 'get',
-        url: "/ajax/getInstallationCharge",
+        url: siteUrl+"/ajax/getInstallationCharge",
         data: {quoteId:quoteId,type:type,val:percentage},
         success: function (data) {
             console.log('data',data)
@@ -661,7 +661,7 @@ function getFreight(){
     percentage = $('#freight_percentage').val();
     $.ajax({
         type: 'get',
-        url: "/ajax/getFreightCharge",
+        url: siteUrl+"/ajax/getFreightCharge",
         data: {quoteId:quoteId,type:type,val:percentage},
         success: function (data) {
             console.log('data',data)
@@ -674,7 +674,7 @@ function getAccessories(textSearch = '', itemId){
     $('#accessoriesRowData').html("<td colspan='4' style='text-align:center;padding:10px'>loading....</td>");
     $.ajax({
         type: 'get',
-        url: "/admin/ajax/accessories",
+        url: siteUrl+"/admin/ajax/accessories",
         data: {textSearch: textSearch,itemId: itemId},
         success: function (data) {
             $('#accessoriesRowData').html(data.htmlView);

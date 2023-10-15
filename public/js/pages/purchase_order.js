@@ -2,7 +2,7 @@
 function initializeVendorSelect2(){
     $('#vendorUser').select2({
         ajax: {
-            url: "/user/details",
+            url: siteUrl+"/user/details",
             dataType: 'json',
             delay: 250,
             method: 'post',
@@ -59,7 +59,7 @@ function initializeVendorSelect2(){
 function initializeProductSelect2(){
     $('#ddlVendorProducts').select2({
         ajax: {
-            url: "/admin/ajax/products",
+            url: siteUrl+"/admin/ajax/products",
             dataType: 'json',
             delay: 250,
             method: 'get',
@@ -123,7 +123,7 @@ $(function (){
 function getVendorDetails(val,type, isUpdate = false){
     $.ajax({
         type: 'get',
-        url: "/user/info",
+        url: siteUrl+"/user/info",
         data: {id:val},
         success: function (data) {
             console.log('vendor',data)
@@ -139,7 +139,7 @@ function searchVendorProduct(val,type, isUpdate = false){
     $('.productResultContainer').html('<p>Loading...</p>');
     $.ajax({
         type: 'get',
-        url: "/admin/ajax/product",
+        url: siteUrl+"/admin/ajax/product",
         data: {id:val},
         success: function (data) {
             console.log('data',data)

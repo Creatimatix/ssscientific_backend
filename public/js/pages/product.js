@@ -13,7 +13,7 @@ var product = {
     deleteImage: function (productImgId){
         $.ajax({
             type: 'get',
-            url: "/admin/ajax/product/delete-image",
+            url: siteUrl+"/admin/ajax/product/delete-image",
             data: {id_image:productImgId},
             success: function (data) {
                 messages.saved("Image", "Image removed successfully.");
