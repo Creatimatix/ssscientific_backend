@@ -7,7 +7,7 @@
     @foreach($model->items as $key => $item)
         @php
             $itemKey = ++$key;
-            $totalAmount = $totalAmount + $item->asset_value;
+            $totalAmount = $totalAmount + ($item->quantity * $item->asset_value);
         @endphp
 <!DOCTYPE  html>
 <html lang="en">
@@ -60,7 +60,7 @@
         .no-top-border{
             border-top : 0px;
         }
-        
+
         .no-bottom-border{
             border-bottom : 0px;
         }
@@ -188,8 +188,8 @@
             {{ $item->product->short_description }}
         </td>
         <td class="text-top text-right no-bottom-border">{{ $item->quantity }}</td>
-        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
-        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</td>
+        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
         <tr style="text-align: center; outline: thin solid">
@@ -202,8 +202,12 @@
                 {{ $accessory->product->short_description }}
             </td>
             <td class="top-grey-border no-bottom-border">{{ $accessory->quantity }}</td>
-            <td class="text-top text-right top-grey-border no-bottom-border" >{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
-            <td class="text-top text-right top-grey-border no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+            <td class="text-top text-right top-grey-border no-bottom-border" >{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</td>
+            <td class="text-top text-right top-grey-border no-bottom-border">
+                @if($accessory->is_payable)
+                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
+                @endif
+            </td>
         </tr>
     @endforeach
     <!-- repeatable -->
@@ -231,13 +235,16 @@
         </td>
     </tr>
     @php
-        $finalTotal = $totalAmount + $model->installation;
+        $finalTotal = $totalAmount;
         if($model->discount){
             $finalTotal = $finalTotal - $model->discount;
         }
 
         if($model->freight){
             $finalTotal = $finalTotal + $model->freight;
+        }
+        if($model->installation){
+            $finalTotal = $finalTotal + $model->installation;
         }
 
         if($model->i_gst){

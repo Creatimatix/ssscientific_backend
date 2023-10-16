@@ -61,8 +61,10 @@
         </tr>
         @foreach($item->accessories as $aKey => $accessory)
             @php
-                $subPrice += $accessory->asset_value * $accessory->quantity;
-                $totalPrice += $accessory->asset_value * $accessory->quantity;
+                if($accessory->is_payable){
+                    $subPrice += $accessory->asset_value * $accessory->quantity;
+                    $totalPrice += $accessory->asset_value * $accessory->quantity;
+                }
             @endphp
             <tr class="strong-line">
                 <td style=" text-align: right; ">
@@ -122,7 +124,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" {{ ($quote->i_gst)?'checked':'' }}>
+                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }}>
                                 <div style=" margin-top: 0px;margin-left: 16px;width: 98px;display: flex;">
                                     <label class="form-check-label" for="is_i_gst">
                                         IGST
@@ -135,7 +137,7 @@
                         </div>
                         <div class="row">
                             <div class="form-check" style=" display: flex; ">
-                                <input type="checkbox" class="form-check-input trm_cond_checkbox" id="is_c_s_gst" name="is_c_s_gst" {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }}>
+                                <input type="checkbox" class="form-check-input trm_cond_checkbox" id="is_c_s_gst" name="is_c_s_gst"  value="c_s_gst" {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }}>
                                 <div style="margin-top: 0px;margin-left: 13px;width: 107px;display: flex;">
                                     <label class="form-check-label" for="is_c_s_gst">
                                         CGST
@@ -256,6 +258,43 @@
                 {!! table_buttons($buttons, false) !!}
             </td>
         </tr>
+    @endif
+    @if($quote->freight)
+        @php
+            $totalPrice = $totalPrice + $quote->freight;
+        @endphp
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">Freight:
+            <br>
+        </td>
+        <td class="text-right">
+            <strong>
+                {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->freight:0 }}
+            </strong>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    @endif
+    @if($quote->installation)
+        @php
+            $totalPrice = $totalPrice + $quote->installation;
+        @endphp
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">Installation Charges:
+            <br>
+        </td>
+        <td class="text-right">
+            <strong>
+                {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->installation:0 }}
+                <input type="hidden" value="{{ $totalPrice }}" id="totalOrderAmount">
+            </strong>
+        </td>
+        <td>
+
+        </td>
+    </tr>
     @endif
     <tr class="table-summary">
         <td colspan="4" class="text-right"><strong>Total</strong>

@@ -45,6 +45,7 @@
                                                     required>
                                                 <option value="">Select customer</option>
                                             </select>
+                                            <span class="error-message" id="quoteCustomer-error"></span>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Currency Type<span class="validateClass">*</span></label>
@@ -58,6 +59,7 @@
                                                     <option value="{{ $key }}">{{ $currency }}</option>
                                                 @endforeach
                                             </select>
+                                            <span class="error-message" id="currency_type-error"></span>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label for="order_type">Order Type:</label>
@@ -67,14 +69,17 @@
                                                 <option value="1">Tender</option>
                                                 <option value="2">Others</option>
                                             </select>
+                                            <span class="error-message" id="order_type-error"></span>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
                                             <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption" required>
+                                            <span class="error-message" id="phone_number-error"></span>
                                         </div>
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
                                             <input type="email" name="email" id="email" class="form-control fixedOption">
+                                            <span class="error-message" id="email-error"></span>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
@@ -83,6 +88,7 @@
                                                 <option value="1">Active</option>
                                                 <option value="2">Inactive</option>
                                             </select>
+                                            <span class="error-message" id="status-error"></span>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">GST No:<span class="validateClass">*</span></label>

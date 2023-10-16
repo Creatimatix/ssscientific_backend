@@ -254,25 +254,27 @@ $(document).on('click','#quoteFormBtn',function(e){
         dataType: 'json',
         data: $('#quoteForm').serialize()+"&formType=",
         success:function(response){
-            console.log('response',response)
-            // return false;
-            if(response.status){
+
+            if(response.statusCode === 200){
                 $(this).attr('disabled',false);
                 messages.saved("Quote", response.message);
                 $('#quoteForm')[0].reset();
                 window.location.href=adminUrl+'/quote/edit/'+response.quoteId;
                 // window.location.reload();
             }else{
+                console.log('response 123',response)
+                // return false;
                 $(this).attr('disabled',false);
                 $('.quoteFormBtn').prop('disabled', false);
                 if(response.statusCode == 400){
                     var str = '';
                     $.each(response.errors, function(key, value) {
-                        if(key == 'id_second_user'){
+                        if(key == 'id_user'){
+                            key  =  'quoteCustomer';
                             if($('#quoteFormBtn').hasClass('quoteNewForm')){
-                                $('#'+key).after('<div class="quote-error" style="display: block;position: absolute;margin-top: 33px;line-height: 16px;">'+value[0]+'</div>');
+                                $('#'+key).after('<div class="quote-error" style="display: block;position: absolute;margin-top: 43px;line-height: 16px;">'+value[0]+'</div>');
                             }else{
-                                $('#'+key).after('<div class="quote-error" style="display: block;position: absolute;margin-top: 33px;">'+value[0]+'</div>');
+                                $('#'+key).after('<div class="quote-error" style="display: block;position: absolute;margin-top: 43px;">'+value[0]+'</div>');
                             }
 
                         }else{
@@ -490,6 +492,13 @@ $(document).on('change','#order_type', function(e){
     }
 });
 $(document).on('change','.trm_cond_checkbox', function(e){
+    var val = $(this).val();
+    if(val == 'igst'){
+        $('#c_gst').val('');
+        $('#s_gst').val('');
+    }else{
+        $('#i_gst').val('');
+    }
     if ($(this).prop('checked')) {
         $('.trm_cond_checkbox').not(this).prop('checked', false);
     }

@@ -14,6 +14,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Validator;
 use SebastianBergmann\Diff\Exception;
 use PDF;
 class QuoteController extends Controller
@@ -53,19 +54,29 @@ class QuoteController extends Controller
         try {
             $formType = $request->get('formType');
             $quoteStatus =  Quote::QUOTE_DRAFT;
-            if(!array_key_exists('isDraft',$request->all())){
-                $quoteStatus = Quote::QUOTE_REQUESTED;
-//            $validator = $this->validateDetails($request);
-//            if ($validator->fails()) {
-//                return response()->json([
-//                    'statusCode' => 400,
-//                    'errors' => $validator->errors()
-//                ]);
-//            }
 
+            $customMessages = [
+                'id_user.required' => 'The customer name is required.',
+            ];
+
+            $rules = [
+                'id_user' => 'required',
+                'currency_type' => 'required',
+                'order_type' => 'required',
+                'phone_number' => 'required',
+                'email' => 'required',
+                'status' => 'required',
+            ];
+            $validator = \Validator::make($request->all(), $rules, $customMessages);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'errors' => $validator->errors()
+                ]);
             }
             if(array_key_exists('quote_no',$request->all())){
-                $quotes = Quote::where('quote_no',$request->input('quote_no'))->get()->first();
+                $quotes = Quote::where  ('quote_no',$request->input('quote_no'))->get()->first();
             }else{
                 $quotes = new Quote();
                 $quotes->created_at = date('Y-m-d h:i:s');
@@ -107,7 +118,7 @@ class QuoteController extends Controller
                 $quotes->quote_no = $quoteNo;
                 $quotes->save();
                 return response()->json([
-                    "status" => 200,
+                    "statusCode" => 200,
                     "quoteId" => $quotes->id,
                     "message" => "Proposal saved successfully."
                 ]);
@@ -131,7 +142,7 @@ class QuoteController extends Controller
 //            }
         }catch (\Exception $e){
             return response()->json([
-                "status" => 400,
+                "statusCode" => 400,
                 "quoteId" => '',
                 "message" => $e->getMessage()
             ]);
