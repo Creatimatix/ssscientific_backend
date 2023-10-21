@@ -36,11 +36,17 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="name">Name:</label>
-                                            <input type="text" name="name" id="productName" value="{{ $product->name }}" class="form-control fixedOption" required>
+                                            <input type="text" name="name" id="productName" value="{{ $product->name }}" class="form-control fixedOption">
+                                            @error('name')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">SKU</label>
-                                            <input type="text" name="sku" id="sku" value="{{ $product->sku }}"  class="form-control fixedOption" required>
+                                            <input type="text" name="sku" id="sku" value="{{ $product->sku }}"  class="form-control fixedOption">
+                                            @error('sku')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Brand:<span class="validateClass">*</span></label>
@@ -50,6 +56,9 @@
                                                     <option value="{{ $category->id }}" {{ $category->id == $product->id_category?'selected':'' }}>{{ $category->category_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -59,15 +68,24 @@
 {{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="product_id">PN. No.</label>
-                                            <input type="text" name="pn_no" value="{{ $product->pn_no }}" id="pn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="pn_no" value="{{ $product->pn_no }}" id="pn_no" class="form-control fixedOption">
+                                            @error('pn_no')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">HSN No.</label>
-                                            <input type="text" name="hsn_no" value="{{ $product->hsn_no }}" id="hsn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="hsn_no" value="{{ $product->hsn_no }}" id="hsn_no" class="form-control fixedOption">
+                                            @error('hsn_no')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Sale Price:<span class="validateClass">*</span></label>
                                             <input type="text" name="sale_price" class="form-control" id="salePrice" value="{{ $product->sale_price }}">
+                                            @error('sale_price')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -93,6 +111,9 @@
                                                 <div class="input-group">
                                                     <textarea class="form-control" name="short_description" id="short_description">{{ $product->short_description }}</textarea>
                                                 </div>
+                                                @error('short_description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -103,13 +124,23 @@
                                                 <div class="input-group">
                                                     <textarea class="form-control" name="description" id="description">{{ $product->description }}</textarea>
                                                 </div>
+                                                @error('description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="relation">Upload Image:</label>
-                                            <input type="file"  class="form-control product_image" id="product_image" name="images[]" multiple>
+                                            <input type="file"  class="form-control product_image" id="product_image" name="images">
+                                            @error('images')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="document">Upload Document:</label>
+                                            <input type="file"  class="form-control document" id="document" name="document">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
@@ -118,16 +149,21 @@
                                                 <option value="1" {{ $product->status == 1?'selected':'' }}>Active</option>
                                                 <option value="2" {{ $product->status == 2?'selected':'' }}>Inactive</option>
                                             </select>
+                                            @error('status')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="gallery" style="display: flex">
                                             @if($product->images)
                                                 @foreach($product->images as $image)
-                                                    <div class="imageDiv" id="p_image_{{ $image->id }}">
-                                                        <img src="{{ asset("images\products\/").$image->image_name }}" />
-                                                        <span class="deleteImg" onclick="return product.deleteImage({{ $image->id }})">X</span>
-                                                    </div>
+                                                    @if($image->type == 0)
+                                                        <div class="imageDiv" id="p_image_{{ $image->id }}">
+                                                            <img src="{{ asset("images\products\/").$image->image_name }}" />
+                                                            <span class="deleteImg" onclick="return product.deleteImage({{ $image->id }})">X</span>
+                                                        </div>
+                                                    @endif
                                                 @endforeach
                                             @endif
                                         </div>

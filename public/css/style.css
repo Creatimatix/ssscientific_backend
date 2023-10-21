@@ -137,3 +137,14 @@ label{
 .quote-error{
     color:red;
 }
+
+
+.addMoreProductLable {
+    margin-top: 6px;
+    color: red;
+    font-weight: 500 !important;
+}
+
+.user-panel{
+    pointer-events: none;
+}

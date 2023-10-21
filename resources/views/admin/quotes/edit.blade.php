@@ -234,11 +234,14 @@
                                 {{ csrf_field() }}
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
-                                        <div class="col-md-6" style="text-align: left;">
-                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addProduct" style="width: 100%;" name="sku" id="ddlProducts" onchange="return searchProduct(this.value,1)">
-                                                <option value="">Select Product</option>
-                                            </select>
-                                        </div>
+                                       <div class="col-md-12" style="display:flex">
+                                           <div class="col-md-6" style="text-align: left;">
+                                               <select class="form-control select2bs4" data-resource="product" data-parent="#addProduct" style="width: 100%;" name="sku" id="ddlProducts" onchange="return searchProduct(this.value,1)">
+                                                   <option value="">Select Product</option>
+                                               </select>
+                                           </div>
+                                           <label for="ddlProducts" class="addMoreProductLable" style="display: none">Add More Products</label>
+                                       </div>
                                     </div>
                                 </div>
                             </form>

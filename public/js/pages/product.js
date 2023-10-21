@@ -31,6 +31,8 @@ $('#productName').keyup(function () {
 });
 
 $(function (){
+    var productSuccessMsg = '';
+    var productErrorMsg = '';
     if(productSuccessMsg){
         messages.saved("Product", productSuccessMsg);
     }
@@ -62,4 +64,17 @@ $(function() {
     $('#product_image').on('change', function() {
         imagesPreview(this, 'div.gallery');
     });
+});
+
+
+const imageInput = document.getElementById('product_image');
+imageInput.addEventListener('change', function () {
+    const selectedFile = this.files[0];
+    if (selectedFile) {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!allowedTypes.includes(selectedFile.type)) {
+            messages.error("Upload","Please select a valid image file (JPEG, PNG, GIF).");
+            this.value = ''; // Clear the file input
+        }
+    }
 });

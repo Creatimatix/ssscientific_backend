@@ -59,6 +59,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.product', ['product' => $product->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [
@@ -68,6 +69,9 @@
                                                             ]
                                                         ]
                                                     ];
+                                                    if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                                                        unset($buttons['trash']);
+                                                    }
                                                 @endphp
                                                 {!! table_buttons($buttons, false) !!}
                                             </td>

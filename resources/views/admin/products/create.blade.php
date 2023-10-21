@@ -35,36 +35,54 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="name">Name:</label>
-                                            <input type="text" name="name" id="productName" class="form-control fixedOption" required>
+                                            <input type="text" name="name" id="productName" class="form-control fixedOption" value="{{ old('name') }}">
+                                            @error('name')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="sku">SKU</label>
-                                            <input type="text" name="sku" id="sku" class="form-control fixedOption" required>
+                                            <input type="text" name="sku" id="sku" class="form-control fixedOption" value="{{ old('sku') }}">
+                                            @error('sku')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Brand:<span class="validateClass">*</span></label>
-                                            <select name="category" id="category" class="form-control" required>
+                                            <select name="category" id="category" class="form-control" >
                                                 <option value="">Select Option</option>
                                                 @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                    <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected': '' }}>{{ $category->category_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
 {{--                                        <div class="col-md-4">--}}
 {{--                                            <label for="name">SR. No.:</label>--}}
-{{--                                            <input type="text" name="sr_no" id="sr_no" class="form-control fixedOption" required>--}}
+{{--                                            <input type="text" name="sr_no" id="sr_no" class="form-control fixedOption" >--}}
 {{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="product_id">PN. No.</label>
-                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption"  value="{{ old('pn_no') }}">
+                                            @error('pn_no')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">HSN No.</label>
-                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption"  value="{{ old('hsn_no') }}">
+                                            @error('hsn_no')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Sale Price:<span class="validateClass">*</span></label>
-                                            <input type="text" name="sale_price" class="form-control" id="salePrice" >
+                                            <input type="text" name="sale_price" class="form-control" id="salePrice"  value="{{ old('sale_price') }}">
+                                            @error('sale_price')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -88,33 +106,49 @@
                                                 <label for="slug" class="form-control-label">Short Description
                                                 </label>
                                                 <div class="input-group">
-                                                    <textarea class="form-control" name="short_description" id="short_description"></textarea>
+                                                    <textarea class="form-control" name="short_description" id="short_description">{{ old('short_description') }}</textarea>
                                                 </div>
+                                                @error('short_description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="slug" class="form-control-label"> Description</label>
+                                                <label for="slug" class="form-control-label">Description</label>
                                                 <div class="input-group">
-                                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                                    <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
                                                 </div>
+                                                @error('description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="relation">Upload Image:</label>
-                                            <input type="file"  class="form-control product_image" id="product_image" name="images[]" multiple>
+                                            <label for="product_image">Upload Image:</label>
+                                            <input type="file"  class="form-control product_image" id="product_image" name="images" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                            @error('images')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="document">Upload Document:</label>
+                                            <input type="file"  class="form-control document" id="document" name="document">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
-                                            <select name="status" id="status" class="form-control" required>
+                                            <select name="status" id="status" class="form-control" >
                                                 <option value="">Select Option</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
+                                                <option value="1" {{ old('status') == 1 ? 'selected': '' }}>Active</option>
+                                                <option value="2" {{ old('status') == 2 ? 'selected': '' }}>Inactive</option>
                                             </select>
+                                            @error('status')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">

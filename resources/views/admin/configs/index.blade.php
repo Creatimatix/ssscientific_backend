@@ -37,6 +37,7 @@
                                         <th>Config Name</th>
                                         <th>Config Value</th>
                                         <th>Status</th>
+                                        <th>Created On</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,6 +57,7 @@
                                                         'attributes' => [
                                     //                        'id' => $property->id.'_view',
                                                             'href' => route('delete.config', ['config' => $config->id]),
+                                                            'class' => 'ConfirmDelete'
                                                         ]
                                                     ],
                                                     'edit' => [
@@ -65,6 +67,9 @@
                                                         ]
                                                     ]
                                                 ];
+                                                if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                                                    unset($buttons['trash']);
+                                                }
                                             @endphp
                                             {!! table_buttons($buttons, false) !!}
                                         </td>

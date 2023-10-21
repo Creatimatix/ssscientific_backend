@@ -48,7 +48,7 @@
                                         <tr>
                                             <td>{{ $purchaseOrder->id }}</td>
                                             <td>{{ $purchaseOrder->po_no }}</td>
-                                            <td>{{ $purchaseOrder->vendor->full_name }}</td>
+                                            <td>{{ ($purchaseOrder->vendor)?$purchaseOrder->vendor->full_name:'NA' }}</td>
                                             <td>{{ $purchaseOrder->attn_no }}</td>
                                             <td>{{ status($purchaseOrder->status) }}</td>
                                             <td>{{ $purchaseOrder->created_at }}</td>
@@ -61,6 +61,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.purchaseOrder', ['purchaseOrder' => $purchaseOrder->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [
@@ -77,6 +78,11 @@
                                                             ]
                                                         ]
                                                     ];
+
+                                                    if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                                                        unset($buttons['trash']);
+                                                    }
+
                                                 @endphp
                                                 {!! table_buttons($buttons, false) !!}
                                             </td>

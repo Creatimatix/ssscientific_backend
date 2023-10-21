@@ -122,6 +122,7 @@ var quote = {
 
 var itemlist = {
     add:function (e, url, combination_sku,product_sku) {
+        $('.addMoreProductLable').hide();
         $('.cartItemsBlock').html('<div class="loadProducts">Please wait..</div>');
         var $tr = $(e).closest('tr');
 
@@ -150,12 +151,14 @@ var itemlist = {
         }, function(data){
             if(data.status){
                 messages.saved('','Item added successfully');
-                itemlist.refreshView();
             }else{
                 messages.error('Product','data already added in cart');
             }
+            itemlist.refreshView();
         });
-
+        $('#ddlProducts').val(null).trigger('change');
+        $('.productResultContainer').hide();
+        $('.addMoreProductLable').show();
     },
     addAccessories:function (e, url, product_sku) {
         $('.cartItemsBlock').html('<div class="loadProducts">Please wait..</div>');
@@ -472,14 +475,15 @@ function searchProduct(val,type, isUpdate = false){
     if(sku=='' || sku==null){
         return false;
     }
+    $('.addMoreProductLable').hide();
     $('.productResultContainer').html('<p>Loading...</p>');
     $.ajax({
         type: 'get',
         url: siteUrl+"/admin/ajax/product",
         data: {id:val},
         success: function (data) {
-            console.log('data',data)
             $('.productResultContainer').html(data.htmlView);
+            $('.productResultContainer').show();
         }
     });
 }
