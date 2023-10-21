@@ -48,7 +48,7 @@
                                         <tr>
                                             <td>{{ $purchaseOrder->id }}</td>
                                             <td>{{ $purchaseOrder->po_no }}</td>
-                                            <td>{{ $purchaseOrder->vendor->full_name }}</td>
+                                            <td>{{ ($purchaseOrder->vendor)?$purchaseOrder->vendor->full_name:'NA' }}</td>
                                             <td>{{ $purchaseOrder->attn_no }}</td>
                                             <td>{{ status($purchaseOrder->status) }}</td>
                                             <td>{{ $purchaseOrder->created_at }}</td>
