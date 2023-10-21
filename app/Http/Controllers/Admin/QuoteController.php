@@ -368,8 +368,12 @@ class QuoteController extends Controller
             $productDesc = '';
 
             if($property->items){
-                foreach ($property->items as $item){
-                    $productDesc .= '<u><i class="icon-lock" data-title="'.$item->product->short_description.'">'.$item->product->name.'</i></u> <br /><br /> ';
+                foreach ($property->items as $key => $item){
+                    $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById('.$key.').style.display = \'block\'" onmouseleave="document.getElementById('.$key.').style.display = \'none\'">'.$item->product->name.'</i></u> <br /><br /><div class="form-popup" id='.$key.'><h1>'.$item->product->short_description.'</h1></div>';
+                    
+
+                    
+
                 }
             }
 
