@@ -101,7 +101,7 @@ class ProductController extends Controller
                 Rule::unique('products', 'name'),
             ],
             'sku' => 'required',
-            'category' => 'required|integer',
+//            'category' => 'required|integer',
             'pn_no' => [
                 'required',
                 'max:255',
@@ -199,7 +199,7 @@ class ProductController extends Controller
                 Rule::unique('products', 'name')->ignore($productId),
             ],
             'sku' => 'required',
-            'category' => 'required|integer',
+//            'category' => 'required|integer',
             'pn_no' => [
                 'required',
                 'max:255',

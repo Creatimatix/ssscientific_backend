@@ -61,6 +61,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.customer', ['user' => $customer->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [

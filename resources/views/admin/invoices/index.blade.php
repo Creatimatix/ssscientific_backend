@@ -59,6 +59,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.invoice', ['invoice' => $invoice->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [

@@ -59,6 +59,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.product', ['product' => $product->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [

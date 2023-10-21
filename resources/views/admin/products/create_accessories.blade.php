@@ -35,11 +35,17 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="name">Name:</label>
-                                            <input type="text" name="name" id="productName" class="form-control fixedOption" required>
+                                            <input type="text" name="name" id="productName" class="form-control fixedOption"  value="{{ old('name') }}">
+                                            @error('name')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="sku">SKU</label>
-                                            <input type="text" name="sku" id="sku" class="form-control fixedOption" required>
+                                            <input type="text" name="sku" id="sku" class="form-control fixedOption"  value="{{ old('sku') }}">
+                                            @error('sku')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Brand:<span class="validateClass">*</span></label>
@@ -49,18 +55,30 @@
                                                     <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">PN. No.</label>
-                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption"  value="{{ old('pn_no') }}">
+                                            @error('pn_no')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">HSN No.</label>
-                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption"  value="{{ old('hsn_no') }}">
+                                            @error('hsn_no')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Sale Price:<span class="validateClass">*</span></label>
-                                            <input type="text" name="sale_price" class="form-control" id="salePrice" >
+                                            <input type="text" name="sale_price" class="form-control" id="salePrice"  value="{{ old('sale_price') }}">
+                                             @error('sale_price')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -69,8 +87,11 @@
                                                 <label for="slug" class="form-control-label">Short Description
                                                 </label>
                                                 <div class="input-group">
-                                                    <textarea class="form-control" name="short_description" id="short_description"></textarea>
+                                                    <textarea class="form-control" name="short_description" id="short_description">{{ old('short_description') }}</textarea>
                                                 </div>
+                                                @error('short_description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -79,19 +100,25 @@
                                             <div class="form-group">
                                                 <label for="slug" class="form-control-label"> Description</label>
                                                 <div class="input-group">
-                                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                                    <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
                                                 </div>
+                                                @error('description')
+                                                <div class="error">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
-                                            <select name="status" id="status" class="form-control" required>
+                                            <select name="status" id="status" class="form-control">
                                                 <option value="">Select Option</option>
                                                 <option value="1">Active</option>
                                                 <option value="2">Inactive</option>
                                             </select>
+                                            @error('status')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 21px;margin-left: 2px;">

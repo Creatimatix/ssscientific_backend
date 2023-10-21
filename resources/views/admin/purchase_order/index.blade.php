@@ -61,6 +61,7 @@
                                                             'attributes' => [
                                         //                        'id' => $property->id.'_view',
                                                                 'href' => route('delete.purchaseOrder', ['purchaseOrder' => $purchaseOrder->id]),
+                                                                'class' => 'ConfirmDelete'
                                                             ]
                                                         ],
                                                         'edit' => [
