@@ -31,6 +31,8 @@ $('#productName').keyup(function () {
 });
 
 $(function (){
+    var productSuccessMsg = '';
+    var productErrorMsg = '';
     if(productSuccessMsg){
         messages.saved("Product", productSuccessMsg);
     }

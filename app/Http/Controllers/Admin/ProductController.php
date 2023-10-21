@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 use Image;
 class ProductController extends Controller
@@ -93,29 +94,50 @@ class ProductController extends Controller
 
     public function store(Request $request){
 
-        $product  = new Product();
-        $product->name = $request->get('name');
-        $product->sku = $request->get('sku');
-        $product->id_category = $request->get('category');
-        $product->sr_no = $request->get('sr_no');
-        $product->pn_no = $request->get('pn_no');
-        $product->hsn_no = $request->get('hsn_no');
-        $product->slug = $request->get('slug');
-        $product->sale_price = $request->get('sale_price');
-        $product->short_description = $request->get('short_description');
-        $product->description = $request->get('description');
-        $product->status = $request->get('status');
-        $product->features = 1;
-        $product->is_featured = 1;
-        $product->is_reusable = 0;
-        if(array_key_exists('type', $request->all())){
-            $product->type = $request->get('type', 1);
-        }
-        $product->save();
+        $request->validate([
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('products', 'name'),
+            ],
+            'sku' => 'required',
+            'category' => 'required|integer',
+            'pn_no' => [
+                'required',
+                'max:255',
+                Rule::unique('products', 'pn_no'),
+            ],
+            'hsn_no' => 'required',
+            'sale_price' => 'required|numeric',
+            'short_description' => 'required',
+            'description' => 'required|string',
+            'status' => 'required',
+            'images' => 'image|mimes:jpeg,png,jpg,gif',
+        ]);
 
-        if($request->hasFile('images'))
-        {
-            foreach ($request->file('images') as $image) {
+        try{
+            $product  = new Product();
+            $product->name = $request->get('name');
+            $product->sku = $request->get('sku');
+            $product->id_category = $request->get('category');
+            $product->sr_no = $request->get('sr_no');
+            $product->pn_no = $request->get('pn_no');
+            $product->hsn_no = $request->get('hsn_no');
+            $product->slug = $request->get('slug');
+            $product->sale_price = $request->get('sale_price');
+            $product->short_description = $request->get('short_description');
+            $product->description = $request->get('description');
+            $product->status = $request->get('status');
+            $product->features = 1;
+            $product->is_featured = 1;
+            $product->is_reusable = 0;
+            if(array_key_exists('type', $request->all())){
+                $product->type = $request->get('type', 1);
+            }
+            $product->save();
+
+            if ($request->hasFile('images')) {
+                $image = $request->file('images');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images/products'), $imageName);
 
@@ -124,14 +146,33 @@ class ProductController extends Controller
                 $productImage->image_name = $imageName;
                 $productImage->save();
             }
-        }
 
-        if($product->id > 0){
-            if(array_key_exists('type', $request->all())){
-                return redirect()->route('accessories')->with('productSuccessMsg',"Accessories created successfully.");
+
+            if ($request->hasFile('document')) {
+                $document = $request->file('document');
+                $imageName = time() . '_' . $document->getClientOriginalName();
+                $document->move(public_path('images/products/document'), $imageName);
+
+                $productImage = new ProductImage();
+                $productImage->id_product = $product->id;
+                $productImage->image_name = $imageName;
+                $productImage->type = 1;
+                $productImage->save();
             }
-            return redirect()->route('products')->with('productSuccessMsg',"Product created successfully.");
-        }else{
+
+            if($product->id > 0){
+                if(array_key_exists('type', $request->all())){
+                    return redirect()->route('accessories')->with('productSuccessMsg',"Accessories created successfully.");
+                }
+                return redirect()->route('products')->with('productSuccessMsg',"Product created successfully.");
+            }else{
+                if(array_key_exists('type', $request->all())){
+                    return redirect()->route('accessories')->with('productErrorMsg',"something went wrong.");
+                }
+                return redirect()->route('products')->with('productErrorMsg',"something went wrong.");
+            }
+
+        }catch (\Exception $e){
             if(array_key_exists('type', $request->all())){
                 return redirect()->route('accessories')->with('productErrorMsg',"something went wrong.");
             }
@@ -149,8 +190,29 @@ class ProductController extends Controller
     }
 
     public function update(Request $request){
+        $productId = $request->get('id_product');
 
-       $productId = $request->get('id_product');
+        $request->validate([
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('products', 'name')->ignore($productId),
+            ],
+            'sku' => 'required',
+            'category' => 'required|integer',
+            'pn_no' => [
+                'required',
+                'max:255',
+                Rule::unique('products', 'pn_no')->ignore($productId),
+            ],
+            'hsn_no' => 'required',
+            'sale_price' => 'required|numeric',
+            'short_description' => 'required',
+            'description' => 'required|string',
+            'status' => 'required',
+            'images' => 'image|mimes:jpeg,png,jpg,gif',
+        ]);
+
        $product = Product::where('id',$productId)->get()->first();
        if($product){
             $product->name = $request->get("name");
@@ -168,18 +230,28 @@ class ProductController extends Controller
             $product->is_reusable = 0;
             $product->save();
 
-           if($request->hasFile('images'))
-           {
-               foreach ($request->file('images') as $image) {
-                   $imageName = time() . '_' . $image->getClientOriginalName();
-                   $image->move(public_path('images/products'), $imageName);
-
-                   $productImage = new ProductImage();
-                   $productImage->id_product = $product->id;
-                   $productImage->image_name = $imageName;
-                   $productImage->save();
-               }
+           if ($request->hasFile('images')) {
+               $image = $request->file('images');
+               $imageName = time() . '_' . $image->getClientOriginalName();
+               $image->move(public_path('images/products'), $imageName);
+               $productImage = new ProductImage();
+               $productImage->id_product = $product->id;
+               $productImage->image_name = $imageName;
+               $productImage->save();
            }
+
+
+           if ($request->hasFile('document')) {
+               $document = $request->file('document');
+               $imageName = time() . '_' . $document->getClientOriginalName();
+               $document->move(public_path('images/products/document'), $imageName);
+               $productImage = new ProductImage();
+               $productImage->id_product = $product->id;
+               $productImage->image_name = $imageName;
+               $productImage->type = 1;
+               $productImage->save();
+           }
+
            if($product->id > 0){
                return redirect()->back()->with('productSuccessMsg',"Product updated successfully.");
            }else{
