@@ -57,6 +57,7 @@
                                                         'attributes' => [
                                     //                        'id' => $property->id.'_view',
                                                             'href' => route('delete.category', ['category' => $category->id]),
+                                                            'class' => 'ConfirmDelete'
                                                         ]
                                                     ],
                                                     'edit' => [

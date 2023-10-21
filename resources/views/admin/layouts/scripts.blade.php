@@ -49,4 +49,21 @@
         }
     });
 </script>
+
+
+<script>
+      
+            var el = document.getElementsByClassName('ConfirmDelete'); 
+              
+            var confirmThis = function (e) { 
+                if (!confirm('Are you sure, you want to delete?')) e.preventDefault(); 
+            }; 
+              
+            for (var i = 0, l = el.length; i < l; i++) { 
+                el[i].addEventListener('click', confirmThis, false); 
+            } 
+        </script>  
+
+
+
 <script src="{{ asset('js/app.js') }}"></script>
