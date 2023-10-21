@@ -50,14 +50,14 @@
                                         <td>
                                             @php
                                                 $buttons = [
-                                                    'trash' => [
-                                                        'label' => 'Delete',
-                                                        'attributes' => [
-                                    //                        'id' => $property->id.'_view',
-                                                            'href' => route('delete.role', ['role' => $role->id]),
-                                                            'class' => 'ConfirmDelete'
-                                                        ]
-                                                    ],
+//                                                    'trash' => [
+//                                                        'label' => 'Delete',
+//                                                        'attributes' => [
+//                                    //                        'id' => $property->id.'_view',
+//                                                            'href' => route('delete.role', ['role' => $role->id]),
+//                                                            'class' => 'ConfirmDelete'
+//                                                        ]
+//                                                    ],
                                                     'edit' => [
                                                         'label' => 'Edit',
                                                         'attributes' => [

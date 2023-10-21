@@ -87,7 +87,7 @@
                                                         Change Password
                                                     </a>
                                                 @else
-                                                    @if(auth()->user()->id = $customer->id)
+                                                    @if(auth()->user()->id == $customer->id)
                                                         <a href="javascript:void(0)"
                                                            class="change_password"
                                                            data-id="{{ $customer->id }}"

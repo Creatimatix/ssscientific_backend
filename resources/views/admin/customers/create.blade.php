@@ -58,7 +58,7 @@
                                                     <option value="">Select Option</option>
                                                     @foreach($roles as $role)
                                                         @if(in_array($role->id, [\App\Models\Admin\Role::ROLE_ADMIN,\App\Models\Admin\Role::ROLE_BUSINESS_HEAD,\App\Models\Admin\Role::ROLE_EXECUTIVE]))
-                                                        <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                                            <option value="{{ $role->id }}">{{ $role->role_name }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>

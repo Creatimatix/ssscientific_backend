@@ -130,7 +130,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="product_image">Upload Image:</label>
-                                            <input type="file"  class="form-control product_image" id="product_image" name="images">
+                                            <input type="file"  class="form-control product_image" id="product_image" name="images" accept="image/png, image/jpeg, image/jpg, image/gif">
                                             @error('images')
                                                 <div class="error">{{ $message }}</div>
                                             @enderror

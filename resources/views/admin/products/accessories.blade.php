@@ -67,6 +67,10 @@
                                                             ]
                                                         ]
                                                     ];
+
+                                                    if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                                                        unset($buttons['trash']);
+                                                    }
                                                 @endphp
                                                 {!! table_buttons($buttons, false) !!}
                                             </td>
