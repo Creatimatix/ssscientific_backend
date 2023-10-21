@@ -1,14 +1,13 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
 
-    # Handle public asset requests directly (optional, for better performance)
-    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+    RewriteEngine On
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
