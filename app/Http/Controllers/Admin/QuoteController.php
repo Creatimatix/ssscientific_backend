@@ -53,7 +53,7 @@ class QuoteController extends Controller
 
         try {
             $formType = $request->get('formType');
-            $quoteStatus =  Quote::QUOTE_DRAFT;
+            $quoteStatus =  Quote::ACTION_STATUS_CREATE;
 
             $customMessages = [
                 'id_user.required' => 'The customer name is required.',
