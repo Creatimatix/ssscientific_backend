@@ -17,6 +17,12 @@
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
         /** {margin:0; padding:0; text-indent:0; }*/
+        body {
+            transform: scale(1.0);
+            transform-origin: 0 0;
+            
+        }
+        
         p {
             color: black;
             text-decoration: none;
@@ -91,7 +97,7 @@
     </style>
 </head>
 <body>
-<p style="text-indent: 0pt;text-align: left;">
+<p style="text-indent: 0pt;text-align: left; pading-top:-10px;">
         <span>
 <table cellspacing="0" cellpadding="0" class='center'>
     <tr>
@@ -171,10 +177,10 @@
     </tr>
 
     <tr style="text-align: center">
-        <td width="10px" style="padding: 100px 0px 100px 0px;" class='no-bottom-border'><b>{{ $itemKey }}</b></td>
-        <td class='no-bottom-border'>{{ $item->product->pn_no }}</td>
-        <td class='no-bottom-border'>{{ $item->product->hsn_no }}</td>
-        <td colspan='2'  class='no-bottom-border text-left'>
+        <td width="10px" style="padding: 100px 0px 100px 0px;" class=''><b>{{ $itemKey }}</b></td>
+        <td class=''>{{ $item->product->pn_no }}</td>
+        <td class=''>{{ $item->product->hsn_no }}</td>
+        <td colspan='2'  class='text-left'>
             <b>{{ $item->product->name }}</b>
             <br />
             <div class='text-center'>
@@ -187,23 +193,23 @@
             <br />
             {{ $item->product->short_description }}
         </td>
-        <td class="text-top text-right no-bottom-border">{{ $item->quantity }}</td>
-        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</td>
-        <td class="text-top text-right no-bottom-border">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</td>
+        <td class="text-top text-right">{{ $item->quantity }}</td>
+        <td class="text-top text-right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</td>
+        <td class="text-top text-right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
         <tr style="text-align: center; outline: thin solid">
-            <td width="10px" style="padding: 10px 0px 10px 0px" class="top-grey-border no-bottom-border">{{ $itemKey.'.'.++$aKey }}</td>
-            <td class="top-grey-border no-bottom-border">{{ $accessory->product->pn_no }}</td>
-            <td class="top-grey-border no-bottom-border">{{ $accessory->product->hsn_no }}</td>
-            <td colspan='2' class="top-grey-border text-left no-bottom-border">
+            <td width="10px" style="padding: 10px 0px 10px 0px" class="top-grey-border">{{ $itemKey.'.'.++$aKey }}</td>
+            <td class="top-grey-border">{{ $accessory->product->pn_no }}</td>
+            <td class="top-grey-border">{{ $accessory->product->hsn_no }}</td>
+            <td colspan='2' class="top-grey-border text-left">
                 <b>{{ $accessory->product->name }}</b>
                 <br />
                 {{ $accessory->product->short_description }}
             </td>
-            <td class="top-grey-border no-bottom-border">{{ $accessory->quantity }}</td>
-            <td class="text-top text-right top-grey-border no-bottom-border" >{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</td>
-            <td class="text-top text-right top-grey-border no-bottom-border">
+            <td class="top-grey-border">{{ $accessory->quantity }}</td>
+            <td class="text-top text-right top-grey-border" >{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</td>
+            <td class="text-top text-right top-grey-border">
                 @if($accessory->is_payable)
                 {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
                 @endif
@@ -264,35 +270,30 @@
     </tr>
     @if($model->discount > 0)
         <tr>
-            <td colspan='3' class='no-border' ></td>
+            <td colspan='3' class='no-border' >Delivery Period:</td>
             <td colspan='3' class='no-border text-right'>Discount Applied</td>
             <td colspan='2'>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</td>
         </tr>
     @endif
     <tr>
-        <td colspan='3' class='no-border' >Delivery Period:</td>
+        <td colspan='3' class='no-border' >Installation: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
         <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
         <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
     </tr>
     <tr>
-        <td colspan='3' class='no-border' >Installation: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
+        <td colspan='3' class='no-border' >Freight: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>
         <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
         <td colspan='2'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
 
     </tr>
     <tr>
-        <td colspan='3' class='no-border' >Freight: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</td>
-        <td colspan='3' class='no-border text-right'></td>
-        <td colspan='2' class='no-border'></td>
-    </tr>
-    <tr>
         <td colspan='3' class='no-border' >Validity - 90 Days</td>
         <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
-        <td colspan='2'>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</td>
+        <td colspan='2' class=''>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</td>
     </tr>
     <tr>
-        <td colspan='8' class='left-align no-border'>
-            <br>
+        <td colspan='8' class='left-align no-border'> 
+    </br>           
             For, S. S SCIENTIFIC</br>
             <img width="130" height="85" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
             AUTHORIZED SIGNATORY
@@ -344,7 +345,7 @@
         /* height: 100%;
         width: 100%; */
         background-size: cover;
-        padding: 90px 0;
+        padding: 9px 0;
         z-index: 11;
     }
     table {
