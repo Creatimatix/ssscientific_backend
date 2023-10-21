@@ -241,7 +241,13 @@ class QuoteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quote = Quote::where('id', $id)->get()->first();
+        if($quote){
+            $quote->delete();
+        }else{
+            return redirect()->route('quotes')->with('quoteErrorMsg',"something went wrong.");
+        }
+        return redirect()->route('quotes')->with('quoteSuccessMsg',"Quote deleted successfully.");
     }
 
 
@@ -370,10 +376,6 @@ class QuoteController extends Controller
             if($property->items){
                 foreach ($property->items as $key => $item){
                     $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById('.$key.').style.display = \'block\'" onmouseleave="document.getElementById('.$key.').style.display = \'none\'">'.$item->product->name.'</i></u> <br /><br /><div class="form-popup" id='.$key.'><h1>'.$item->product->short_description.'</h1></div>';
-                    
-
-                    
-
                 }
             }
 
@@ -390,9 +392,19 @@ class QuoteController extends Controller
                     'attributes' => [
                         'href' => route('quote.edit', ['id' => $property->id]),
                     ]
+                ],
+                'trash' => [
+                    'label' => 'Delete',
+                    'attributes' => [
+                        'href' => route('quote.delete', ['id' => $property->id]),
+                        'class' => 'ConfirmDelete',
+                    ]
                 ]
             ];
 
+            if(Auth::user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                unset($buttons['trash']);
+            }
             $quoteDetails = Quote::getQuoteTotal($property->id);
             $aaData[] = [
                 'id' => $count++,

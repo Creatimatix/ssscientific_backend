@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/quote/add', 'store')->name('quote.create');
         Route::post('/quote/update/{quote}', 'update')->name('quote.update');
         Route::get('/quote/edit/{id}', 'edit')->name('quote.edit');
+        Route::get('/quote/delete/{id}', 'destroy')->name('quote.delete');
         Route::get('/quote/downloadQuote/{quote_id}', 'downloadQuote')->name('quote.download');
         Route::post('/quote/change-status/{quote_id}', 'changeStatus')->name('quote.changeStatus');
         Route::get('/quote/send-quote', 'sendQuote')->name('quote.sendQuote');

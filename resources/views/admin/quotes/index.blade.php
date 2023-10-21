@@ -83,6 +83,16 @@
 @section('pageScript')
 <script>
     var quoteAjax = "{{ route('ajax.quotes') }}";
+
+    var quoteSuccessMsg = "{{ session('quoteSuccessMsg') }}";
+    var quoteErrorMsg = "{{ session('quoteErrorMsg') }}";
+    if(quoteSuccessMsg){
+        messages.saved("quote", quoteSuccessMsg);
+    }
+
+    if(quoteErrorMsg){
+        messages.error("quote", quoteErrorMsg);
+    }
 </script>
     <script src="{{ asset('js/pages/quote.js') }}"></script>
 @endsection
