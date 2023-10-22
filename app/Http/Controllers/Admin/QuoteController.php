@@ -372,10 +372,11 @@ class QuoteController extends Controller
             }
 
             $productDesc = '';
-
+            $accesoriesCount = 0;
             if($property->items){
                 foreach ($property->items as $key => $item){
-                    $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById('.$key.').style.display = \'block\'" onmouseleave="document.getElementById('.$key.').style.display = \'none\'">'.$item->product->name.'</i></u> <br /><br /><div class="form-popup" id='.$key.'><h1>'.$item->product->short_description.'</h1></div>';
+                    $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById(\''.$count.'-'.$accesoriesCount.'\').style.display = \'block\'" onmouseleave="document.getElementById(\''.$count.'-'.$accesoriesCount.'\').style.display = \'none\'">'.$item->product->name.'</i></u> <br /><br /><div class="form-popup" id=\''.$count.'-'.$accesoriesCount.'\'><span class=\'desc-text\'>'.$item->product->short_description.'</span></div>';
+                    $accesoriesCount++;
                 }
             }
 

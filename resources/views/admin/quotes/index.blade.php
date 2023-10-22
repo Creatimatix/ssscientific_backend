@@ -4,18 +4,24 @@
 
     <style>
         .form-popup {
-  display: none;
-  position: fixed;
-  bottom: 10;
-  right: 150px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-  font-size: 4px;
-}
-        </style>
+            display: none;
+            position: absolute;
+            bottom: 5;
+            right: 150px;
+            border: 3px solid #f1f1f1;
+            border-radius : 15px;
+            z-index: 2;
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+            margin-top:-20px;
+        }
+
+        .desc-text{
+            font-size: 10px;
+            font-family : calibri;
+        }
+    </style>
 
     <section class="content-header">
         <div class="container-fluid">
