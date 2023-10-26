@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h6 class="title_in_caps">
+                                <h6 class="">
                                     Bill To:
                                 </h6>
                                 <div class="proposal-boxx--View">
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                                 <h6 class="" style="display:flex">
-                                    <span class="title_in_caps">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;
+                                    <span class="">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;
                                     <div class="icheck-primary d-inline billingCheckbox">
                                         <input type="checkbox" name="billingChk" id="billingChk"
                                                onclick="fillBillingAddress()" class="" {{ $model->billing_option?'checked':'' }}>

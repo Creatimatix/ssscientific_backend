@@ -310,7 +310,7 @@ function fillBillingAddress(){
         $('#billing_apt_no').val($('#apt_no').val());
         $('#billing_zipcode').val($('#zipcode').val());
         $('#billing_city').val($('#city').val());
-        $('#billing_state').val($( "#state option:selected" ).text());
+        $('#billing_state').val($( "#state" ).val());
     }else{
         $('#billing_address').prop('readonly',false);
         $('#billing_apt_no').prop('readonly',false);
