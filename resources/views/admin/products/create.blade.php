@@ -156,6 +156,7 @@
                                     </div>
                                     <div class="row" style="margin-top: 21px;margin-left: 2px;">
                                         <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
+                                        <!-- <a class ='cancel' href='../products'>Cancel</a> -->
                                     </div>
                                 </div>
                             </form>

@@ -65,6 +65,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right categoryFormBtn" id="categoryFormBtn" data-type="save">Submit</button>
+                                <a class ='cancel' href='../categories'>Cancel</a>
                             </form>
                         </div>
                         <!-- /.card-body -->

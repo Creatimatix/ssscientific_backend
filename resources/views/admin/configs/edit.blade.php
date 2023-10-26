@@ -60,7 +60,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right roleFormBtn" id="roleFormBtn" data-type="save">Submit</button>
+                                <button type="submit" class="btn btn-primary pull-right roleFormBtn" id="roleFormBtn" data-type="save">Update</button>
+                                <a class ='cancel' href='../../configs'>Cancel</a>
                             </form>
                         </div>
                         <!-- /.card-body -->

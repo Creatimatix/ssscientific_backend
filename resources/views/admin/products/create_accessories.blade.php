@@ -61,21 +61,21 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">PN. No.</label>
-                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption"  value="{{ old('pn_no') }}">
+                                            <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption" onkeypress="return isNumberKey(event)"  value="{{ old('pn_no') }}">
                                             @error('pn_no')
                                                 <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="product_id">HSN No.</label>
-                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption"  value="{{ old('hsn_no') }}">
+                                            <input type="text" name="hsn_no" id="hsn_no" class="form-control fixedOption" onkeypress="return isNumberKey(event)"  value="{{ old('hsn_no') }}">
                                             @error('hsn_no')
                                                 <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label for="relation">Sale Price:<span class="validateClass">*</span></label>
-                                            <input type="text" name="sale_price" class="form-control" id="salePrice"  value="{{ old('sale_price') }}">
+                                            <input type="text" name="sale_price" class="form-control" id="salePrice" onkeypress="return isNumberKey(event)"  value="{{ old('sale_price') }}">
                                              @error('sale_price')
                                                 <div class="error">{{ $message }}</div>
                                             @enderror
@@ -123,6 +123,7 @@
                                     </div>
                                     <div class="row" style="margin-top: 21px;margin-left: 2px;">
                                         <button type="submit" class="btn btn-primary pull-right accessoriesFormBtn" id="accessoriesFormBtn" data-type="save">Submit</button>
+                                        <a class ='cancel' href='../accessories'>Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -146,5 +147,14 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+    </script>
+
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
     </script>
 @endsection

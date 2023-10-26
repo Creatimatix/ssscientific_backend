@@ -53,6 +53,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right roleFormBtn" id="roleFormBtn" data-type="save">Submit</button>
+                                <a class ='cancel' href='../roles'>Cancel</a>
                             </form>
                         </div>
                         <!-- /.card-body -->
