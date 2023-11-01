@@ -296,6 +296,64 @@
         </td>
     </tr>
     @endif
+    @if($quote->i_gst)
+        @php
+             $iGstTotal =  (($totalPrice * $quote->i_gst)/100);
+             $totalPrice += $iGstTotal;
+        @endphp
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">I GST:
+            <br>
+        </td>
+        <td class="text-right">
+            <strong>
+                %{{ $quote?$quote->i_gst:0 }}
+            </strong>
+        </td>
+        <td>
+            {{ $iGstTotal }}
+        </td>
+    </tr>
+    @endif
+    @if($quote->c_gst)
+        @php
+            $cGSTTotal = (($totalPrice * $quote->c_gst)/100);
+            $totalPrice += $cGSTTotal;
+        @endphp
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">C GST Charges:
+            <br>
+        </td>
+        <td class="text-right">
+            <strong>
+                {{ $cGSTTotal  }}
+            </strong>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    @endif
+    @if($quote->s_gst)
+        @php
+            $sGSTTotal = (($totalPrice * $quote->s_gst)/100);
+            $totalPrice += $sGSTTotal;
+
+        @endphp
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">S GST Charges:
+            <br>
+        </td>
+        <td class="text-right">
+            <strong>
+                {{ $sGSTTotal }}
+            </strong>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    @endif
     <tr class="table-summary">
         <td colspan="4" class="text-right"><strong>Total</strong>
             <br>

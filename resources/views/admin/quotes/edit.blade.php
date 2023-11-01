@@ -301,12 +301,12 @@
 
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"
                                    target="_blank" href="{{ route('quote.download',['quote_id' => $model->id,'type'=>'pdf']) }}">Download Proposal</a>
-                                <button
-                                    class="btn pull-right m-l-10 btn btn-success customerSendMailBtn"
-                                    type="button"
-                                    onclick="return quote.send('{{ route('quote.sendQuote',['quote_id' => $model->id]) }}')"
-                                >Sent to Customer
-                                </button>
+    {{--                                <button--}}
+    {{--                                    class="btn pull-right m-l-10 btn btn-success customerSendMailBtn"--}}
+    {{--                                    type="button"--}}
+    {{--                                    onclick="return quote.send('{{ route('quote.sendQuote',['quote_id' => $model->id]) }}')"--}}
+    {{--                                >Sent to Customer--}}
+    {{--                                </button>--}}
                             </div>
                         </div>
                     </div>

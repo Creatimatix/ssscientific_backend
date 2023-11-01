@@ -649,8 +649,9 @@ class QuoteController extends Controller
         $quoteId = $request->get('quoteId');
         $type = $request->get('type');
         $val = $request->get('val');
-        $config = Config::get('INSTALLATION');
-        $installtion = $config['value'];
+//        $config = Config::get('INSTALLATION');
+//        $installtion = $config['value'];
+        $installtion = 0;
         if($type == '%'){
            $finalTotal = Quote::getQuoteTotal($quoteId);
             $installtion = round($finalTotal['totalAmount'] * $val / 100);
@@ -662,8 +663,9 @@ class QuoteController extends Controller
         $quoteId = $request->get('quoteId');
         $type = $request->get('type');
         $val = $request->get('val');
-        $config = Config::get('FREIGHTCHARGE');
-        $freight = $config['value'];
+//        $config = Config::get('FREIGHTCHARGE');
+//        $freight = $config['value'];
+        $freight = 0;
         if($type == '%'){
            $finalTotal = Quote::getQuoteTotal($quoteId);
             $freight = round($finalTotal['totalAmount'] * $val / 100);

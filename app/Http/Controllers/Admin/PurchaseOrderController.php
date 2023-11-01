@@ -37,6 +37,7 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->vendor_id = $request->get('vendor');
         $purchaseOrder->attn_no = $request->get('attn_no');
         $purchaseOrder->status = $request->get('status');
+        $purchaseOrder->terms_n_condition = $request->get('term_n_condition');
         $purchaseOrder->save();
 
         if($purchaseOrder->id > 0){
@@ -72,6 +73,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder->vendor_id = $request->get('vendor');
             $purchaseOrder->attn_no = $request->get('attn_no');
             $purchaseOrder->status = $request->get('status');
+            $purchaseOrder->terms_n_condition = $request->get('term_n_condition');
             $purchaseOrder->save();
             if($purchaseOrder->id > 0){
                 PurchaseOrderProduct::where('purchase_order_id',$purchaseOrder->id)->delete();

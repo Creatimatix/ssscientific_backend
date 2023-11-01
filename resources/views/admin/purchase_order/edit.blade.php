@@ -91,6 +91,12 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="row  " style=" margin-top: 19px;">
+                                        <div class="col-md-12">
+                                            <label class="">Terms & Condition</label>
+                                            <textarea id="summernote" name="term_n_condition">{{ $model->terms_n_condition }}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
                             </form>
@@ -119,5 +125,15 @@
         if(poErrorMsg){
             messages.error("Purchase Order", poErrorMsg);
         }
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']]
+            ],
+            height: 200 // Set the height of the editor as needed
+        })
     </script>
 @endsection

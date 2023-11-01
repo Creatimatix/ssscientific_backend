@@ -146,7 +146,7 @@
 
     <tr>
         <td colspan='8'>
-            Terms & Conditions
+            {!! $purchaseOrder->terms_n_condition !!}
         </td>
     </tr>
 

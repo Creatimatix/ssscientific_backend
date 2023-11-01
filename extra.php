@@ -17,3 +17,6 @@ To Run Project:
     php artisan serve
 
     npm run dev
+
+
+ALTER TABLE `purchase_orders` ADD `terms_n_condition` TEXT NULL DEFAULT NULL AFTER `attn_no`;
