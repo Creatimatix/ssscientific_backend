@@ -42,9 +42,9 @@
                 {{ $item->product->name }} <br />
                 <a href="javascript:void(0)" onclick="return itemlist.getAccessories({{ $item->id }})">Add Accessories</a>
             </td>
-            <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$item->asset_value }}</td>
+            <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$item->asset_value }}</span></td>
             <td>{{ $item->quantity }}</td>
-            <td>{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($item->asset_value * $item->quantity) }}</td>
+            <td><span style="font-family: DejaVu Sans; sans-serif;">{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($item->asset_value * $item->quantity) }}</span></td>
             <td>
                 @php
                     $buttons = [
@@ -73,9 +73,9 @@
                 <td>
                     {{ $itemKey.'.'.++$aKey }}  {{ $accessory->product->name }}
                 </td>
-                <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$accessory->asset_value }}</td>
+                <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$accessory->asset_value }}</span></td>
                 <td>{{ $accessory->quantity }}</td>
-                <td>{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($accessory->asset_value * $accessory->quantity) }}</td>
+                <td><span style="font-family: DejaVu Sans; sans-serif;">{{  \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].($accessory->asset_value * $accessory->quantity) }}</span></td>
                 <td>
                     @php
                         $buttons = [
@@ -173,7 +173,7 @@
                             <div class="form-check">
                                 <div style="margin-top: 0px;margin-left: -22px;width: 307px;display: flex;">
                                     <label class="form-check-label" for="freight" style="width:158px">
-                                        Freight ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
+                                        Freight (<span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }}</span>)
                                     </label>
                                     <div class="form-group">
                                         <select class="form-control form-control-border" id="getFreightCharge" style=" width: 127px;">
@@ -194,7 +194,7 @@
                             <div class="form-check">
                                 <div style="margin-top: 0px;margin-left: -22px;width: 380px;display: flex;">
                                     <label class="form-check-label" for="freight" style="width:420px">
-                                        Installation Charges ({{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }})
+                                        Installation Charges (<span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }}</span>)
                                     </label>
                                     <div class="form-group">
                                         <select class="form-control form-control-border" id="getInstallationCharge" style="    width: 127px;">
@@ -226,12 +226,16 @@
         </td>
         <td colspan="2" class="text-right">Sub Total</td>
         <td class="text-right">
-            @if($quote)
-                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$subPrice }}
-            @else
-                0
-            @endif
-                <br>
+            <strong>
+                <span style="font-family: DejaVu Sans; sans-serif;">
+                    @if($quote)
+                        {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$subPrice }}
+                    @else
+                        0
+                    @endif
+                </span>
+            </strong>
+            <br>
         </td>
         <input type="hidden" name="old_order_sub_total" id="old_order_sub_total" value="0">
         <td></td>
@@ -243,7 +247,7 @@
         <tr class="table-summary">
             <td colspan="4" class="text-right">(-)Discount Applied
                 <i class="icofont icofont-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rental/Buy/Sale Furniture Subtotal : $0<br>Sales Tax (10.25%) on Rental/Buy/Sale Furniture : $0<br>Total : $0" data-html="true"></i></td>
-            <td class="text-right">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->discount }}</td>
+            <td class="text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->discount }}</span></td>
             <td>
                 @php
                     $buttons = [
@@ -269,7 +273,7 @@
         </td>
         <td class="text-right">
             <strong>
-                {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->freight:0 }}
+                <span style="font-family: DejaVu Sans; sans-serif;">{{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->freight:0 }}</span>
             </strong>
         </td>
         <td>
@@ -287,7 +291,9 @@
         </td>
         <td class="text-right">
             <strong>
+                <span style="font-family: DejaVu Sans; sans-serif;">
                 {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->installation:0 }}
+                </span>
                 <input type="hidden" value="{{ $totalPrice }}" id="totalOrderAmount">
             </strong>
         </td>
@@ -326,7 +332,9 @@
         </td>
         <td class="text-right">
             <strong>
-                {{ $cGSTTotal  }}
+                <span style="font-family: DejaVu Sans; sans-serif;">
+                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$cGSTTotal }}
+                </span>
             </strong>
         </td>
         <td>
@@ -346,7 +354,9 @@
         </td>
         <td class="text-right">
             <strong>
-                {{ $sGSTTotal }}
+                <span style="font-family: DejaVu Sans; sans-serif;">
+                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$sGSTTotal }}
+                </span>
             </strong>
         </td>
         <td>
@@ -355,12 +365,14 @@
     </tr>
     @endif
     <tr class="table-summary">
-        <td colspan="4" class="text-right"><strong>Total</strong>
+        <td colspan="4" class="text-right">Total
             <br>
         </td>
         <td class="text-right">
             <strong>
+                <span style="font-family: DejaVu Sans; sans-serif;">
                 {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$totalPrice:0 }}
+                </span>
                 <input type="hidden" value="{{ $totalPrice }}" id="totalOrderAmount">
             </strong>
         </td>

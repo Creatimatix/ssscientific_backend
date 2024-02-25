@@ -212,7 +212,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right quoteFormBtn quoteNewForm" id="quoteFormBtn" data-type="save">Save & Continue</button>
-                                <button type="submit" class="btn btn-primary modalClose" data-dismiss="modal" aria-label="Close" >Cancel</button>
+{{--                                <button type="submit" class="btn btn-primary modalClose" data-dismiss="modal" aria-label="Close" >Cancel</button>--}}
                             </form>
                         </div>
                         <!-- /.card-body -->

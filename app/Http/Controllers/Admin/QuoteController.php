@@ -227,7 +227,7 @@ class QuoteController extends Controller
 
 
         return response()->json([
-            "status" => 200,
+            "statusCode" => Response::HTTP_OK,
             "quoteId" => $quote->id,
             "message" => "Proposal updated successfully"
         ]);

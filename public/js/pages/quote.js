@@ -257,16 +257,17 @@ $(document).on('click','#quoteFormBtn',function(e){
         dataType: 'json',
         data: $('#quoteForm').serialize()+"&formType=",
         success:function(response){
-
             if(response.statusCode === 200){
                 $(this).attr('disabled',false);
                 messages.saved("Quote", response.message);
                 $('#quoteForm')[0].reset();
-                window.location.href=adminUrl+'/quote/edit/'+response.quoteId;
-                // window.location.reload();
+
+                if($('#quote_id').val() > 0){
+                    window.location.reload();
+                }else{
+                    window.location.href=adminUrl+'/quote/edit/'+response.quoteId;
+                }
             }else{
-                console.log('response 123',response)
-                // return false;
                 $(this).attr('disabled',false);
                 $('.quoteFormBtn').prop('disabled', false);
                 if(response.statusCode == 400){

@@ -150,8 +150,8 @@
                     {{ $item->product->short_description }}
                 </td>
                 <td>{{ $item->quantity }}</td>
-                <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
-                <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</td>
+                <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</span></td>
+                <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$item->asset_value }}</span></td>
             </tr>
 
             @foreach($item->accessories as $aKey => $accessory)
@@ -165,8 +165,8 @@
                         {{ $accessory->product->short_description }}
                     </td>
                     <td>{{ $accessory->quantity }}</td>
-                    <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
-                    <td>{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</td>
+                    <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</span></td>
+                    <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</span></td>
                 </tr>
             @endforeach
 
@@ -196,17 +196,17 @@
             <table class="innerInfoTable" style="text-align: right;height: 194px;width: 100%;border-spacing: 0px;">
                 <tr>
                     <td colspan='6' class='no-border' >TOTAL EX-WORKS</td>
-                    <td colspan="10">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</td>
+                    <td colspan="10"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</span></td>
                 </tr>
                 @if($model->discount > 0)
                 <tr>
                     <td colspan='6'  class='no-border' >DISCOUNT</td>
-                    <td colspan="10">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</td>
+                    <td colspan="10"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</span></td>
                 </tr>
                 @endif
                 <tr>
                     <td colspan='6' class='no-border' >NET PRICE</td>
-                    <td colspan="10">{{\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($totalAmount - $model->discount) }}</td>
+                    <td colspan="10"><span style="font-family: DejaVu Sans; sans-serif;">{{\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($totalAmount - $model->discount) }}</span></td>
                 </tr>
                 <tr>
                     <td colspan='6' class='no-border' >Installation</td>
@@ -218,7 +218,7 @@
                             }
                         @endphp
 
-                        {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$installation }}
+                        <span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$installation }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -230,7 +230,7 @@
                                 $freight = $invoice->freight;
                             }
                         @endphp
-                        {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$freight }}</td>
+                        <span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$freight }}</span></td>
                 </tr>
 
                 @php
@@ -273,7 +273,7 @@
                 @endif
                 <tr>
                     <td colspan='6' class='no-border' >Total FOR DESTINATION</td>
-                    <td colspan="10"> {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</td>
+                    <td colspan="10"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
                 </tr>
             </table>
         </td>
