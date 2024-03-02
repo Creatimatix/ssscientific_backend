@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\GeneralController;
 */
 
 //Route::get('/store-category', [GeneralController::class, 'storeCategory']);
-Route::get('/category-product', [GeneralController::class, 'index']);
+Route::get('/category-product', [GeneralController::class, 'index'])->middleware('cors');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
