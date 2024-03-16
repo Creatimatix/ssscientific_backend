@@ -317,7 +317,9 @@
             </strong>
         </td>
         <td>
-            {{ $iGstTotal }}
+           <span style="font-family: DejaVu Sans; sans-serif;">
+            {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$iGstTotal }}
+           </span>
         </td>
     </tr>
     @endif

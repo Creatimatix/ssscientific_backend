@@ -1,5 +1,6 @@
 @php
     $totalAmount = 0;
+    $subPrice = 0;
     $totalItems = count($model->items);
 @endphp
     <!-- Repeatable -->
@@ -8,6 +9,7 @@
         @php
             $itemKey = ++$key;
             $totalAmount = $totalAmount + ($item->quantity * $item->asset_value);
+            $subPrice += $item->asset_value * $item->quantity;
         @endphp
 <!DOCTYPE  html>
 <html lang="en">
@@ -186,7 +188,7 @@
             <div class='text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
-                        <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
+                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
                     @endforeach
                 @endif
             </div>
@@ -198,6 +200,12 @@
         <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
+        @php
+            if($accessory->is_payable){
+                $subPrice += $accessory->asset_value * $accessory->quantity;
+                $totalAmount += $accessory->asset_value * $accessory->quantity;
+            }
+        @endphp
         <tr style="text-align: center; outline: thin solid">
             <td width="10px" style="padding: 10px 0px 10px 0px" class="top-grey-border">{{ $itemKey.'.'.++$aKey }}</td>
             <td class="top-grey-border">{{ $accessory->product->pn_no }}</td>
@@ -278,7 +286,7 @@
         </tr>
     @endif
     <tr>
-        <td colspan='3' class='no-border' >Installation: {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</td>
+        <td colspan='3' class='no-border' >Installation: <span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</span></td>
         <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
         <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
     </tr>

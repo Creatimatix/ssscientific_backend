@@ -153,3 +153,4 @@ Route::get('send-mail', function () {
 
     dd("Email is Sent.");
 });
+Route::get('/category-product', [\App\Http\Controllers\Api\GeneralController::class, 'index']);
