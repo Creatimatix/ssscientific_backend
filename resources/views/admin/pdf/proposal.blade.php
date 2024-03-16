@@ -272,6 +272,8 @@
         if($model->s_gst){
             $finalTotal = $finalTotal + (($finalTotal * $model->s_gst)/100);
         }
+
+        $finalTotal = round($finalTotal, 2);
     @endphp
     <tr>
         <td colspan='3' class='no-border' >Payment Terms:</td>

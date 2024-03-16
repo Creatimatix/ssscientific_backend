@@ -88,6 +88,7 @@
                                                     </a>
                                                 @else
                                                     @if(auth()->user()->id == $customer->id)
+                                                        @if(in_array(auth()->user()->role_id, [\App\Models\Admin\Role::ROLE_EXECUTIVE, \App\Models\Admin\Role::ROLE_BUSINESS_HEAD]))
                                                         <a href="javascript:void(0)"
                                                            class="change_password"
                                                            data-id="{{ $customer->id }}"
@@ -95,6 +96,7 @@
                                                         >
                                                             Change Password
                                                         </a>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </td>

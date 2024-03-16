@@ -338,7 +338,8 @@ function initializeCustomerSelect2(){
             method: 'post',
             data: function (params) {
                 return {
-                    term: params.term
+                    term: params.term,
+                    user_type: 'customer'
                 };
             },
             processResults: function (data, params) {
@@ -455,7 +456,7 @@ function getUserDetails(val,type, isUpdate = false){
     $.ajax({
         type: 'get',
         url: siteUrl+"/user/info",
-        data: {id:val},
+        data: {id:val, type},
         success: function (data) {
             console.log('data',data)
             if(data.email){

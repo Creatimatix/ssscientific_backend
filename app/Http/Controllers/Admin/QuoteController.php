@@ -293,6 +293,7 @@ class QuoteController extends Controller
             $tblQuote . '.quote_no',
             $tblQuote . '.token',
             $tblQuote . '.phone_number',
+            $tblQuote . '.currency_type',
             $tblQuote . '.address',
             $tblQuote . '.apt_no',
             $tblQuote . '.zipcode',
@@ -407,13 +408,14 @@ class QuoteController extends Controller
                 unset($buttons['trash']);
             }
             $quoteDetails = Quote::getQuoteTotal($property->id);
+            $finalTotal = isset(ProductCartItems::CURRENCY[$property->currency_type])?ProductCartItems::CURRENCY[$property->currency_type].$quoteDetails['totalAmount']:'$';
             $aaData[] = [
                 'id' => $count++,
                 'created_at' => $property->created_at,
                 'quote_no' => $property->quote_no.$order_reference.$download_proposal,
                 'cust_info' => '<a href="" target="_blank">'.$client_name.'</a><br>'.$property->email.'<br>'.$property->phone_number,
                 'product_desc' => $productDesc,
-                'total_price' => '$'.$quoteDetails['totalAmount'],
+                'total_price' => $finalTotal,
                 'created_by' => $created_by,
                 'status' => $statusType,
                 'controls' =>  table_buttons($buttons, false)

@@ -318,7 +318,7 @@
         </td>
         <td>
            <span style="font-family: DejaVu Sans; sans-serif;">
-            {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$iGstTotal }}
+            {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].round($iGstTotal, 2) }}
            </span>
         </td>
     </tr>
@@ -335,7 +335,7 @@
         <td class="text-right">
             <strong>
                 <span style="font-family: DejaVu Sans; sans-serif;">
-                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$cGSTTotal }}
+                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].round($cGSTTotal,2) }}
                 </span>
             </strong>
         </td>
@@ -357,7 +357,7 @@
         <td class="text-right">
             <strong>
                 <span style="font-family: DejaVu Sans; sans-serif;">
-                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$sGSTTotal }}
+                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].round($sGSTTotal, 2) }}
                 </span>
             </strong>
         </td>
