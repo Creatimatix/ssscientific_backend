@@ -25,18 +25,19 @@ class PurchaseOrderController extends Controller
 
     public function store(Request $request){
 //        dd($request->all());
-        $request->validate([
+        $poId = PurchaseOrder::purchaseOrderNumber();
+        $request->request->add(['po_no' => $poId]);
+        $validate = $request->validate([
+            'po_no' => 'unique:purchase_orders,po_no,'.$poId,
             'vendor' => 'required',
             'attn_no' => 'required',
-            'status' => 'required',
             'product' => 'required',
         ]);
-
         $purchaseOrder = new PurchaseOrder();
-        $purchaseOrder->po_no = PurchaseOrder::purchaseOrderNumber();
+        $purchaseOrder->po_no = $poId;
         $purchaseOrder->vendor_id = $request->get('vendor');
         $purchaseOrder->attn_no = $request->get('attn_no');
-        $purchaseOrder->status = $request->get('status');
+        $purchaseOrder->status = $request->get('status', 1);
         $purchaseOrder->terms_n_condition = $request->get('term_n_condition');
         $purchaseOrder->save();
 

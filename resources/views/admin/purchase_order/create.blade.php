@@ -24,10 +24,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Add User</h5>
+                            <h5>Add Purchase Order</h5>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            @if($errors->any())
+                                {!!
+                                    implode('', $errors->all('<div class="error">:message</div>'))
+                                !!}
+                            @endif
+
                             <form name="poForm" id="poForm" action="{{ route('store.purchaseOrder') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
                                 <div class="proposal-boxx--View">
@@ -47,16 +53,16 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="phone_number">ATTN:</label>
-                                            <input type="text" name="attn_no" id="attn_no" class="form-control fixedOption" required>
+                                            <input type="text" name="attn_no" id="attn_no" class="form-control fixedOption" value="{{ old('attn_no') }}" required>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="relation">Status:</label>
-                                            <select name="status" id="status" class="form-control" required>
-                                                <option value="">Select Option</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
-                                            </select>
-                                        </div>
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="relation">Status:</label>--}}
+{{--                                            <select name="status" id="status" class="form-control" required>--}}
+{{--                                                <option value="">Select Option</option>--}}
+{{--                                                <option value="1">Active</option>--}}
+{{--                                                <option value="2">Inactive</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
                                     </div>
                                     <div class="row  " style=" margin-top: 19px;">
                                         <div class="col-md-12">

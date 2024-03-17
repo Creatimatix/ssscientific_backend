@@ -14,7 +14,8 @@ class PurchaseOrder extends BaseModel
 
 
     public static function purchaseOrderNumber(){
-        $lastId =  self::orderBy('id','desc')->first()->id;
+        $val = self::orderBy('id','desc')->first();
+        $lastId =  $val ? $val->id : 1;
         return "SSS/P.O.".($lastId+1)."./FY ".getFinancialYear();
     }
 
