@@ -39,6 +39,8 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->attn_no = $request->get('attn_no');
         $purchaseOrder->status = $request->get('status', 1);
         $purchaseOrder->terms_n_condition = $request->get('term_n_condition');
+        $purchaseOrder->created_at = date('Y-m-d H:i:s');
+        $purchaseOrder->updated_at = date('Y-m-d H:i:s');
         $purchaseOrder->save();
 
         if($purchaseOrder->id > 0){
@@ -75,6 +77,7 @@ class PurchaseOrderController extends Controller
             $purchaseOrder->attn_no = $request->get('attn_no');
             $purchaseOrder->status = $request->get('status');
             $purchaseOrder->terms_n_condition = $request->get('term_n_condition');
+            $purchaseOrder->updated_at = date('Y-m-d H:i:s');
             $purchaseOrder->save();
             if($purchaseOrder->id > 0){
                 PurchaseOrderProduct::where('purchase_order_id',$purchaseOrder->id)->delete();

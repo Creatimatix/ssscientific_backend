@@ -51,8 +51,8 @@
                                             <td>{{ ($purchaseOrder->vendor)?$purchaseOrder->vendor->full_name:'NA' }}</td>
                                             <td>{{ $purchaseOrder->attn_no }}</td>
                                             <td>{{ status($purchaseOrder->status) }}</td>
-                                            <td>{{ $purchaseOrder->created_at }}</td>
-{{--                                            <td>{{ date('d-M-Y', strtotime($purchaseOrder->created_at)) }}</td>--}}
+{{--                                            <td>{{ $purchaseOrder->created_at }}</td>--}}
+                                            <td>{{ date('d-M-Y', strtotime($purchaseOrder->created_at)) }}</td>
                                             <td>
                                                 @php
                                                     $buttons = [
