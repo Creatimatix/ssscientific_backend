@@ -35,6 +35,9 @@ class Quote extends BaseModel
 
     const ORDER_TYPE_TENDOR = 1;
 
+    const INTER_STATE = 1;
+    const INTRA_STATE = 2;
+
     protected $table = 'quotes';
 //    protected $dateFormat = 'U';
     protected $fillable = [
@@ -67,6 +70,7 @@ class Quote extends BaseModel
         'currency_type',
         'notes',
         'status',
+        'delivery_type',
         'action_type',
         'action_by',
         'action_at',

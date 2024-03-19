@@ -64,8 +64,8 @@ class QuoteController extends Controller
                 'currency_type' => 'required',
                 'order_type' => 'required',
                 'phone_number' => 'required',
+                'delivery_type' => 'required',
                 'email' => 'required',
-                'status' => 'required',
             ];
             $validator = \Validator::make($request->all(), $rules, $customMessages);
 
@@ -107,6 +107,7 @@ class QuoteController extends Controller
             $quotes->currency_type = $request->input('currency_type');
             $quotes->notes = $request->input('notes');
             $quotes->status = $quoteStatus;
+            $quotes->delivery_type = $request->input('delivery_type');
             $quotes->created_by = Auth::user()->id;
             if($request->get('order_type') == Quote::ORDER_TYPE_TENDOR){
                 $quotes->tendor_no = $request->get('tendor_no');
@@ -222,6 +223,8 @@ class QuoteController extends Controller
             $newQuoteNo = implode('/',$quoteNo);
             $quote->quote_no = $newQuoteNo;
         }
+        $quote->status = $request->get('status');
+        $quote->delivery_type = $request->get('delivery_type');
         $quote->save();
 
 

@@ -1,6 +1,9 @@
 @php
     $totalAmount = 0;
     $subPrice = 0;
+    $iGst = 0;
+    $cGst = 0;
+    $sGst = 0;
     $totalItems = count($model->items);
 @endphp
     <!-- Repeatable -->
@@ -264,14 +267,16 @@
         }
 
         if($model->i_gst){
-            $finalTotal = $finalTotal + (($finalTotal * $model->i_gst)/100);
+            $iGst =(($finalTotal * $model->i_gst)/100);
         }
         if($model->c_gst){
-            $finalTotal = $finalTotal + (($finalTotal * $model->c_gst)/100);
+            $cGst =(($finalTotal * $model->c_gst)/100);
         }
         if($model->s_gst){
-            $finalTotal = $finalTotal + (($finalTotal * $model->s_gst)/100);
+            $sGst =(($finalTotal * $model->s_gst)/100);
         }
+
+        $finalTotal += $iGst + $cGst + $sGst;
 
         $finalTotal = round($finalTotal, 2);
     @endphp

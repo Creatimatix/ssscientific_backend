@@ -83,6 +83,15 @@
                                             <input type="email" name="email" id="email"  value="{{ $model->email }}" class="form-control fixedOption">
                                         </div>
                                         <div class="col-md-4">
+                                            <label for="delivery_type">Delivery Type:<span class="validateClass">*</span></label>
+                                            <select name="delivery_type" id="delivery_type" class="form-control" required>
+                                                <option value="">Select Option</option>
+                                                <option value="{{ \App\Models\Admin\Quote::INTER_STATE }}" {{ ($model->delivery_type == \App\Models\Admin\Quote::INTER_STATE)?'selected':'' }}>Inter State</option>
+                                                <option value="{{ \App\Models\Admin\Quote::INTRA_STATE }}" {{ ($model->delivery_type == \App\Models\Admin\Quote::INTRA_STATE)?'selected':'' }}>Intra State</option>
+                                            </select>
+                                            <span class="error-message" id="delivery_type-error"></span>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label for="relation">GST No:<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control"  value="{{ $model->gst_no }}" name="gst_no" id="gst_no" />
                                         </div>
@@ -296,8 +305,13 @@
 {{--                                        Download Invoice--}}
 {{--                                    </a>--}}
                                     <button class="btn btn-success pull-right m-l-10 approvedButton"
-                                            type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline-block':'none' }}">Approve Quote
+                                            type="button" data-toggle="modal" data-target="#quotePreviewModal"  style="display: {{ !$model->is_preview?'inline-block':'none' }}">Preview Quote
                                     </button>
+                                    @if($model->is_preview)
+                                    <button class="btn btn-success pull-right m-l-10 approvedButton"
+                                            type="button" data-toggle="modal" data-target="#confirmApprovalModal"  style="display: {{ !$model->action_type?'inline-block':'none' }}">Confirm Quote
+                                    </button>
+                                   @endif
 
                                 <a class="btn btn-primary pull-right m-l-10" id="proposalDownload1"
                                    target="_blank" href="{{ route('quote.download',['quote_id' => $model->id,'type'=>'pdf']) }}">Download Proposal</a>
