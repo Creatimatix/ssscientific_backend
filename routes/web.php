@@ -29,7 +29,6 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
 
@@ -37,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/vendors', [CustomerController::class, 'getVendors'])->name('admin.vendors');
         Route::controller(ProductController::class)->group(function () {
             Route::get('/products','index')->name('products');
+            Route::any('/product/upload','actionUpload')->name('product.upload');
             Route::get('/ajax/product','getProduct')->name('ajax.product');
             Route::get('/ajax/products','getProducts')->name('ajax.products');
             Route::get('/delete/product/{product}','deleteProduct')->name('delete.product');

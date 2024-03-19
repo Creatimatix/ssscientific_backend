@@ -461,7 +461,7 @@ class QuoteController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
-            return $pdf->download(strtoupper($prefix).'-'.time().'-' . $quote_id . '.pdf');
+            return $pdf->download($quote->quote_no . '.pdf');
 
         }else{
             return view($page, $var);
@@ -519,7 +519,7 @@ class QuoteController extends Controller
                 if (preg_match('/^[0-9]+$/', $searchTerm)) {
                     $query->where($tblQuote.'.id', '=', $searchTerm);
                 } else {
-                    $query->where($tblQuote.'.quote_no', 'LIKE', $searchTerm.'%')
+                    $query->where($tblQuote.'.quote_no', 'LIKE', '%'.$searchTerm.'%')
                         ->orWhere($tblQuote.'.email', 'LIKE', $searchTerm . '%');
                 }
             });

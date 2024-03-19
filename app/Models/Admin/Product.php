@@ -5,13 +5,15 @@ namespace App\Models\Admin;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class Product extends BaseModel
 {
     use HasFactory;
 
     protected $appends = ['default_image','default_document'];
 
+    const PRODUCT_STATUS = 1;
     public function getDefaultImageAttribute(){
         return $this->image;
     }
@@ -34,6 +36,4 @@ class Product extends BaseModel
     public function images(){
         return $this->hasMany(ProductImage::class, 'id_product', 'id');
     }
-
-
 }

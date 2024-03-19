@@ -24,10 +24,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="pull-right">
-                                <a href="{{ route('create.product') }}" class="pull-right btn btn-primary" >Add</a>
+                            <div class="pull-left">
+                                <a href="{{ route('create.product') }}" class="btn btn-primary" >Add</a>
+                                <a href="{{ route('product.upload') }}" class="btn btn-primary" >Upload</a>
                             </div>
-                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="productTable" class="table table-bordered table-striped">

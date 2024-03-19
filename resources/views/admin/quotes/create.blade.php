@@ -114,7 +114,6 @@
                                         <div class="col-md-8 margin-bottom-20">
                                             <label for="property_address">Street Address:<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
-
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">
@@ -134,10 +133,6 @@
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="clear: both">
                                             <label class="" for="state">State<span class="validateClass">*</span></label>
-{{--                                            <select class="form-control" id="state" name="state">--}}
-{{--                                                <option value="">Select State</option>--}}
-{{--                                                <option value="1">MH</option>--}}
-{{--                                            </select>--}}
                                             <input type="text" name="state" id="state" class="form-control">
                                             <span class="text-danger" id="state_error"></span>
                                         </div>

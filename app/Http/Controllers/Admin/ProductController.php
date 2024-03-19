@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 use Image;
+use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
     public function index(){
@@ -389,5 +390,67 @@ class ProductController extends Controller
             'statusCode' => 200,
             'message' => ($isPayable == 1)?'Accessories applied for payable':'Accessories applied for non payable'
         ]);
+    }
+
+
+    public function actionUpload(Request $request){
+        if($request->get('action')=="uploadProduct") {
+            $invalidSalesTaxZipcode = [];
+            if($request->hasFile('import_file')) {
+                ini_set('memory_limit', '-1');
+                $count=0;
+                $file = $request->file('import_file');
+                if(in_array($file->getClientOriginalExtension(),array('xls','xlsx','csv'))) {
+                    $filepath = $file->getRealPath();
+
+                    $data = Excel::toArray([], $filepath);
+                    $data = array_slice($data[0], 1);
+                    if (isset($data) && count($data) > 0) {
+                        foreach ($data as $key => $value) {
+                            $productName = isset($value[0])?$value[0]:null;
+                            $categoryName = isset($value[1])?$value[1]:null;
+                            $price = isset($value[2])?$value[2]:null;
+                            $pnNo = isset($value[3])?$value[3]:null;
+                            $hsnNo = isset($value[4])?$value[4]:null;
+                            $sku = isset($value[5])?$value[5]:null;
+                            $shortDesc = isset($value[6])?$value[6]:null;
+                            $desc = isset($value[7])?$value[7]:null;
+                            if(!empty($productName)){
+                                $product = Product::where('name', $productName)->get()->first();
+                                $category = Category::where('category_name', $categoryName)->get()->first();
+                                if(!$product){
+                                    $product = new Product();
+                                }
+
+                                if(!$category){
+                                    $category = new Category();
+                                }
+
+                                if($product && $category->id != $categoryName) {
+                                    $product = new Product();
+                                }
+
+                                $product->name = $productName;
+                                $product->sku = $sku;
+                                $product->id_category = $category->id;
+                                $product->pn_no = $pnNo;
+                                $product->hsn_no = $hsnNo;
+                                $product->short_description = $shortDesc;
+                                $product->description = $desc;
+                                $product->sale_price = $request->get("sale_price");
+                                $product->status = $price;
+                                $product->save();
+                            }
+                        }
+                        return redirect()->route('product.upload')->with('productUploadSuccessMsg', 'Product imported successfully.');
+                    }
+                }else{
+                    return redirect()->back()->with('productUploadErrorMsg', 'Please upload excel formats only');
+                }
+            }else{
+                return redirect()->back()->with('productUploadErrorMsg', 'Please select file to upload');
+            }
+        }
+        return view('admin.products.upload');
     }
 }
