@@ -64,11 +64,20 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-4 depend_on_executive" style="display: none">
-                                                <label for="id_manager">Business Heads:</label>
+                                                <label for="id_manager">Area Manager:</label>
                                                 <select name="id_manager" id="id_manager" class="form-control">
-                                                    <option value="">Business Head</option>
+                                                    <option value="">Area Manager</option>
                                                     @foreach($businessHeads as $businessHead)
                                                         <option value="{{ $businessHead->id }}">{{ $businessHead->full_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 depend_on_area_manager" style="display: none">
+                                                <label for="id_manager">Zone:</label>
+                                                <select name="zone" id="zone" class="form-control">
+                                                    <option value="">Select Zone</option>
+                                                    @foreach($zones as $zone)
+                                                        <option value="{{ $zone }}">{{ $zone }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -77,18 +86,48 @@
                                                    value="{{ ($type == 'customer' ? \App\Models\Admin\Role::ROLE_CUSTOMER: \App\Models\Admin\Role::ROLE_VENDOR) }}"
                                                    name="role">
                                         @endif
-                                        @if(in_array($type, ['customer']))
+                                        @if(in_array($type, ['customer','vendor']))
                                             <div class="col-md-4">
                                                 <label for="gst_no">GST No:</label>
                                                 <input type="gst_no" name="gst_no" id="gst_no" class="form-control fixedOption">
                                             </div>
-                                        @endif
-                                        @if(in_array($type, ['vendor']))
                                             <div class="col-md-4">
-                                                <label for="vendor_code">Vendor Code:</label>
-                                                <input type="vendor_code" name="vendor_code" id="vendor_code" class="form-control fixedOption">
+                                                <label for="pan_no">PAN No:</label>
+                                                <input type="pan_no" name="pan_no" id="pan_no" class="form-control fixedOption">
                                             </div>
                                         @endif
+                                        @if(in_array($type, ['vendor']))
+{{--                                            <div class="col-md-4">--}}
+{{--                                                <label for="vendor_code">Vendor Code:</label>--}}
+{{--                                                <input type="vendor_code" name="vendor_code" id="vendor_code" class="form-control fixedOption">--}}
+{{--                                            </div>--}}
+                                        @endif
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-8 margin-bottom-20">
+                                            <label for="property_address">Street Address:<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="apt_no">Apt No</label>
+                                            <input type="text" class="form-control" name="apt_no" id="apt_no" placeholder="Apt No">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-bottom-20">
+                                        <div class="col-md-4">
+                                            <label for="city">City<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zipcode">Zipcode<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zipcode" required>
+                                        </div>
+                                        <div class="col-md-4" style="clear: both">
+                                            <label class="" for="state">State<span class="validateClass">*</span></label>
+                                            <input type="text" name="state" id="state" class="form-control">
+                                            <span class="text-danger" id="state_error"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>

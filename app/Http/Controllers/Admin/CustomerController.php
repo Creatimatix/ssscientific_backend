@@ -32,11 +32,12 @@ class CustomerController extends Controller
         $type = $request->get('type');
         $roles = Role::where('status', 1)->get()->all();
         $businessHeads = User::where('status',1)->whereIn("role_id",[2])->with('role')->get()->all();
-
+        $zones = User::ZONES;
         return view('admin.customers.create',[
             'roles' => $roles,
             'businessHeads' => $businessHeads,
-            'type' => $type
+            'type' => $type,
+            'zones' => $zones
         ]);
     }
 
@@ -55,8 +56,14 @@ class CustomerController extends Controller
                 'email' => $request->get('email'),
                 'gst_no' => $request->get('gst_no'),
                 'role_id' => $request->get('role'),
+                'zone' => $request->get('zone'),
                 'id_manager' => $request->get('id_manager'),
                 'status' => $request->get('status', 1),
+                'address' => $request->input('address'),
+                'apt_no' => $request->input('apt_no'),
+                'zipcode' => $request->input('zipcode'),
+                'city' => $request->input('city'),
+                'state' => $request->input('state'),
             ],
         );
 
@@ -76,11 +83,13 @@ class CustomerController extends Controller
         $type = $request->get('type');
         $roles = Role::where('status', 1)->get()->all();
         $businessHeads = User::where('status',1)->whereIn("role_id",[2])->where('id', '!=' ,$user->id)->with('role')->get()->all();
+        $zones = User::ZONES;
         return view('admin.customers.edit',[
             'model' => $user,
             'type' => $type,
             'businessHeads' => $businessHeads,
-            'roles' => $roles
+            'roles' => $roles,
+            'zones' => $zones
         ]);
     }
 

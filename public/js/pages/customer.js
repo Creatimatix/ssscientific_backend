@@ -75,8 +75,13 @@ $(document).on('change','#role',function(e){
     $('#id_manager').val('');
     if($(this).val() == 3){
         $('.depend_on_executive').show();
+        $('.depend_on_area_manager').hide();
+    }else if($(this).val() == 2){
+        $('.depend_on_area_manager').show();
+        $('.depend_on_executive').hide();
     }else{
         $('.depend_on_executive').hide();
+        $('.depend_on_area_manager').hide();
     }
 });
 

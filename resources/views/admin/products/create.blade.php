@@ -34,7 +34,7 @@
                                 <div class="proposal-boxx--View">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="name">Name:</label>
+                                            <label for="name">Model No:</label>
                                             <input type="text" name="name" id="productName" class="form-control fixedOption" value="{{ old('name') }}">
                                             @error('name')
                                                 <div class="error">{{ $message }}</div>

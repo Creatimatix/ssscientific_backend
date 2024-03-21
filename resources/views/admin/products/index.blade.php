@@ -34,7 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
-                                        <th>Name</th>
+                                        <th>Model No</th>
                                         <th>Brand</th>
                                         <th>SKU</th>
                                         <th>Slug</th>

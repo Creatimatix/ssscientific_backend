@@ -22,17 +22,28 @@ class User extends Authenticatable
 
     const UNSUBSCRIBE_EMAIL  = 1;
 
+    const ZONES = [
+        "West Zone" ,
+        "East Zone"
+    ];
     protected $fillable = [
         'first_name',
         'last_name',
         'email',
         'gst_no',
+        'pan_no',
         'phone_number',
         'password',
         'id_manager',
         'role_id',
+        'zone',
         'vendor_code',
         'status',
+        'address',
+        'apt_no',
+        'zipcode',
+        'city',
+        'state',
     ];
 
     const userTypes = [

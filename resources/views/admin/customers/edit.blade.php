@@ -72,20 +72,33 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-md-4 depend_on_area_manager"  style="display: {{ ($model->role_id == \App\Models\Admin\Role::ROLE_BUSINESS_HEAD) ? 'block': 'none' }}">
+                                            <label for="id_manager">Zone:</label>
+                                            <select name="zone" id="zone" class="form-control">
+                                                <option value="">Select Zone</option>
+                                                @foreach($zones as $zone)
+                                                    <option value="{{ $zone }}" {{ ($model->zone == $zone ? 'selected' : '' ) }}>{{ $zone }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         @else
                                             <input type="hidden" value="{{ ($type == 'customer' ? \App\Models\Admin\Role::ROLE_CUSTOMER: \App\Models\Admin\Role::ROLE_VENDOR) }}" name="role">
                                         @endif
-                                        @if(in_array($type, ['customer']))
+                                        @if(in_array($type, ['customer','vendor']))
                                             <div class="col-md-4">
                                                 <label for="gst_no">GST No:<span class="validateClass">*</span></label>
                                                 <input type="text" name="gst_no" id="gst_no" value="{{ $model->gst_no }}" class="form-control fixedOption">
                                             </div>
+                                            <div class="col-md-4">
+                                                <label for="pan_no">Pan No:<span class="validateClass">*</span></label>
+                                                <input type="text" name="pan_no" id="pan_no" value="{{ $model->pan_no }}" class="form-control fixedOption">
+                                            </div>
                                         @endif
                                         @if(in_array($type, ['vendor']))
-                                            <div class="col-md-4">
-                                                <label for="vendor_code">Vendor Code:</label>
-                                                <input type="vendor_code" name="vendor_code" id="vendor_code"  value="{{ $model->vendor_code }}" class="form-control fixedOption">
-                                            </div>
+{{--                                            <div class="col-md-4">--}}
+{{--                                                <label for="vendor_code">Vendor Code:</label>--}}
+{{--                                                <input type="vendor_code" name="vendor_code" id="vendor_code"  value="{{ $model->vendor_code }}" class="form-control fixedOption">--}}
+{{--                                            </div>--}}
                                         @endif
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
@@ -94,6 +107,31 @@
                                                 <option value="1"  {{ $model->status == 1?'selected': '' }}>Active</option>
                                                 <option value="2" {{ $model->status == 2?'selected': '' }}>Inactive</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8 margin-bottom-20">
+                                            <label for="property_address">Street Address:<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="{{ $model->address }}" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="apt_no">Apt No<span class="noValidateClass">(optional)</span></label>
+                                            <input type="text" class="form-control" name="apt_no" id="apt_no" value="{{ $model->apt_no }}" placeholder="Apt No">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-bottom-20">
+                                        <div class="col-md-4">
+                                            <label for="city">City<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ $model->city }}" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zipcode">Zipcode<span class="validateClass">*</span></label>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" value="{{ $model->zipcode }}" placeholder="Zipcode" required>
+                                        </div>
+                                        <div class="col-md-4" style="clear: both">
+                                            <label class="" for="state">State<span class="validateClass">*</span></label>
+                                            <input type="text" name="state" id="state" value="{{ $model->state }}" class="form-control">
+                                            <span class="text-danger" id="state_error"></span>
                                         </div>
                                     </div>
                                 </div>

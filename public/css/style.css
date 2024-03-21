@@ -148,3 +148,7 @@ label{
 .user-panel{
     pointer-events: none;
 }
+
+.displayFlex{
+    display: flex;
+}

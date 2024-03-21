@@ -133,7 +133,10 @@
                                         IGST
                                     </label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ ($quote->i_gst)?$quote->i_gst:'' }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }}>
+                                        <div class="displayFlex">
+                                            <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ ($quote->i_gst)?$quote->i_gst:'' }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }}>
+                                            <span>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +149,10 @@
                                         CGST
                                     </label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $quote->c_gst? $quote->c_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                        <div class="displayFlex">
+                                            <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $quote->c_gst? $quote->c_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                            <span>%</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div style="margin-top: 0px;margin-left: 44px;width: 107px;display: flex;">
@@ -154,7 +160,10 @@
                                         SGST
                                     </label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $quote->s_gst? $quote->s_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                        <div class="displayFlex">
+                                            <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $quote->s_gst? $quote->s_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                            <span>%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
