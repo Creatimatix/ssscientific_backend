@@ -25,7 +25,9 @@
         body {
             transform: scale(1.0);
             transform-origin: 0 0;
-
+            background-image: url("{{ public_path('images/logobg.png') }}");
+            background-size: cover;
+            background-position: center;
         }
 
         p {
@@ -100,6 +102,7 @@
 
         /*table, tbody {vertical-align: top; overflow: visible; }*/
     </style>
+
 </head>
 <body>
 <p style="text-indent: 0pt;text-align: left; pading-top:-10px;">
@@ -122,7 +125,10 @@
 </p>
 
 <table class='center table-quotation no-border'>
-    <tr>
+<tr class='no-border'>
+        <th class='no-border'>&nbsp;</th>
+    </tr>   
+<tr>
         <th style="text-align:center;" colspan='8'>
             QUOTATION
             <!-- <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1> -->
@@ -182,10 +188,10 @@
     </tr>
 
     <tr style="text-align: center">
-        <td width="10px" style="padding: 100px 0px 100px 0px;" class=''><b>{{ $itemKey }}</b></td>
-        <td class=''>{{ $item->product->pn_no }}</td>
-        <td class=''>{{ $item->product->hsn_no }}</td>
-        <td colspan='2'  class='text-left'>
+        <td width="10px" style="padding: 0px 0px 100px 0px;" class='text-top'><b>{{ $itemKey }}</b></td>
+        <td class='text-top'>{{ $item->product->pn_no }}</td>
+        <td class='text-top'>{{ $item->product->hsn_no }}</td>
+        <td colspan='2'  class='text-left text-top'>
             <b>{{ $item->product->name }}</b>
             <br />
             <div class='text-center'>
@@ -210,15 +216,15 @@
             }
         @endphp
         <tr style="text-align: center; outline: thin solid">
-            <td width="10px" style="padding: 10px 0px 10px 0px" class="top-grey-border">{{ $itemKey.'.'.++$aKey }}</td>
-            <td class="top-grey-border">{{ $accessory->product->pn_no }}</td>
-            <td class="top-grey-border">{{ $accessory->product->hsn_no }}</td>
-            <td colspan='2' class="top-grey-border text-left">
+            <td width="10px" style="padding: 0px 0px 10px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
+            <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
+            <td class="top-grey-border text-top">{{ $accessory->product->hsn_no }}</td>
+            <td colspan='2' class="top-grey-border text-left text-top">
                 <b>{{ $accessory->product->name }}</b>
                 <br />
                 {{ $accessory->product->short_description }}
             </td>
-            <td class="top-grey-border">{{ $accessory->quantity }}</td>
+            <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
             <td class="text-top text-right top-grey-border" ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
             <td class="text-top text-right top-grey-border">
                 @if($accessory->is_payable)
@@ -293,20 +299,35 @@
         </tr>
     @endif
     <tr>
-        <td colspan='3' class='no-border' >Installation: <span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</span></td>
+        <td colspan='3' class='no-border' >Validity - 90 Days</td>
+        <td colspan='3' class='no-border text-right'>Freight</td>
+        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
+    </tr>
+    <tr>
+        <td colspan='3' class='no-border' ></td>
+        <td colspan='3' class='no-border text-right'>Installation</td>
+        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</span></td>
+    </tr>
+    <tr>
+        <td colspan='3' class='no-border' ></td>
         <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
         <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
     </tr>
+    @if($model->s_gst > 0)
     <tr>
-        <td colspan='3' class='no-border' >Freight: <span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
+        <td colspan='3' class='no-border'></td>
         <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
-        <td colspan='2'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
-
+        <td colspan='2'class='no-border'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
     </tr>
+    @endif
     <tr>
-        <td colspan='3' class='no-border' >Validity - 90 Days</td>
+        <td colspan='3' class='no-border' id="total"></td>
         <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
         <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
+   <script>
+    
+document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}})+" ONLY.";
+    </script>
     </tr>
     <tr>
         <td colspan='8' class='left-align no-border'>
@@ -358,7 +379,7 @@
     }
     body {
         font-size: 11px;
-{{--        background-image: url({{ public_path('images/proposal-pdf/sss.png') }});--}}
+        /* background-image: url({{ public_path('images/logobg.png') }}); */
         /* height: 100%;
         width: 100%; */
         background-size: cover;
@@ -375,6 +396,82 @@
         padding: -2px;
     }
 </style>
+<script>
+        // Define an object that maps numbers to their word form
+const numbersToWords = {
+  0: "zero",
+  1: "one",
+  2: "two",
+  3: "three",
+  4: "four",
+  5: "five",
+  6: "six",
+  7: "seven",
+  8: "eight",
+  9: "nine",
+  10: "ten",
+  11: "eleven",
+  12: "twelve",
+  13: "thirteen",
+  14: "fourteen",
+  15: "fifteen",
+  16: "sixteen",
+  17: "seventeen",
+  18: "eighteen",
+  19: "nineteen",
+  20: "twenty",
+  30: "thirty",
+  40: "forty",
+  50: "fifty",
+  60: "sixty",
+  70: "seventy",
+  80: "eighty",
+  90: "ninety",
+};
+
+// Define the convertNumberToWords function
+function convertNumberToWords(number) {
+  // if number present in object no need to go further
+  if (number in numbersToWords) return numbersToWords[number];
+
+  // Initialize the words variable to an empty string
+  let words = "";
+
+  // If the number is greater than or equal to 100, handle the hundreds place (ie, get the number of hundres)
+  if (number >= 100) {
+    // Add the word form of the number of hundreds to the words string
+    words += convertNumberToWords(Math.floor(number / 100)) + " hundred";
+
+    // Remove the hundreds place from the number
+    number %= 100;
+  }
+
+  // If the number is greater than zero, handle the remaining digits
+  if (number > 0) {
+    // If the words string is not empty, add "and"
+    if (words !== "") words += " and ";
+
+    // If the number is less than 20, look up the word form in the numbersToWords object
+    if (number < 20) words += numbersToWords[number];
+    else {
+      // Otherwise, add the word form of the tens place to the words string
+      //if number = 37, Math.floor(number /10) will give you 3 and 3 * 10 will give you 30
+      words += numbersToWords[Math.floor(number / 10) * 10];
+
+      // If the ones place is not zero, add the word form of the ones place
+      if (number % 10 > 0) {
+        words += "-" + numbersToWords[number % 10];
+      }
+    }
+  }
+
+  // Return the word form of the number
+  return words.toUpperCase();
+}
+
+console.log();
+document.getElementById('total').innerHTML = "Some Value";
+    </script>
 </body>
 </html>
       @endforeach
