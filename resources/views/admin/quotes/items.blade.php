@@ -128,7 +128,7 @@
                         <div class="row">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }} {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} />
-                                <div style=" margin-top: 0px;margin-left: 16px;width: 98px;display: flex;">
+                                <div style=" margin-top: 0px;margin-left: 16px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="is_i_gst">
                                         IGST
                                     </label>
@@ -144,7 +144,7 @@
                         <div class="row">
                             <div class="form-check" style=" display: flex; ">
                                 <input type="checkbox" class="form-check-input trm_cond_checkbox" id="is_c_s_gst" name="is_c_s_gst"  value="c_s_gst" {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} />
-                                <div style="margin-top: 0px;margin-left: 13px;width: 107px;display: flex;">
+                                <div style="margin-top: 0px;margin-left: 13px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="is_c_s_gst">
                                         CGST
                                     </label>
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div style="margin-top: 0px;margin-left: 44px;width: 107px;display: flex;">
+                                <div style="margin-top: 0px;margin-left: 44px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="exampleCheck1">
                                         SGST
                                     </label>
@@ -379,7 +379,12 @@
         $totalPrice += $iGstTotal + $cGSTTotal + $sGSTTotal;
     @endphp
     <tr class="table-summary">
-        <td colspan="4" class="text-right">Total
+        <td colspan="4" class="text-right">
+            @if($quote->total_title)
+                {{ $quote->total_title }}
+            @else
+                Total
+            @endif
             <br>
         </td>
         <td class="text-right">

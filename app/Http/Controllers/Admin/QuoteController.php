@@ -223,6 +223,9 @@ class QuoteController extends Controller
             $newQuoteNo = implode('/',$quoteNo);
             $quote->quote_no = $newQuoteNo;
         }
+        if(array_key_exists('change_total_title', $request->all())){
+            $quote->total_title = $request->get('change_total_title');
+        }
         $quote->status = $request->get('status');
         $quote->delivery_type = $request->get('delivery_type');
         $quote->save();

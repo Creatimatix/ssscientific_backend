@@ -55,6 +55,7 @@ class CustomerController extends Controller
                 'phone_number' => $request->get('phone_number'),
                 'email' => $request->get('email'),
                 'gst_no' => $request->get('gst_no'),
+                'pan_no' => $request->get('pan_no'),
                 'role_id' => $request->get('role'),
                 'zone' => $request->get('zone'),
                 'id_manager' => $request->get('id_manager'),

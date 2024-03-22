@@ -207,7 +207,11 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="change_quote_no" style="min-height: 33px">Change Quote No <small>({{ $model->quote_no }})</small></label>
-                                                <input type="text" name="change_quote_no" id="change_quote_no" class="form-control" value="{{ $model->is_enquired }}" required>
+                                                <input type="text" name="change_quote_no" id="change_quote_no" class="form-control">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="change_total_title" style="margin-top: 3px">Change  Total Title</label>
+                                                <input type="text" name="change_total_title" id="change_total_title" class="form-control" value="{{ $model->total_title }}">
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +308,7 @@
 {{--                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline-block':'none' }};margin-right:5px;">--}}
 {{--                                        Download Invoice--}}
 {{--                                    </a>--}}
-                                    <button class="btn btn-success pull-right m-l-10 approvedButton"
+                                    <button class="btn btn-success pull-right m-l-10"
                                             type="button" data-toggle="modal" data-target="#quotePreviewModal"  style="display: {{ !$model->is_preview?'inline-block':'none' }}">Preview Quote
                                     </button>
                                     @if($model->is_preview)
@@ -396,6 +400,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="quotePreviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Preview Quote</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-control">
+                        <input type="checkbox" name="is_preview" id="is_preview" > Confirming to final quote.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('pageScript')

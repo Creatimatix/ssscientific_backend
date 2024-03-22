@@ -202,10 +202,10 @@
                                     <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label for="notes">Quotation Request Notes<span class="noValidateClass">(optional)</span></label>
+                                            <label for="notes">Remark<span class="noValidateClass">(optional)</span></label>
                                             <textarea cols="10" rows="5" class="form-control" id="notes" name="notes" aria-describedby="emailHelp" placeholder="Notes"></textarea>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary pull-right quoteFormBtn quoteNewForm" id="quoteFormBtn" data-type="save">Submit</button>
