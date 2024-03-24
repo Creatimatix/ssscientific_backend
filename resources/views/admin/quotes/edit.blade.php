@@ -372,7 +372,7 @@
     </div>
 
     <div class="modal fade" id="accessoriesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Accessories</h5>
@@ -387,6 +387,7 @@
                             <th scope="col">SR NO</th>
                             <th scope="col">Accessories Name</th>
                             <th scope="col">SKU</th>
+                            <th scope="col">Qty</th>
                             <th scope="col">Asset Value</th>
                             <th scope="col">ADD</th>
                         </tr>

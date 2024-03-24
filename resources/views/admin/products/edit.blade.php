@@ -1,3 +1,6 @@
+@php
+    $totalAccessories = 0;
+@endphp
 @extends('admin.layouts.master')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -168,6 +171,95 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="panel panel-default" style="margin-top: 20px; margin-left: 10px;">
+                                            <div class="panel-heading">
+                                                <label for="relation">Product Accessories</label>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="PN NO">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="" placeholder="HSN No">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="acc_sale_price" name="acc_sale_price[]" value="" placeholder="Sale Price">
+                                                                <div class="input-group-btn">
+                                                                    <button class="btn btn-success" type="button"  onclick="accessories();"> <span class="fa fa-plus" aria-hidden="true"></span> </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div id="education_fields">
+                                                @if($product->accessories)
+                                                    @php
+                                                        $totalAccessories = $product->accessories->count();
+                                                    @endphp
+                                                    @foreach($product->accessories as $key => $accessory)
+                                                        <div class="row removeclass{{ $key  }}">
+                                                            <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model Name" value="{{ $accessory->name }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="acc_sku" name="acc_sku[]"  value="{{ $accessory->sku }}" placeholder="SKU">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]"  value="{{ $accessory->pn_no }}" placeholder="PN NO">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="{{ $accessory->hsn_no }}"  placeholder="HSN No">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="acc_sale_price" name="acc_sale_price[]" value="{{ $accessory->sale_price }}"  placeholder="Sale Price">
+                                                                        <div class="input-group-btn">
+                                                                            <button
+                                                                                class="btn btn-danger" type="button" onclick="remove_accessories({{ $key++ }});">
+                                                                                <span class="fa fa-minus" aria-hidden="true"></span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                    @endforeach
+                                                @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row" style="margin-top: 21px;margin-left: 2px;">
                                         <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
                                     </div>
@@ -188,8 +280,9 @@
 @endsection
 
 @section('pageScript')
-    <script src="{{ asset('/js/pages/product.js') }}"></script>
     <script>
+
+        var room = "{{ $totalAccessories }}";
         var productSuccessMsg = "{{ session('productSuccessMsg') }}";
         var productErrorMsg = "{{ session('productErrorMsg') }}";
         //
@@ -204,4 +297,6 @@
             theme: 'bootstrap4'
         })
     </script>
+    <script src="{{ asset('/js/pages/product.js') }}"></script>
+
 @endsection

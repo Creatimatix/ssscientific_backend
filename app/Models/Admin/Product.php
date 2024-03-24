@@ -14,6 +14,8 @@ class Product extends BaseModel
     protected $appends = ['default_image','default_document'];
 
     const PRODUCT_STATUS = 1;
+    const TYPE_PRODUCT = 0;
+    const TYPE_ACCESSORIES = 1;
     public function getDefaultImageAttribute(){
         return $this->image;
     }
@@ -35,5 +37,9 @@ class Product extends BaseModel
 
     public function images(){
         return $this->hasMany(ProductImage::class, 'id_product', 'id');
+    }
+
+    public function accessories(){
+        return $this->hasMany(Product::class,'id_product','id');
     }
 }

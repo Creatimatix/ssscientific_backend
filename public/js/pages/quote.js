@@ -468,6 +468,21 @@ function getUserDetails(val,type, isUpdate = false){
             if(data.gst_no){
                 $('#gst_no').val(data.gst_no);
             }
+            if(data.address){
+                $('#address').val(data.address);
+            }
+            if(data.city){
+                $('#city').val(data.city);
+            }
+            if(data.apt_no){
+                $('#apt_no').val(data.apt_no);
+            }
+            if(data.zipcode){
+                $('#zipcode').val(data.zipcode);
+            }
+            if(data.state){
+                $('#state').val(data.state);
+            }
         }
     });
 }
@@ -686,7 +701,7 @@ function getFreight(){
 }
 
 function getAccessories(textSearch = '', itemId){
-    $('#accessoriesRowData').html("<td colspan='4' style='text-align:center;padding:10px'>loading....</td>");
+    $('#accessoriesRowData').html("<td colspan='6' style='text-align:center;padding:10px'>loading....</td>");
     $.ajax({
         type: 'get',
         url: siteUrl+"/admin/ajax/accessories",

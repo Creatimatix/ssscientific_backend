@@ -55,7 +55,7 @@ class ProductController extends Controller
         });
         $userType = [];
         $tblProducts = Product::getTableName();
-        $source = Product::where($tblProducts.'.status', '=', 1);
+        $source = Product::where($tblProducts.'.status', '=', 1)->where($tblProducts.'.type', Product::TYPE_PRODUCT);
 
         if ($searchTerm !== '' && strlen($searchTerm) > 0) {
             $source->where(function ($query) use ($searchTerm,$tblProducts) {
@@ -94,7 +94,6 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-
         $request->validate([
             'name' => [
                 'required',
@@ -112,7 +111,7 @@ class ProductController extends Controller
             'sale_price' => 'required|numeric',
             'short_description' => 'required',
             'description' => 'required|string',
-            'status' => 'required',
+//            'status' => 'required',
             'images' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -128,7 +127,7 @@ class ProductController extends Controller
             $product->sale_price = $request->get('sale_price');
             $product->short_description = $request->get('short_description');
             $product->description = $request->get('description');
-            $product->status = $request->get('status');
+            $product->status = $request->get('status', 1);
             $product->features = 1;
             $product->is_featured = 1;
             $product->is_reusable = 0;
@@ -148,7 +147,6 @@ class ProductController extends Controller
                 $productImage->save();
             }
 
-
             if ($request->hasFile('document')) {
                 $document = $request->file('document');
                 $imageName = time() . '_' . $document->getClientOriginalName();
@@ -160,6 +158,30 @@ class ProductController extends Controller
                 $productImage->type = 1;
                 $productImage->save();
             }
+
+            $modelname = $request->get('modelname');
+            if(isset($modelname)){
+                if(isset($modelname[0]) && $modelname[0] != null){
+                    foreach($modelname as $key => $model){
+                        $accessories  = new Product();
+                        $accessories->name = $request->get('modelname')[$key];
+                        $accessories->sku = $request->get('acc_sku')[$key];
+//                    $accessories->sr_no = $request->get('acc_sr_no')[$key];
+                        $accessories->pn_no = $request->get('acc_pn_no')[$key];
+                        $accessories->hsn_no = $request->get('acc_hsn_no')[$key];
+                        $accessories->sale_price = $request->get('acc_sale_price')[$key];
+                        $accessories->type = 1;
+                        $accessories->short_description = null;
+                        $accessories->description = null;
+                        $accessories->status = Product::PRODUCT_STATUS;
+                        $accessories->features = 1;
+                        $accessories->id_product = $product->id;
+                        $accessories->save();
+                        $key++;
+                    }
+                }
+            }
+
 
             if($product->id > 0){
                 if(array_key_exists('type', $request->all())){
@@ -182,7 +204,7 @@ class ProductController extends Controller
     }
 
     public function edit(Request $request,$productId = null){
-        $products = Product::where('id', $productId)->with('images')->get()->first();
+        $products = Product::where('id', $productId)->with('accessories')->with('images')->get()->first();
         $categories =  Category::where('status', 1)->get()->all();
         return view('admin.products.edit',[
             'product' => $products,
@@ -192,7 +214,6 @@ class ProductController extends Controller
 
     public function update(Request $request){
         $productId = $request->get('id_product');
-
         $request->validate([
             'name' => [
                 'required',
@@ -241,7 +262,6 @@ class ProductController extends Controller
                $productImage->save();
            }
 
-
            if ($request->hasFile('document')) {
                $document = $request->file('document');
                $imageName = time() . '_' . $document->getClientOriginalName();
@@ -251,6 +271,30 @@ class ProductController extends Controller
                $productImage->image_name = $imageName;
                $productImage->type = 1;
                $productImage->save();
+           }
+
+           $modelname = $request->get('modelname');
+           if(isset($modelname)){
+               Product::where('id_product', $product->id)->delete();
+               foreach($modelname as $key => $model){
+                   if(!empty($model)){
+                       $accessories  = new Product();
+                       $accessories->name = $request->get('modelname')[$key];
+                       $accessories->sku = $request->get('acc_sku')[$key];
+//                    $accessories->sr_no = $request->get('acc_sr_no')[$key];
+                       $accessories->pn_no = $request->get('acc_pn_no')[$key];
+                       $accessories->hsn_no = $request->get('acc_hsn_no')[$key];
+                       $accessories->sale_price = $request->get('acc_sale_price')[$key];
+                       $accessories->type = 1;
+                       $accessories->short_description = null;
+                       $accessories->description = null;
+                       $accessories->status = Product::PRODUCT_STATUS;
+                       $accessories->features = 1;
+                       $accessories->id_product = $product->id;
+                       $accessories->save();
+                       $key++;
+                   }
+               }
            }
 
            if($product->id > 0){
@@ -335,15 +379,18 @@ class ProductController extends Controller
     }
 
     public function getAccessories(Request $request){
+        $itemId = $request->get('itemId');
+        $productItem = ProductCartItems::where('id', $itemId)->get()->first();
+        $productId = $productItem->product_id;
 
-        $accessories = Product::with('category')
+        $accessories = Product::with('accessories')
             ->where('status', 1)
             ->where('type', 1)
+            ->where('id_product', $productId)
             ->get()
             ->all();
 
         if($request->ajax()){
-            $itemId = $request->get('itemId');
 
             $htmlView = view('admin.products.accessory_list', [
                 'accessories' => $accessories,
