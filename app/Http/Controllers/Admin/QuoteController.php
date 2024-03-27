@@ -681,4 +681,16 @@ class QuoteController extends Controller
         return $freight;
     }
 
+    public function updateQuotePreview(Request $request){
+        $quoteId = $request->get('quoteId');
+        $quote = Quote::where("id", $quoteId)->get()->first();
+        if($quote){
+            $quote->is_preview = true;
+            $quote->save();
+        }
+        return response()->json([
+           'statusCode' => Response::HTTP_OK
+        ]);
+    }
+
 }

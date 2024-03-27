@@ -631,6 +631,38 @@ $(document).on('change','#getInstallationCharge',function(e){
     getInstalltion();
 });
 
+$(document).on('click','.showQuotePriview',function(e){
+    $('#quotePreviewModal').modal('show');
+    var quoteId = $('#quote_id').val();
+    $.ajax({
+        type: 'get',
+        url: siteUrl+"/items/preview/"+quoteId,
+        data: {
+            'quoteId':quoteId
+        },
+        success: function (response) {
+            $("#quoteItemDetails").html(response.html);
+        }
+    });
+});
+$(document).on('click','.isQuotePreviewBtn',function(e){
+    var quoteId = $("#quote_id").val();
+    if (!$('#is_preview').is(':checked')){
+        messages.error("Preview","Please checked checkbox for confirm preview.")
+        return false;
+    }
+    $.ajax({
+        type: 'post',
+        url: siteUrl+"/quote/update-preview",
+        data: {quoteId},
+        success: function (response) {
+            messages.saved("Preview","You have confirmed the preview.");
+            $('#quotePreviewModal').modal('hide');
+            window.location.reload();
+        }
+    });
+});
+
 $(document).on('change','.is_payable',function(e){
     var isPayable = null;
     var itemId = $(this).attr('data-id');

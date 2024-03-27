@@ -112,12 +112,12 @@
                                 <p>Products</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('accessories') }}" class="nav-link {{ ($controllerName == 'ProductController'  && $segments == 'accessories')?'active':'' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Accessories</p>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{ route('accessories') }}" class="nav-link {{ ($controllerName == 'ProductController'  && $segments == 'accessories')?'active':'' }}">--}}
+{{--                                <i class="far fa-circle nav-icon"></i>--}}
+{{--                                <p>Accessories</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                     </ul>
                 </li>
 {{--                @endif--}}
@@ -156,7 +156,7 @@
                         <li class="nav-item">
                             <a href="{{ route('invoices',['type' => \App\Models\Admin\Invoice::INVOICE]) }}" class="nav-link  {{ ($controllerName == 'InvoiceController' && request()->get('type') == \App\Models\Admin\Invoice::INVOICE) ?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Invoices</p>
+                                <p>Tax Invoice</p>
                             </a>
                         </li>
                         <li class="nav-item">

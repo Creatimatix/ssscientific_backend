@@ -105,10 +105,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/ajax/update-terms-n-conditions', 'updateTermCondition')->name('quote.updateTermCondition');
         Route::get('/ajax/getInstallationCharge', 'getInstallationCharge')->name('quote.getInstallationCharge');
         Route::get('/ajax/getFreightCharge', 'getFreightCharge')->name('quote.getFreightCharge');
+        Route::post('/quote/update-preview', 'updateQuotePreview')->name('quote.updateQuotePreview');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');
         Route::get('/quote/items/{id}','getItems')->name('getItems');
+        Route::get('/items/preview/{id}','previewItems')->name('previewItems');
         Route::get('/remove/item','removeCartItem')->name('item.remove');
         Route::post('/apply-discount','applyDiscount')->name('applyDiscount');
         Route::get('/remove-discount/{quote_id}','removeDiscount')->name('removeDiscount');

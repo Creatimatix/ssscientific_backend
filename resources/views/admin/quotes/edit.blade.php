@@ -308,8 +308,11 @@
 {{--                                       target="_blank" href="{{ route('invoice.download',['quote_id' => $model->id,'type'=>'pdf']) }}" style="display: {{ ($model->action_type == \App\Models\Admin\Quote::ACTION_STATUS_APPROVED)?'inline-block':'none' }};margin-right:5px;">--}}
 {{--                                        Download Invoice--}}
 {{--                                    </a>--}}
-                                    <button class="btn btn-success pull-right m-l-10"
-                                            type="button" data-toggle="modal" data-target="#quotePreviewModal"  style="display: {{ !$model->is_preview?'inline-block':'none' }}">Preview Quote
+                                    <button class="btn btn-success pull-right m-l-10 showQuotePriview"
+                                            type="button"
+                                            data-toggle="modal"
+                                            data-target="#quotePreviewModal"
+                                            style="display: {{ !$model->is_preview?'inline-block':'none' }}">Preview Quote
                                     </button>
                                     @if($model->is_preview)
                                     <button class="btn btn-success pull-right m-l-10 approvedButton"
@@ -403,7 +406,7 @@
     </div>
 
     <div class="modal fade" id="quotePreviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Preview Quote</h5>
@@ -412,13 +415,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div id="quoteItemDetails"></div>
                     <div class="form-control">
                         <input type="checkbox" name="is_preview" id="is_preview" > Confirming to final quote.
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary isQuotePreviewBtn">Save changes</button>
                 </div>
             </div>
         </div>

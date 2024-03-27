@@ -52,26 +52,27 @@
                                         </div>
                                         <div class="col-md-4" style="text-align: left;">
                                             <label class="">Select Purchase Order<span class="validateClass">*</span></label>
-                                            <select data-resource="po_id"
-                                                    class="form-control"
-                                                    style="width: 100%;"
-                                                    name="po_id"
-                                                    id="poNo"
-                                                    data-parent="#invoiceForm"
+                                            <input type="text" name="po_id" id="po_id" value="{{ $model->po_no }}" class="form-control fixedOption">
+{{--                                            <select data-resource="po_id"--}}
+{{--                                                    class="form-control"--}}
+{{--                                                    style="width: 100%;"--}}
+{{--                                                    name="po_id"--}}
+{{--                                                    id="poNo"--}}
+{{--                                                    data-parent="#invoiceForm"--}}
 {{--                                                    onchange="return getQuoteDetails(this.value,1)"--}}
-                                                    required>
-                                                <option value="">Select Purchase Order</option>
-                                                @if(isset($model->purchaseOrder))
-                                                    <option value="{{$model->purchaseOrder->id}}"
-                                                            selected>{{ $model->purchaseOrder->po_no }}
-                                                    </option>
-                                                @endif
-                                            </select>
+{{--                                                    required>--}}
+{{--                                                <option value="">Select Purchase Order</option>--}}
+{{--                                                @if(isset($model->purchaseOrder))--}}
+{{--                                                    <option value="{{$model->purchaseOrder->id}}"--}}
+{{--                                                            selected>{{ $model->purchaseOrder->po_no }}--}}
+{{--                                                    </option>--}}
+{{--                                                @endif--}}
+{{--                                            </select>--}}
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="pan_no">Pan No:</label>
-                                            <input type="text" name="pan_no" id="pan_no" value="{{ $model->pan_no }}" class="form-control fixedOption">
-                                        </div>
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="pan_no">Pan No:</label>--}}
+{{--                                            <input type="text" name="pan_no" id="pan_no" value="{{ $model->pan_no }}" class="form-control fixedOption">--}}
+{{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="freight">Freight Rate:</label>
                                             <input type="text" name="freight" id="freight" value="{{ $model->freight }}" class="form-control fixedOption">

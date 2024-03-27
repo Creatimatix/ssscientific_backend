@@ -19,7 +19,7 @@ class InvoiceController extends Controller
        if($type == Invoice::PROFORMA_INVOICE){
            $invoiceType = 'Proforma Invoice';
        }else{
-           $invoiceType = 'Invoice';
+           $invoiceType = 'Tax Invoice';
        }
 
        $invoices = Invoice::with('quote')->where('type', $type);
@@ -38,7 +38,7 @@ class InvoiceController extends Controller
         if($type == Invoice::PROFORMA_INVOICE){
            $invoiceType = 'Proforma Invoice';
         }else{
-           $invoiceType = 'Invoice';
+           $invoiceType = 'Tax Invoice';
         }
         return view('admin.invoices.create', [
             'type' => $type,
@@ -86,7 +86,7 @@ class InvoiceController extends Controller
        if($type == Invoice::PROFORMA_INVOICE){
            $invoiceType = 'Proforma Invoice';
         }else{
-           $invoiceType = 'Invoice';
+           $invoiceType = 'Tax Invoice';
         }
        if($invoice){
            return view('admin.invoices.edit',[

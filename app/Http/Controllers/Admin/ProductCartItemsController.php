@@ -46,9 +46,6 @@ class ProductCartItemsController extends Controller
     }
 
     public function getItems(Request $request,$quote_id){
-//        echo $quote_id;
-//        dd($request->all());
-//        $quote_id = $request->get('quote_id');
         $html = '';
         $items = ProductCartItems::where('quote_id',$quote_id)
                     ->with('product')
@@ -59,6 +56,27 @@ class ProductCartItemsController extends Controller
         $quote = Quote::where('id',$quote_id)->get()->first();
         if($quote){
             $html =  view('admin.quotes.items',[
+                'items' => $items,
+                'quote' => $quote,
+            ])->render();
+        }
+
+        return response()->json([
+            'html' => $html,
+            'status' => true
+        ]);
+    }
+ public function previewItems(Request $request,$quote_id){
+        $html = '';
+        $items = ProductCartItems::where('quote_id',$quote_id)
+                    ->with('product')
+                    ->with('accessories')
+                    ->whereNull('item_id')
+                    ->get()
+                    ->all();
+        $quote = Quote::where('id',$quote_id)->get()->first();
+        if($quote){
+            $html =  view('admin.quotes.previewItems',[
                 'items' => $items,
                 'quote' => $quote,
             ])->render();
