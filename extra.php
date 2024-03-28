@@ -20,3 +20,8 @@ To Run Project:
 
 
 ALTER TABLE `purchase_orders` ADD `terms_n_condition` TEXT NULL DEFAULT NULL AFTER `attn_no`;
+
+
+$sql = vsprintf(str_replace(array('?'), array('\'%s\''), $source->toSql()), $source->getBindings());
+return response()->json($sql);
+exit;

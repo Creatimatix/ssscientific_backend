@@ -26,7 +26,7 @@ class InvoiceController extends Controller
        if(Auth::user()->role_id != Role::ROLE_ADMIN){
            $invoices = $invoices->where('created_by', Auth::user()->id);
        }
-       $invoices = $invoices->with('purchaseOrder')->get()->all();
+       $invoices = $invoices->get()->all();
 
        return view('admin.invoices.index',[
             'invoices' => $invoices,
@@ -98,6 +98,7 @@ class InvoiceController extends Controller
    }
 
    public function update(Request $request){
+       $type = $request->get('type');
        $invoice_id = $request->get('invoice_id');
        $invoice = Invoice::where('id', $invoice_id)->with('quote')->with('purchaseOrder')->get()->first();
        if($invoice){
@@ -109,7 +110,7 @@ class InvoiceController extends Controller
            $invoice->status =  $request->get('status');
            $invoice->save();
 
-           return redirect()->route('invoices')->with("invoiceSuccessMsg",'Invoice updated successfully.');
+           return redirect()->route('invoices',['type' => $type])->with("invoiceSuccessMsg",'Invoice updated successfully.');
        }
    }
 
@@ -133,7 +134,7 @@ class InvoiceController extends Controller
         }
 
         $configs = Config::getVals(['IGST','CGST','SGST']);
-        $invoice = Invoice::where('id', $invoice_id)->with('quote')->with('purchaseOrder')->get()->first();
+        $invoice = Invoice::where('id', $invoice_id)->with('quote')->get()->first();
         $var = [
             'title' => 'Testing Page Number In Body',
             'layout' => $layout,
@@ -141,7 +142,7 @@ class InvoiceController extends Controller
             'model' => $invoice->quote,
             'configs' => $configs,
         ];
-
+//        dd($invoice->quote);
         if($invoiceType == Invoice::INVOICE){
             $prefix='Invoice';
             $page = 'admin.pdf.invoice';

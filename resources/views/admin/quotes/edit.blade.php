@@ -95,6 +95,17 @@
                                             <label for="relation">GST No:<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control"  value="{{ $model->gst_no }}" name="gst_no" id="gst_no" />
                                         </div>
+                                        <div class="col-md-4">
+                                            <label for="relation">Status:<span class="validateClass">*</span></label>
+                                            <select name="status" id="status" class="form-control" required>
+                                                <option value="">Select Option</option>
+                                                <option value="1" {{ $model->status == 1?'selected':'' }}>Active</option>
+                                                <option value="2" {{ $model->status == 2?'selected':'' }}>Inactive</option>
+                                            </select>
+                                            @error('status')
+                                            <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                         <div class="col-md-4 depend_on_tendor" style="display:none">
                                             <label for="tendor_no">Tendor Number:</label>
                                             <input type="text" name="tendor_no" id="tendor_no" value="{{ $model->tendor_no }}" class="form-control fixedOption" required>

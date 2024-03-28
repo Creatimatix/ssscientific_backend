@@ -530,6 +530,7 @@ class QuoteController extends Controller
                 }
             });
         }
+
         $source->orderBy($tblQuote.'.id', 'ASC');
         $result = $source->paginate($limit, ['quotes.id','quotes.quote_no','quotes.email']);
 
