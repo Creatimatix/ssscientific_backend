@@ -21,6 +21,7 @@ class ProductController extends Controller
         $products = Product::with('category')
                     ->where('status', 1)
                     ->where('type', 0)
+//                    ->orderBy('id', 'desc')
                     ->get()
                     ->all();
         return view('admin.products.index',[
@@ -450,7 +451,7 @@ class ProductController extends Controller
                 if(in_array($file->getClientOriginalExtension(),array('xls','xlsx','csv'))) {
                     $filepath = $file->getRealPath();
 
-                    $data = Excel::toArray([], $filepath);
+                    $data = Excel::toArray([], $request->file('import_file'));
                     $data = array_slice($data[0], 1);
                     if (isset($data) && count($data) > 0) {
                         foreach ($data as $key => $value) {
@@ -462,30 +463,32 @@ class ProductController extends Controller
                             $sku = isset($value[5])?$value[5]:null;
                             $shortDesc = isset($value[6])?$value[6]:null;
                             $desc = isset($value[7])?$value[7]:null;
+
+
                             if(!empty($productName)){
-                                $product = Product::where('name', $productName)->get()->first();
+                                $slug = slug($productName);
+                                $product = Product::where('slug', $slug)->get()->first();
                                 $category = Category::where('category_name', $categoryName)->get()->first();
                                 if(!$product){
                                     $product = new Product();
                                 }
-
                                 if(!$category){
                                     $category = new Category();
                                 }
-
-                                if($product && $category->id != $categoryName) {
+                                if($product && $category->category_name != $categoryName) {
                                     $product = new Product();
                                 }
 
                                 $product->name = $productName;
                                 $product->sku = $sku;
+                                $product->slug = $slug;
                                 $product->id_category = $category->id;
                                 $product->pn_no = $pnNo;
                                 $product->hsn_no = $hsnNo;
                                 $product->short_description = $shortDesc;
                                 $product->description = $desc;
-                                $product->sale_price = $request->get("sale_price");
-                                $product->status = $price;
+                                $product->sale_price = $price;
+                                $product->status = Product::PRODUCT_STATUS;
                                 $product->save();
                             }
                         }
