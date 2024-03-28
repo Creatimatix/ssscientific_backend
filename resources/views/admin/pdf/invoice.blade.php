@@ -96,12 +96,12 @@
             </p>
         </td>
         <td colspan='4'>
-            <p>P.O. No.: {{ $invoice->purchaseOrder->po_no }}</p>
+            <p>P.O. No.: {{ $invoice->po_no }}</p>
             <p>Place of Supply: {{ $model->property_address }}</p>
             <p>CUSTOMER GST NO.: XYZ00021</p>
-            @if($invoice->purchaseOrder->vendor)
-                <p>Vendor Code: {{ $invoice->purchaseOrder->vendor->vendor_code }}</p>
-            @endif
+{{--            @if($invoice->purchaseOrder->vendor)--}}
+{{--                <p>Vendor Code: {{ $invoice->purchaseOrder->vendor->vendor_code }}</p>--}}
+{{--            @endif--}}
         </td>
     </tr>
     <tr>
@@ -125,6 +125,11 @@
 
     @php
         $totalAmount = 0;
+         $subPrice = 0;
+        $finalTotal = 0;
+        $iGst = 0;
+        $cGst = 0;
+        $sGst = 0;
     @endphp
 
     <!-- Repeatable -->
@@ -155,18 +160,30 @@
             </tr>
 
             @foreach($item->accessories as $aKey => $accessory)
-                <tr style="text-align:center">
-                    <td width="10px">{{ $itemKey.'.'.++$aKey }}</td>
-                    <td>{{ $accessory->product->pn_no }}</td>
-                    <td>{{ $accessory->product->hsn_no }}</td>
-                    <td colspan='2' style="text-align: center">
-                        {{ $accessory->product->name }}
+                @php
+                    if($accessory->is_payable){
+                        $subPrice += $accessory->asset_value * $accessory->quantity;
+                        $totalAmount += $accessory->asset_value * $accessory->quantity;
+                    }
+                @endphp
+                <tr style="text-align: center; outline: thin solid">
+                    <td width="10px" style="padding: 0px 0px 10px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
+                    <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
+                    <td class="top-grey-border text-top">{{ $accessory->product->hsn_no }}</td>
+                    <td colspan='2' class="top-grey-border text-left text-top">
+                        <b>{{ $accessory->product->name }}</b>
                         <br />
                         {{ $accessory->product->short_description }}
                     </td>
-                    <td>{{ $accessory->quantity }}</td>
-                    <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</span></td>
-                    <td><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$accessory->asset_value }}</span></td>
+                    <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
+                    <td class="text-top text-right top-grey-border" ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
+                    <td class="text-top text-right top-grey-border">
+                        @if($accessory->is_payable)
+                            <span style="font-family: DejaVu Sans; sans-serif;">
+                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
+                    </span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
 
@@ -234,24 +251,29 @@
                 </tr>
 
                 @php
-                    $finalTotal = $totalAmount + $model->installation;
-                    if($model->discount){
-                        $finalTotal = $finalTotal - $model->discount;
-                    }
+                    $finalTotal = $totalAmount;
+                     if($model->discount){
+                         $finalTotal = $finalTotal - $model->discount;
+                     }
 
-                    if($model->freight){
-                        $finalTotal = $finalTotal + $model->freight;
-                    }
+                     if($model->freight){
+                         $finalTotal = $finalTotal + $model->freight;
+                     }
 
-                    if($model->i_gst){
-                        $finalTotal = $finalTotal + (($finalTotal * $model->i_gst)/100);
-                    }
-                    if($model->c_gst){
-                        $finalTotal = $finalTotal + (($finalTotal * $model->c_gst)/100);
-                    }
-                    if($model->s_gst){
-                        $finalTotal = $finalTotal + (($finalTotal * $model->s_gst)/100);
-                    }
+                     if($model->installation){
+                         $finalTotal = $finalTotal + $model->installation;
+                     }
+
+                     if($model->i_gst){
+                         $iGst =(($finalTotal * $model->i_gst)/100);
+                     }
+                     if($model->c_gst){
+                         $cGst =(($finalTotal * $model->c_gst)/100);
+                     }
+                     if($model->s_gst){
+                         $sGst =(($finalTotal * $model->s_gst)/100);
+                     }
+                     $finalTotal += $iGst + $cGst + $sGst;
                 @endphp
                 @if($model->i_gst)
                 <tr>
