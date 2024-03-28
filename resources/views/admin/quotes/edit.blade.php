@@ -144,50 +144,51 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h6 class="" style="display:flex">
-                                    <span class="">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;
-                                    <div class="icheck-primary d-inline billingCheckbox">
-                                        <input type="checkbox" name="billingChk" id="billingChk"
-                                               onclick="fillBillingAddress()" class="" {{ $model->billing_option?'checked':'' }}>
-                                        <label for="billingChk">
-                                            <span>Same as Staging Address</span>
-                                        </label>
-                                    </div>
-                                </h6>
-                                <div class="proposal-boxx--View">
-                                    <div class="row">
-                                        <div class="col-md-8 margin-bottom-20">
-                                            <label for="billing_address">Billing Street Address:</label>
-                                            <input type="text" class="form-control" name="billing_address" id="billing_address" value="{{ $model->billing_address }}" placeholder="Address" required>
 
-                                        </div>
-                                    </div>
+{{--                                <h6 class="" style="display:flex">--}}
+{{--                                    <span class="">Ship To:</span><span class="noValidateClass">(optional)</span>&nbsp;--}}
+{{--                                    <div class="icheck-primary d-inline billingCheckbox">--}}
+{{--                                        <input type="checkbox" name="billingChk" id="billingChk"--}}
+{{--                                               onclick="fillBillingAddress()" class="" {{ $model->billing_option?'checked':'' }}>--}}
+{{--                                        <label for="billingChk">--}}
+{{--                                            <span>Same as Staging Address</span>--}}
+{{--                                        </label>--}}
+{{--                                    </div>--}}
+{{--                                </h6>--}}
+{{--                                <div class="proposal-boxx--View">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-md-8 margin-bottom-20">--}}
+{{--                                            <label for="billing_address">Billing Street Address:</label>--}}
+{{--                                            <input type="text" class="form-control" name="billing_address" id="billing_address" value="{{ $model->billing_address }}" placeholder="Address" required>--}}
 
-                                    <div class="row margin-bottom-20">
-                                        <div class="col-md-4">
-                                            <label for="billing_apt_no">Billing Apt No</label>
-                                            <input type="text" class="form-control" name="billing_apt_no" id="billing_apt_no" value="{{ $model->billing_apt_no }}" placeholder="Billing Apt No">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="billing_city">Billing City<span class="validateClassOption">*</span></label>
-                                            <input type="text" class="form-control" name="billing_city" id="billing_city" value="{{ $model->billing_city }}"  placeholder="Billing City" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="billing_zipcode">Billing Zipcode<span class="validateClassOption">*</span></label>
-                                            <input type="text" class="form-control" name="billing_zipcode" id="billing_zipcode" value="{{ $model->billing_zipcode }}"  placeholder="Billing Zipcode" required>
-                                        </div>
-                                    </div>
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
-                                    <div class="row">
-                                        <div class="col-md-4" style="clear: both">
-                                            <div class="form-group">
-                                                <label class="">Billing State<span class="validateClassOption">*</span></label>
-                                                <input type="text" name="billing_state" id="billing_state" value="{{ $model->billing_state }}"  class="form-control">
-                                            </div>
-                                            <span class="text-danger" id="billing_state_error"></span>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                    <div class="row margin-bottom-20">--}}
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="billing_apt_no">Billing Apt No</label>--}}
+{{--                                            <input type="text" class="form-control" name="billing_apt_no" id="billing_apt_no" value="{{ $model->billing_apt_no }}" placeholder="Billing Apt No">--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="billing_city">Billing City<span class="validateClassOption">*</span></label>--}}
+{{--                                            <input type="text" class="form-control" name="billing_city" id="billing_city" value="{{ $model->billing_city }}"  placeholder="Billing City" required>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="billing_zipcode">Billing Zipcode<span class="validateClassOption">*</span></label>--}}
+{{--                                            <input type="text" class="form-control" name="billing_zipcode" id="billing_zipcode" value="{{ $model->billing_zipcode }}"  placeholder="Billing Zipcode" required>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="row">--}}
+{{--                                        <div class="col-md-4" style="clear: both">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <label class="">Billing State<span class="validateClassOption">*</span></label>--}}
+{{--                                                <input type="text" name="billing_state" id="billing_state" value="{{ $model->billing_state }}"  class="form-control">--}}
+{{--                                            </div>--}}
+{{--                                            <span class="text-danger" id="billing_state_error"></span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
                                 <h6 class="title_in_caps">Miscellaneous Information:</h6>
                                 <div class="proposal-boxx--View">
