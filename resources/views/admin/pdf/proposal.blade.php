@@ -22,12 +22,24 @@
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
         /** {margin:0; padding:0; text-indent:0; }*/
+        /* @page {
+            size: 7in 9.25in;
+            margin: 27mm 16mm 27mm 16mm;
+        } */
+
         body {
             transform: scale(1.0);
             transform-origin: 0 0;
             background-image: url("{{ public_path('images/logobg.png') }}");
             background-size: cover;
             background-position: center;
+            /* margin: 10mm 10mm 10mm 10mm; */
+            margin: 0;
+            border: solid blue;
+    border-width: thin;
+    overflow:hidden;
+    display:block;
+    box-sizing: border-box;
         }
 
         p {
@@ -186,8 +198,8 @@
         <th>Unit {{ $model->currency_type }}</th>
         <th>Amount {{ $model->currency_type }}</th>
     </tr>
-
-    <tr style="text-align: center">
+    <!-- <div> -->
+    <tr style="text-align: center;border: solid thin ">
         <td width="10px" style="padding: 0px 0px 100px 0px;" class='text-top'><b>{{ $itemKey }}</b></td>
         <td class='text-top'>{{ $item->product->pn_no }}</td>
         <td class='text-top'>{{ $item->product->hsn_no }}</td>
@@ -216,7 +228,7 @@
             }
         @endphp
         <tr style="text-align: center; outline: thin solid">
-            <td width="10px" style="padding: 0px 0px 10px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
+            <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
             <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
             <td class="top-grey-border text-top">{{ $accessory->product->hsn_no }}</td>
             <td colspan='2' class="top-grey-border text-left text-top">
@@ -234,6 +246,7 @@
                 @endif
             </td>
         </tr>
+        <!-- </div> -->
     @endforeach
     <!-- repeatable -->
 @if($key++ == $totalItems)
@@ -259,7 +272,7 @@
             <p class="addressinfo">Mobile No.: +91 9833241875</p>
         </td>
     </tr>
-    @php
+     @php
         $finalTotal = $totalAmount;
         if($model->discount){
             $finalTotal = $finalTotal - $model->discount;
@@ -286,12 +299,12 @@
 
         $finalTotal = round($finalTotal, 2);
     @endphp
-    <tr>
+  <tr>
         <td colspan='3' class='no-border' >Payment Terms:</td>
         <td colspan='3' class='no-border text-right'>Ex-Warehouse</td>
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</span></td>
     </tr>
-    @if($model->discount > 0)
+  @if($model->discount > 0)
         <tr>
             <td colspan='3' class='no-border' >Delivery Period:</td>
             <td colspan='3' class='no-border text-right'>Discount Applied</td>
@@ -313,31 +326,31 @@
         <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
         <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
     </tr>
-    @if($model->s_gst > 0)
+       @if($model->s_gst > 0)
     <tr>
         <td colspan='3' class='no-border'></td>
         <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
-        <td colspan='2'class='no-border'>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
+        <td colspan='2'class=''>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
     </tr>
     @endif
-    <tr>
+     <tr>
         <td colspan='3' class='no-border' id="total"></td>
         <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
         <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
-   <script>
+   <!-- <script>
     
 document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}})+" ONLY.";
-    </script>
+    </script> -->
     </tr>
     <tr>
         <td colspan='8' class='left-align no-border'>
     </br>
             For, S. S SCIENTIFIC</br>
-            <img width="130" height="85" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
+            <img width="130px" height="85px" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
             AUTHORIZED SIGNATORY
         </td>
     </tr>
-    @endif
+    @endif 
 </table>
 </span>
 </p>
@@ -380,8 +393,8 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
     body {
         font-size: 11px;
         /* background-image: url({{ public_path('images/logobg.png') }}); */
-        /* height: 100%;
-        width: 100%; */
+        height: 100%;
+        width: 100%;
         background-size: cover;
         padding: 9px 0;
         z-index: 11;
