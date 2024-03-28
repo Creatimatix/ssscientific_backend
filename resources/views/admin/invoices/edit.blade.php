@@ -30,6 +30,7 @@
                         <div class="card-body">
                             <form name="invoiceForm" id="invoiceForm" action="{{ route('update.invoice') }}" method="POST" autocomplete="off">
                                 {{ csrf_field() }}
+                                <input type="hidden" value="{{ request()->get('type') }}" name="type">
                                 <input type="hidden" value="{{ $model->id }}" name="invoice_id">
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">

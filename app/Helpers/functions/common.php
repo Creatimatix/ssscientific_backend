@@ -34,3 +34,12 @@ if(!function_exists('sendMail')){
         return new $class($data);
     }
 }
+if(!function_exists('slug')){
+    function slug($string) {
+        return preg_replace(
+            array('/\s+/', '/[^\w\-]+/', '/\-\-+/', '/^-+/', '/-+$/'),
+            array('-', '', '-', '', ''),
+            trim(strtolower($string))
+        );
+    }
+}

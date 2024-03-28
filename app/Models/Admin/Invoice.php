@@ -26,7 +26,7 @@ class Invoice extends Model
     }
 
     public function quote(){
-        return $this->belongsTo(Quote::class,'quote_id','id');
+        return $this->belongsTo(Quote::class,'quote_id','id')->with('items');
     }
 
     public function purchaseOrder(){

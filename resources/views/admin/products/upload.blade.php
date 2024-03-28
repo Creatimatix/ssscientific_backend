@@ -25,7 +25,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <span class="card-header-text">Upload Zipcodes</span>
+                            <span class="card-header-text">Upload Products</span>
                             <a href="{{ url('products.csv') }}" class="pull-right" style="margin-left: 75%; display: inline-block">Download Sample</a>
                         </div>
                         <div class="card-body">

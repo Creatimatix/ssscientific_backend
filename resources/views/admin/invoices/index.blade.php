@@ -48,7 +48,7 @@
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $invoice->invoice_no }}</td>
                                             <td>{{ $invoice->quote->quote_no }}</td>
-                                            <td>{{ $invoice->purchaseOrder->po_no }}</td>
+                                            <td>{{ $invoice->po_no }}</td>
                                             <td>{{ status($invoice->status) }}</td>
                                             <td>{{ date('d-M-Y', strtotime($invoice->created_at)) }}</td>
                                             <td>
