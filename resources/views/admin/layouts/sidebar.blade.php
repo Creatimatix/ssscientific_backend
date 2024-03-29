@@ -154,15 +154,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('invoices',['type' => \App\Models\Admin\Invoice::INVOICE]) }}" class="nav-link  {{ ($controllerName == 'InvoiceController' && request()->get('type') == \App\Models\Admin\Invoice::INVOICE) ?'active':'' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tax Invoice</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{ route('invoices',['type' => \App\Models\Admin\Invoice::PROFORMA_INVOICE]) }}" class="nav-link  {{ ($controllerName == 'InvoiceController' && request()->get('type') == \App\Models\Admin\Invoice::PROFORMA_INVOICE) ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Proforma Invoices</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('invoices',['type' => \App\Models\Admin\Invoice::INVOICE]) }}" class="nav-link  {{ ($controllerName == 'InvoiceController' && request()->get('type') == \App\Models\Admin\Invoice::INVOICE) ?'active':'' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tax Invoice</p>
                             </a>
                         </li>
                     </ul>
