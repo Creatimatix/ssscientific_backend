@@ -150,7 +150,7 @@
                         <li class="nav-item">
                             <a href="{{ route('purchase.orders') }}" class="nav-link  {{ $controllerName == 'PurchaseOrderController'?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Purchase Order</p>
+                                <p>Vendor P.O.</p>
                             </a>
                         </li>
                         <li class="nav-item">
