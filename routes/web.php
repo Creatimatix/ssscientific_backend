@@ -106,7 +106,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/ajax/getInstallationCharge', 'getInstallationCharge')->name('quote.getInstallationCharge');
         Route::get('/ajax/getFreightCharge', 'getFreightCharge')->name('quote.getFreightCharge');
         Route::post('/quote/update-preview', 'updateQuotePreview')->name('quote.updateQuotePreview');
-        Route::get('/quote/delivery-note/{id}','deliveryNote')->name('deliveryNote');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');
@@ -124,6 +123,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invoice/update','update')->name('update.invoice');
         Route::get('/invoice/delete/{invoice}','destroy')->name('delete.invoice');
         Route::get('/invoice/download/{invoice_id}', 'downloadInvoice')->name('invoice.download');
+        Route::get('/invoice/delivery-note/{id}','deliveryNote')->name('deliveryNote');
     });
     Route::controller(PurchaseOrderController::class)->group(function(){
         Route::get('/purchase-orders','index')->name('purchase.orders');

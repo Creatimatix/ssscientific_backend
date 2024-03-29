@@ -114,3 +114,11 @@ $(function (){
     initializePurchaseOrderSelect2();
 });
 
+$(document).on('click', '#isSameAsBillingAddress', function (){
+    if($(this).prop('checked')){
+        $(".dependOnCheckboxOfAddress").hide();
+    }else{
+        $(".dependOnCheckboxOfAddress").show();
+    }
+});
+
