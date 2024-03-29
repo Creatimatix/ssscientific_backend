@@ -9,6 +9,20 @@
             $totalItems = count($quote->items);
             $itemKey = 0;
         @endphp
+        <!DOCTYPE  html>
+<html lang="en">
+<head>
+        
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Delivery Note</title>
+    <meta name="author" content="ssscientific"/>
+    <style type="text/css">
+
+
+          </style>
+
+</head>
+<body>
         <p style="text-indent: 0pt;text-align: left; pading-top:-10px;">
         <span>
             <table cellspacing="0" cellpadding="0" class='center'>
@@ -27,7 +41,7 @@
 </table>
         </span>
         </p>
-        <table class='center table-quotation no-border'>
+        <table class='center no-border' style="width:90%">
             <tr class='no-border'>
                 <th class='no-border'>&nbsp;</th>
             </tr>
@@ -154,4 +168,6 @@
 
         </span>
         </p>
+        </body>
+</html>
     @endsection
