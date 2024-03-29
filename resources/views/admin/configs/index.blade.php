@@ -42,9 +42,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($configs as $config)
+                                    @php
+                                        $sr_no = 0;
+                                    @endphp
+                                    @foreach($configs as $key => $config)
                                     <tr>
-                                        <td class="subj_name">{{ $config->id }}</td>
+                                        <td class="subj_name">{{ ++$sr_no }}</td>
                                         <td>{{ $config->name }}</td>
                                         <td>{{ $config->value }}</td>
                                         <td>{{ \App\Models\Admin\Role::roleStatus[$config->status] }}</td>

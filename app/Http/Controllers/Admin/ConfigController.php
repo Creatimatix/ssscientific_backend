@@ -53,7 +53,7 @@ class ConfigController extends Controller
         $value = $request->get('value');
 
         $validator = $request->validate([
-            'name' => 'required|unique:configs,name',
+            'name' => 'required|unique:configs,name,'.$id,
             'value' => 'required',
             'status' => 'required',
         ]);
