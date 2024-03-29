@@ -127,7 +127,7 @@
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                 Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
-            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: 27AYQPS9651P1Z2</p>
+            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">GST: 27AYQPS9651P1Z2</p>
         </td>
         <td style='text-align:right;border: none;'>
         <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
@@ -155,7 +155,7 @@
         <th colspan='4' class='left-align'></th>
     </tr>
 
-    <tr>
+    <!-- <tr>
         <td colspan='4'>
             <p>
                 {{ $model->property_address }}
@@ -164,7 +164,7 @@
         <td colspan='4'>
             <p>{{ $model->shipto_address }}</p>
         </td>
-    </tr>
+    </tr> -->
     <tr>
         <td colspan='4'>
             <p>
@@ -409,7 +409,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
         src: url({{ storage_path('fonts/poppins/poppins-extra-bold.ttf') }}) format("truetype");
     }
     body {
-        font-size: 11px;
+        /* font-size: 11px; */
         /* background-image: url({{ public_path('images/logobg.png') }}); */
         height: 100%;
         width: 100%;
