@@ -128,6 +128,7 @@
 
         table {
             width: 90%;
+            border-collapse: collapse;
         }
 
         td .addressinfo {
@@ -160,16 +161,17 @@
         </p>
         <table  cellspacing="0" cellpadding="0" class='center no-border' style="width:90%">
             <tr class='no-border'>
-                <th class='no-border'>&nbsp;</th>
+            <td  class='no-border' colspan='6' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
+                </td>
             </tr>
             <tr>
-                <th style="text-align:center;" colspan='6'>
+                <th style="text-align:center; border: size 3px;;" colspan='6'>
                     Delivery Note
-                    <!-- <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1> -->
                 </th>
             </tr>
             <tr class='no-border'>
-                <th class='no-border'>&nbsp;</th>
+            <td  class='no-border' colspan='6' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
+                </td>
             </tr>
             <tr>
                 <th colspan='3' class='left-align'>Bill To:</th>
@@ -258,7 +260,7 @@
                                 $totalAmount += $accessory->asset_value * $accessory->quantity;
                             }
                         @endphp
-                        <tr style="text-align: center; outline: thin solid">
+                        <tr style="text-align: center;">
                             <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
                             <td class="top-grey-border text-top">{{ $accessory->product?$accessory->product->pn_no:'' }}</td>
                             <td colspan='3' class="top-grey-border text-left text-top" style="text-align:left">
