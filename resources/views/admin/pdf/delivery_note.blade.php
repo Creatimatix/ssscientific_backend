@@ -6,7 +6,7 @@
             $iGst = 0;
             $cGst = 0;
             $sGst = 0;
-            $totalItems = count($model->items);
+            $totalItems = count($quote->items);
             $itemKey = 0;
         @endphp
         <p style="text-indent: 0pt;text-align: left; pading-top:-10px;">
@@ -14,11 +14,11 @@
             <table cellspacing="0" cellpadding="0" class='center'>
             <tr>
                 <td style="border: none;">
-                    <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific - {{ $totalItems }}</p>
+{{--                    <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific - {{ $totalItems }}</p>--}}
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                         Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
-                    <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: 27AYQPS9651P1Z2</p>
+                    <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: {{ $configs['GST_NO'] }}</p>
                 </td>
                 <td style='text-align:right;border: none;'>
                 <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
@@ -41,43 +41,57 @@
                 <th class='no-border'>&nbsp;</th>
             </tr>
             <tr>
-                <th colspan='4' class='left-align'>To</th>
-                <th colspan='4' class='left-align'></th>
+                <th colspan='4' class='left-align'>Bill To:</th>
+                <th colspan='4' class='left-align'>Ship To:</th>
             </tr>
 
             <tr>
                 <td colspan='4'>
                     <p>
-                        {{ $model->property_address }}
+                        {{ $quote->property_address }}
                     </p>
                 </td>
                 <td colspan='4'>
-                    <p>{{ $model->shipto_address }}</p>
-                </td>
-            </tr>
-            <tr>
-                <td colspan='4'>
-                    <p>
-                        {{ $model->user->full_name }} <br />
-                        {{ $model->property_address }}
-                    </p>
-                </td>
-                <td colspan='4'>
-                    <p>QTN.No.: {{ $model->quote_no }}</p>
-                    @if($model->order_type == \App\Models\Admin\Quote::ORDER_TYPE_TENDOR)
-                        <p>Tendor No.: {{ $model->tendor_no }}</p>
-                        <p>Due Date: {{ date('d-m-Y', strtotime($model->due_date)) }}</p>
+                    @php
+                        $state  = $invoice->is_billing_address?$quote->user->state:$invoice->state;
+                        $city  = $invoice->is_billing_address?$quote->user->city:$invoice->city;
+                    @endphp
+                    @if(!$invoice->is_billing_address)
+                        <p>{{ $invoice->shipto_address }}</p>
+                    @else
+                        <p>{{ $quote->user->billing_address }}</p>
                     @endif
                 </td>
             </tr>
+            <tr>
+                <td colspan='4'>
+                    <p>
+                        Invoice No.:{{ $invoice->invoice_no }} <br />
+                        Date: {{ date('d.m.y', strtotime($invoice->created_at)) }} <br />
+                        GST No.: {{ $configs['GST_NO'] }} <br />
+                        PAN No.: {{ $configs['PAN_NO'] }} <br />
+                    </p>
+                </td>
+                <td colspan='4'>
+                    <p>
+                        P.O. No.: {{ $invoice->po_no }} <br />
+                        Place Of Supply.: {{ $city }} <br />
+                        @php
+                            $gstNo = $quote->user->gst_no;
+                            $stateCode = null;
+                            if($gstNo){
+                                $stateCode = str_split($gstNo,2);
+                                $gstNo = $stateCode[0];
+                            }
+                        @endphp
+                        State: {{ $state }} &nbsp;&nbsp;&nbsp; State Code: {{ $gstNo }} <br />
+                        GST No.: {{ $quote->user->gst_no }} <br />
+                    </p>
+                </td>
+            </tr>
 
             <tr>
-                <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->user->full_name }}</td>
-            </tr>
-            <tr>
                 <td  class='no-border' colspan='8' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
-                    <span style="padding-right: 120px;float: left;">TEL: {{ $model->user->phone_number }}</span>
-                    <span style="padding-right: 13px;float: right;">Email: {{ $model->user->email }}</span>
                 </td>
             </tr>
             <tr>
@@ -86,7 +100,7 @@
                 <th colspan='2'>Description of goods</th>
                 <th>Qty</th>
             </tr>
-            @foreach($model->items as $key => $item)
+            @foreach($quote->items as $key => $item)
                 @php
                     $itemKey = ++$key;
                     $totalAmount = $totalAmount + ($item->quantity * $item->asset_value);
@@ -105,29 +119,29 @@
                 </td>
                 <td class="text-top text-right">{{ $item->quantity }}</td>
             </tr>
-            @foreach($item->accessories as $aKey => $accessory)
-                @php
-                    if($accessory->is_payable){
-                        $subPrice += $accessory->asset_value * $accessory->quantity;
-                        $totalAmount += $accessory->asset_value * $accessory->quantity;
-                    }
-                @endphp
-                <tr style="text-align: center; outline: thin solid">
-                    <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
-                    <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
-                    <td colspan='2' class="top-grey-border text-left text-top" style="text-align:left">
-                        <b>{{ $accessory->product->name }}</b>
-                        <br />
-                        {{ $accessory->product->short_description }}
-                        <br />
-                        @if(!$accessory->is_payable)
-                            <b>Not Payable</b>
-                        @endif
-                    </td>
-                    <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
-                </tr>
-                <!-- </div> -->
-            @endforeach
+                @foreach($item->accessories as $aKey => $accessory)
+                    @php
+                        if($accessory->is_payable){
+                            $subPrice += $accessory->asset_value * $accessory->quantity;
+                            $totalAmount += $accessory->asset_value * $accessory->quantity;
+                        }
+                    @endphp
+                    <tr style="text-align: center; outline: thin solid">
+                        <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
+                        <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
+                        <td colspan='2' class="top-grey-border text-left text-top" style="text-align:left">
+                            <b>{{ $accessory->product->name }}</b>
+                            <br />
+                            {{ $accessory->product->short_description }}
+                            <br />
+                            @if(!$accessory->is_payable)
+                                <b>Not Payable</b>
+                            @endif
+                        </td>
+                        <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
+                    </tr>
+                    <!-- </div> -->
+                @endforeach
             @endforeach
         </table>
         </span>

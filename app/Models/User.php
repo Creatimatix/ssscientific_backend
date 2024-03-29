@@ -72,7 +72,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name','billing_address'];
 
     public function getFullNameAttribute()
     {
@@ -115,6 +115,19 @@ class User extends Authenticatable
     public function businessHeadSubordinates()
     {
         return $this->hasMany(User::class, 'id_manager');
+    }
+
+    public function getBillingAddressAttribute() {
+        $array = [
+            $this->address,
+            $this->apt_no,
+            $this->city,
+            $this->state,
+            $this->zipcode,
+        ];
+
+        $array = array_filter($array);
+        return implode(', ', $array).' '.$this->zip_code;
     }
 }
 

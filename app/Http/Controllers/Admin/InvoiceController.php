@@ -61,9 +61,20 @@ class InvoiceController extends Controller
        $invoice->freight =  $request->get('freight');
        $invoice->installation =  $request->get('installation');
        $invoice->type = $type;
+       if(!array_key_exists('isSameAsBillingAddress', $request->all())){
+           $invoice->address =  $request->get('address');
+           $invoice->apt_no =  $request->get('apt_no');
+           $invoice->zipcode =  $request->get('zipcode');
+           $invoice->city =  $request->get('city');
+           $invoice->state =  $request->get('state');
+       }else{
+           $invoice->is_billing_address = true;
+       }
        $invoice->status =  $request->get('status');
        $invoice->created_by =  Auth::user()->id;
        $invoice->save();
+
+
 //       if($invoice->id > 0){
 //           $piInvoice = new Invoice();
 //           $piInvoice->id_invoice = $invoice->id;
@@ -108,6 +119,16 @@ class InvoiceController extends Controller
            $invoice->freight =  $request->get('freight');
            $invoice->installation =  $request->get('installation');
            $invoice->status =  $request->get('status');
+           if(!array_key_exists('isSameAsBillingAddress', $request->all())){
+               $invoice->address =  $request->get('address');
+               $invoice->apt_no =  $request->get('apt_no');
+               $invoice->zipcode =  $request->get('zipcode');
+               $invoice->city =  $request->get('city');
+               $invoice->state =  $request->get('state');
+               $invoice->is_billing_address = null;
+           }else{
+               $invoice->is_billing_address = true;
+           }
            $invoice->save();
 
            return redirect()->route('invoices',['type' => $type])->with("invoiceSuccessMsg",'Invoice updated successfully.');
@@ -156,6 +177,40 @@ class InvoiceController extends Controller
             $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
             return $pdf->download(strtoupper($prefix).'-'.time().'-' . $invoice->invoice_no . '.pdf');
+
+        }else{
+            return view($page, $var);
+        }
+    }
+
+    public function deliveryNote(Request $request,$invoiceId){
+        $html = '';
+        $type = $request->get('type', 'pdf');
+
+        $configs = Config::getVals(['GST_NO','PAN_NO']);
+
+        $invoice = Invoice::where('id', $invoiceId)->with('quote')->get()->first();
+
+
+        $layout = true;
+        if ($type == 'html') {
+            $layout = false;
+        }
+        $var = [
+            'title' => 'Delivery Note',
+            'layout' => $layout,
+            'invoice' => $invoice,
+            'quote' => $invoice->quote,
+            'configs' => $configs,
+        ];
+        $page = 'admin.pdf.delivery_note';
+        $prefix='Quote';
+
+        if($type == 'pdf'){
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            $pdf->loadView($page, $var);
+            return $pdf->download($invoice->quote->quote_no . '.pdf');
 
         }else{
             return view($page, $var);

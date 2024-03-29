@@ -26,8 +26,8 @@ class QuoteController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()){
-           return  $this->actionAjaxIndex($request);
+        if ($request->ajax()) {
+            return $this->actionAjaxIndex($request);
         }
         return view('admin.quotes.index');
     }
@@ -45,7 +45,7 @@ class QuoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,7 +53,7 @@ class QuoteController extends Controller
 
         try {
             $formType = $request->get('formType');
-            $quoteStatus =  Quote::ACTION_STATUS_CREATE;
+            $quoteStatus = Quote::ACTION_STATUS_CREATE;
 
             $customMessages = [
                 'id_user.required' => 'The customer name is required.',
@@ -75,9 +75,9 @@ class QuoteController extends Controller
                     'errors' => $validator->errors()
                 ]);
             }
-            if(array_key_exists('quote_no',$request->all())){
-                $quotes = Quote::where  ('quote_no',$request->input('quote_no'))->get()->first();
-            }else{
+            if (array_key_exists('quote_no', $request->all())) {
+                $quotes = Quote::where('quote_no', $request->input('quote_no'))->get()->first();
+            } else {
                 $quotes = new Quote();
                 $quotes->created_at = date('Y-m-d h:i:s');
             }
@@ -93,7 +93,7 @@ class QuoteController extends Controller
             $quotes->zipcode = $request->input('zipcode');
             $quotes->city = $request->input('city');
             $quotes->state = $request->input('state');
-            $quotes->billing_option = (array_key_exists('billingChk', $request->all()))?1:0;
+            $quotes->billing_option = (array_key_exists('billingChk', $request->all())) ? 1 : 0;
             $quotes->billing_address = $request->input('billing_address');
             $quotes->billing_apt_no = $request->input('billing_apt_no');
             $quotes->billing_zipcode = $request->input('billing_zipcode');
@@ -109,13 +109,13 @@ class QuoteController extends Controller
             $quotes->status = $quoteStatus;
             $quotes->delivery_type = $request->input('delivery_type');
             $quotes->created_by = Auth::user()->id;
-            if($request->get('order_type') == Quote::ORDER_TYPE_TENDOR){
+            if ($request->get('order_type') == Quote::ORDER_TYPE_TENDOR) {
                 $quotes->tendor_no = $request->get('tendor_no');
                 $quotes->due_date = $request->get('due_date');
             }
             $quotes->save();
-            if($quotes->wasRecentlyCreated){
-                $quoteNo = generateQuoteNo('Quote',$quotes->id);
+            if ($quotes->wasRecentlyCreated) {
+                $quoteNo = generateQuoteNo('Quote', $quotes->id);
                 $quotes->quote_no = $quoteNo;
                 $quotes->save();
                 return response()->json([
@@ -141,7 +141,7 @@ class QuoteController extends Controller
 //                    ]);
 //                }
 //            }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 "statusCode" => 400,
                 "quoteId" => '',
@@ -153,7 +153,7 @@ class QuoteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -164,13 +164,13 @@ class QuoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit(Request $request, $id)
     {
-        $quotes = Quote::where('id',$id)->with('user')->get()->first();
-        return view('admin.quotes.edit',[
+        $quotes = Quote::where('id', $id)->with('user')->get()->first();
+        return view('admin.quotes.edit', [
             'model' => $quotes
         ]);
     }
@@ -178,8 +178,8 @@ class QuoteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Quote $quote)
@@ -195,7 +195,7 @@ class QuoteController extends Controller
         $quote->zipcode = $request->input('zipcode');
         $quote->city = $request->input('city');
         $quote->state = $request->input('state');
-        $quote->billing_option = (array_key_exists('billingChk', $request->all()))?1:0;
+        $quote->billing_option = (array_key_exists('billingChk', $request->all())) ? 1 : 0;
         $quote->billing_address = $request->input('billing_address');
         $quote->billing_apt_no = $request->input('billing_apt_no');
         $quote->billing_zipcode = $request->input('billing_zipcode');
@@ -209,27 +209,26 @@ class QuoteController extends Controller
         $quote->currency_type = $request->input('currency_type');
         $quote->notes = $request->input('notes');
         $quote->created_by = Auth::user()->id;
-        if($request->get('order_type') == Quote::ORDER_TYPE_TENDOR){
+        if ($request->get('order_type') == Quote::ORDER_TYPE_TENDOR) {
             $quote->tendor_no = $request->get('tendor_no');
-            $quote->due_date = date('Y-m-d',strtotime($request->get('due_date')));
-        }else{
+            $quote->due_date = date('Y-m-d', strtotime($request->get('due_date')));
+        } else {
             $quote->tendor_no = '';
             $quote->due_date = '';
         }
-        if(array_key_exists('change_quote_no', $request->all()) && !empty($request->get('change_quote_no'))){
-            $quoteNo = explode('/',$quote->quote_no);
+        if (array_key_exists('change_quote_no', $request->all()) && !empty($request->get('change_quote_no'))) {
+            $quoteNo = explode('/', $quote->quote_no);
             $change_quote_no = $request->get('change_quote_no');
             $quoteNo[1] = $change_quote_no;
-            $newQuoteNo = implode('/',$quoteNo);
+            $newQuoteNo = implode('/', $quoteNo);
             $quote->quote_no = $newQuoteNo;
         }
-        if(array_key_exists('change_total_title', $request->all())){
+        if (array_key_exists('change_total_title', $request->all())) {
             $quote->total_title = $request->get('change_total_title');
         }
         $quote->status = $request->get('status');
         $quote->delivery_type = $request->get('delivery_type');
         $quote->save();
-
 
 
         return response()->json([
@@ -242,18 +241,18 @@ class QuoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $quote = Quote::where('id', $id)->get()->first();
-        if($quote){
+        if ($quote) {
             $quote->delete();
-        }else{
-            return redirect()->route('quotes')->with('quoteErrorMsg',"something went wrong.");
+        } else {
+            return redirect()->route('quotes')->with('quoteErrorMsg', "something went wrong.");
         }
-        return redirect()->route('quotes')->with('quoteSuccessMsg',"Quote deleted successfully.");
+        return redirect()->route('quotes')->with('quoteSuccessMsg', "Quote deleted successfully.");
     }
 
 
@@ -261,7 +260,8 @@ class QuoteController extends Controller
      * TO load data by ajax in datatable
      */
 
-    public function actionAjaxIndex(Request $request){
+    public function actionAjaxIndex(Request $request)
+    {
         $user = auth()->user();
         $columns = ['id', 'cust', 'status', 'quote_no', 'created_at'];
 
@@ -272,7 +272,7 @@ class QuoteController extends Controller
 
         $quote_status = $request->get('quote_status', 'All');
 
-        $colSort = $columns[(int) $request->get('iSortCol_0', 2)];
+        $colSort = $columns[(int)$request->get('iSortCol_0', 2)];
         $colSortOrder = strtoupper($request->get('sSortDir_0', 'asc'));
         $searchTerm = trim($request->get('sSearch', ''));
 
@@ -317,9 +317,9 @@ class QuoteController extends Controller
             ->with('items')
             ->leftJoin($tblUser, $tblUser . '.id', '=', $tblQuote . '.cust_id')
             ->leftJoin($tblQuoteBy, 'quote_by.id', '=', $tblQuote . '.created_by');
-        if(Auth::user()->role_id == Role::ROLE_EXECUTIVE){
+        if (Auth::user()->role_id == Role::ROLE_EXECUTIVE) {
             $source->where('created_by', Auth::user()->id);
-        } else if(Auth::user()->role_id == Role::ROLE_BUSINESS_HEAD){
+        } else if (Auth::user()->role_id == Role::ROLE_BUSINESS_HEAD) {
             $subordinates = $user->businessHeadSubordinates;
             $subordinateIds = $subordinates->pluck('id')->toArray();
             $source->whereIn('created_by', $subordinateIds);
@@ -328,7 +328,7 @@ class QuoteController extends Controller
             $source->where(function ($query) use ($searchTerm, $tblQuote, $tblUser) {
                 $query->where($tblQuote . '.quote_no', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere($tblQuote . '.token', 'LIKE', '%' . $searchTerm . '%')
-                   ->orWhere($tblQuote . '.address', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere($tblQuote . '.address', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere($tblQuote . '.apt_no', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere($tblQuote . '.zipcode', 'LIKE', '%' . $searchTerm . '%')
                     ->orWhere($tblQuote . '.city', 'LIKE', '%' . $searchTerm . '%')
@@ -337,12 +337,12 @@ class QuoteController extends Controller
                     ->orWhere($tblUser . '.last_name', 'LIKE', '%' . $searchTerm . '%');
             });
         }
-        if($quote_status != 'All'){
-            $source->where($tblQuote.'.status',$quote_status);
+        if ($quote_status != 'All') {
+            $source->where($tblQuote . '.status', $quote_status);
         }
 
-        if($request->get('quote_type') == 'false'){
-            $source->whereNotIn($tblQuote.'.status', [Quote::QUOTE_TEST]);
+        if ($request->get('quote_type') == 'false') {
+            $source->whereNotIn($tblQuote . '.status', [Quote::QUOTE_TEST]);
         }
 
 //        $query = vsprintf(str_replace(array('?'), array('\'%s\''), $source->toSql()), $source->getBindings());
@@ -364,25 +364,25 @@ class QuoteController extends Controller
             $email_conversation = ' <a href="javascript:void(0);"><i data-toggle="tooltip" title="" class="fa fa-envelope-o" data-original-title="Email Conversations"></i></a>';
             $order_reference = '';
             $download_proposal = '';
-            if($property->status > Quote::PROPOSAL_CREATED){
-                $download_proposal = '<br> <a href="'.route('proposal.downloadProposa',['token' => $property->token,'type' => 'pdf','quoteNo'=>$property->quote_no]).'">Download Proposal</a>';
+            if ($property->status > Quote::PROPOSAL_CREATED) {
+                $download_proposal = '<br> <a href="' . route('proposal.downloadProposa', ['token' => $property->token, 'type' => 'pdf', 'quoteNo' => $property->quote_no]) . '">Download Proposal</a>';
             }
 
-            $client_name = $property->first_name.' '.$property->last_name;
-            $created_by = $property->e_first_name.' '.$property->e_last_name;
+            $client_name = $property->first_name . ' ' . $property->last_name;
+            $created_by = $property->e_first_name . ' ' . $property->e_last_name;
 
-            if($property->backOrder && $property->backOrder->signedProposal &&  $property->backOrder->signedProposal->signed_document_path && $property->status == 8){
-                Quote::where('token',$property->token)->update(['status' => Quote::AGREEMENT_SIGNED]);
+            if ($property->backOrder && $property->backOrder->signedProposal && $property->backOrder->signedProposal->signed_document_path && $property->status == 8) {
+                Quote::where('token', $property->token)->update(['status' => Quote::AGREEMENT_SIGNED]);
                 $statusType = quote_status(Quote::AGREEMENT_SIGNED);
-            }else{
+            } else {
                 $statusType = quote_status($property->status);
             }
 
             $productDesc = '';
             $accesoriesCount = 0;
-            if($property->items){
-                foreach ($property->items as $key => $item){
-                    $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById(\''.$count.'-'.$accesoriesCount.'\').style.display = \'block\'" onmouseleave="document.getElementById(\''.$count.'-'.$accesoriesCount.'\').style.display = \'none\'">'.$item->product->name.'</i></u> <br /><br /><div class="form-popup" id=\''.$count.'-'.$accesoriesCount.'\'><span class=\'desc-text\'>'.$item->product->short_description.'</span></div>';
+            if ($property->items) {
+                foreach ($property->items as $key => $item) {
+                    $productDesc .= '<u><i class="icon-lock"  onmouseover="document.getElementById(\'' . $count . '-' . $accesoriesCount . '\').style.display = \'block\'" onmouseleave="document.getElementById(\'' . $count . '-' . $accesoriesCount . '\').style.display = \'none\'">' . $item->product->name . '</i></u> <br /><br /><div class="form-popup" id=\'' . $count . '-' . $accesoriesCount . '\'><span class=\'desc-text\'>' . $item->product->short_description . '</span></div>';
                     $accesoriesCount++;
                 }
             }
@@ -410,21 +410,21 @@ class QuoteController extends Controller
                 ]
             ];
 
-            if(Auth::user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+            if (Auth::user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN) {
                 unset($buttons['trash']);
             }
             $quoteDetails = Quote::getQuoteTotal($property->id);
-            $finalTotal = isset(ProductCartItems::CURRENCY[$property->currency_type])?ProductCartItems::CURRENCY[$property->currency_type].$quoteDetails['totalAmount']:'$';
+            $finalTotal = isset(ProductCartItems::CURRENCY[$property->currency_type]) ? ProductCartItems::CURRENCY[$property->currency_type] . $quoteDetails['totalAmount'] : '$';
             $aaData[] = [
                 'id' => $count++,
                 'created_at' => $property->created_at,
-                'quote_no' => $property->quote_no.$order_reference.$download_proposal,
-                'cust_info' => '<a href="" target="_blank">'.$client_name.'</a><br>'.$property->email.'<br>'.$property->phone_number,
+                'quote_no' => $property->quote_no . $order_reference . $download_proposal,
+                'cust_info' => '<a href="" target="_blank">' . $client_name . '</a><br>' . $property->email . '<br>' . $property->phone_number,
                 'product_desc' => $productDesc,
                 'total_price' => $finalTotal,
                 'created_by' => $created_by,
                 'status' => $statusType,
-                'controls' =>  table_buttons($buttons, false)
+                'controls' => table_buttons($buttons, false)
             ];
         }
 
@@ -438,13 +438,14 @@ class QuoteController extends Controller
         return response()->json($output);
     }
 
-    public function downloadQuote(Request $request,$quote_id){
+    public function downloadQuote(Request $request, $quote_id)
+    {
         ini_set('max_execution_time', -1);
         ini_set('memory_limit', '2048M');
 //        $quote_id = $request->get('id');
         $type = $request->get('type');
-        $configs = Config::getVals(['IGST','CGST','SGST']);
-        $quote = Quote::where('id',$quote_id)
+        $configs = Config::getVals(['IGST', 'CGST', 'SGST']);
+        $quote = Quote::where('id', $quote_id)
             ->with('user')
             ->with('items')
             ->get()
@@ -461,25 +462,26 @@ class QuoteController extends Controller
             'configs' => $configs,
         ];
         $page = 'admin.pdf.proposal';
-        $prefix='Quote';
+        $prefix = 'Quote';
 
-        if($type == 'pdf'){
+        if ($type == 'pdf') {
             $pdf = \App::make('dompdf.wrapper');
             $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
             return $pdf->download($quote->quote_no . '.pdf');
 
-        }else{
+        } else {
             return view($page, $var);
         }
     }
 
-    public function changeStatus(Request $request,$quote_id){
+    public function changeStatus(Request $request, $quote_id)
+    {
         $quoteNo = $quote_id;
-        $quotes = Quote::where('id',$quoteNo)->get()->first();
+        $quotes = Quote::where('id', $quoteNo)->get()->first();
 
         try {
-            if($quotes){
+            if ($quotes) {
                 $quotes->action_type = $request->get('action_type');
                 $quotes->action_by = Auth::id();
                 $quotes->action_at = time();
@@ -489,11 +491,11 @@ class QuoteController extends Controller
                 $adminName = User::getApprover($quotes->action_by);
                 return response()->json([
                     'statusCode' => 200,
-                    'approvedMsg' => '<label>Quote Approved By: '.$adminName.' <br />Quote Approved On: '.date('d-m-Y',$quotes->action_at).'</span></label>',
+                    'approvedMsg' => '<label>Quote Approved By: ' . $adminName . ' <br />Quote Approved On: ' . date('d-m-Y', $quotes->action_at) . '</span></label>',
                     'message' => "Proposal approved successfully.",
                 ], Response::HTTP_OK);
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             dd($e->getMessage());
         }
 //        return response()->json([
@@ -503,7 +505,8 @@ class QuoteController extends Controller
 //        ], Response::HTTP_BAD_REQUEST);
     }
 
-    public function getQuote(Request $request) {
+    public function getQuote(Request $request)
+    {
         $searchTerm = trim($request->get('term', ''));
         $page = trim($request->get('page', 1));
         $limit = 10;
@@ -517,47 +520,48 @@ class QuoteController extends Controller
         });
         $userType = [];
         $tblQuote = Quote::getTableName();
-        $source = Quote::where([$tblQuote.'.status' => 1]);
+        $source = Quote::where([$tblQuote . '.status' => 1]);
 
 
         if ($searchTerm !== '' && strlen($searchTerm) > 0) {
-            $source->where(function ($query) use ($searchTerm,$tblQuote) {
+            $source->where(function ($query) use ($searchTerm, $tblQuote) {
                 if (preg_match('/^[0-9]+$/', $searchTerm)) {
-                    $query->where($tblQuote.'.id', '=', $searchTerm);
+                    $query->where($tblQuote . '.id', '=', $searchTerm);
                 } else {
-                    $query->where($tblQuote.'.quote_no', 'LIKE', '%'.$searchTerm.'%')
-                        ->orWhere($tblQuote.'.email', 'LIKE', $searchTerm . '%');
+                    $query->where($tblQuote . '.quote_no', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere($tblQuote . '.email', 'LIKE', '%' . $searchTerm . '%');
                 }
             });
         }
 
-        $source->orderBy($tblQuote.'.id', 'ASC');
-        $result = $source->paginate($limit, ['quotes.id','quotes.quote_no','quotes.email']);
+        $source->orderBy($tblQuote . '.id', 'ASC');
+        $result = $source->paginate($limit, ['quotes.id', 'quotes.quote_no', 'quotes.email']);
 
         return response()->json($result);
     }
 
-    public function sendQuote(Request $request){
+    public function sendQuote(Request $request)
+    {
         $quoteId = $request->get('quote_id');
-        $quote = Quote::where('id',$quoteId)
+        $quote = Quote::where('id', $quoteId)
             ->with('user')
             ->get()
             ->first();
 
         $pdf = $this->generateQuote($request, $quoteId, 'mail');
-        $prefix='Quote';
-        $attachmentName = strtoupper($prefix).'-'.time().'-' . $quote->quote_no;
+        $prefix = 'Quote';
+        $attachmentName = strtoupper($prefix) . '-' . time() . '-' . $quote->quote_no;
 
         $attachment = [
             [
-                'name' => $attachmentName.'.pdf',
+                'name' => $attachmentName . '.pdf',
                 'data' => $pdf->output()
             ]
         ];
 
         $customer = $quote->user;
         try {
-            sendMail(\App\Emailers\Quote::class, ['customer' => $customer, 'quotes' => $quote])->sendQuote($customer, $attachment, 'customer',$quote);
+            sendMail(\App\Emailers\Quote::class, ['customer' => $customer, 'quotes' => $quote])->sendQuote($customer, $attachment, 'customer', $quote);
 
             return response()->json([
                 'statusCode' => 200,
@@ -565,7 +569,7 @@ class QuoteController extends Controller
                 'data' => '',
             ], Response::HTTP_OK);
 
-        }catch (Exception $e){
+        } catch (Exception $e) {
 
             return response()->json([
                 'statusCode' => 400,
@@ -577,9 +581,10 @@ class QuoteController extends Controller
 
     }
 
-    public function generateQuote(Request $request, $quoteId, $type = 'mail'){
-        $configs = Config::getVals(['IGST','CGST','SGST']);
-        $quote = Quote::where('id',$quoteId)
+    public function generateQuote(Request $request, $quoteId, $type = 'mail')
+    {
+        $configs = Config::getVals(['IGST', 'CGST', 'SGST']);
+        $quote = Quote::where('id', $quoteId)
             ->with('user')
             ->with('items')
             ->get()
@@ -596,21 +601,22 @@ class QuoteController extends Controller
             'configs' => $configs,
         ];
         $page = 'admin.pdf.proposal';
-        $prefix='Quote';
+        $prefix = 'Quote';
 
-        if($type == 'pdf' || $type == 'mail'){
+        if ($type == 'pdf' || $type == 'mail') {
             $pdf = \App::make('dompdf.wrapper');
             $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
 //            $pdf = PDF::loadview($page, $var);
             return $pdf;
 
-        }else{
+        } else {
             return view($page, $var);
         }
     }
 
-    public function updateTermCondition(Request $request){
+    public function updateTermCondition(Request $request)
+    {
         $quoteId = $request->get('quote_id');
         $iGST = $request->get('i_gst');
         $cGST = $request->get('c_gst');
@@ -623,9 +629,9 @@ class QuoteController extends Controller
         $installationType = $request->get('installationType');
         $installationPercentage = $request->get('installationPercentage');
 
-        $quote = Quote::where('id',$quoteId)->get()->first();
+        $quote = Quote::where('id', $quoteId)->get()->first();
 
-        if($quote){
+        if ($quote) {
             $quote->i_gst = $iGST;
             $quote->c_gst = $cGST;
             $quote->s_gst = $sGST;
@@ -635,8 +641,8 @@ class QuoteController extends Controller
             $quote->freight_percentage = $freightPercentage;
             $quote->installation_type = $installationType;
             $quote->installation_percentage = $installationPercentage;
-            if($amended_on){
-                $quote->amended_on = date("Y-m-d",strtotime($amended_on));
+            if ($amended_on) {
+                $quote->amended_on = date("Y-m-d", strtotime($amended_on));
             }
             $quote->save();
             return response()->json([
@@ -645,7 +651,7 @@ class QuoteController extends Controller
                 'data' => '',
             ], Response::HTTP_OK);
 
-        }else{
+        } else {
             return response()->json([
                 'statusCode' => Response::HTTP_BAD_REQUEST,
                 'message' => 'Something went wrong, please try again.',
@@ -654,81 +660,46 @@ class QuoteController extends Controller
         }
     }
 
-    public function getInstallationCharge(Request $request){
+    public function getInstallationCharge(Request $request)
+    {
         $quoteId = $request->get('quoteId');
         $type = $request->get('type');
         $val = $request->get('val');
 //        $config = Config::get('INSTALLATION');
 //        $installtion = $config['value'];
         $installtion = 0;
-        if($type == '%'){
-           $finalTotal = Quote::getQuoteTotal($quoteId);
+        if ($type == '%') {
+            $finalTotal = Quote::getQuoteTotal($quoteId);
             $installtion = round($finalTotal['totalAmount'] * $val / 100);
         }
         return $installtion;
     }
 
-    public function getFreightCharge(Request $request){
+    public function getFreightCharge(Request $request)
+    {
         $quoteId = $request->get('quoteId');
         $type = $request->get('type');
         $val = $request->get('val');
 //        $config = Config::get('FREIGHTCHARGE');
 //        $freight = $config['value'];
         $freight = 0;
-        if($type == '%'){
-           $finalTotal = Quote::getQuoteTotal($quoteId);
+        if ($type == '%') {
+            $finalTotal = Quote::getQuoteTotal($quoteId);
             $freight = round($finalTotal['totalAmount'] * $val / 100);
         }
         return $freight;
     }
 
-    public function updateQuotePreview(Request $request){
+    public function updateQuotePreview(Request $request)
+    {
         $quoteId = $request->get('quoteId');
         $quote = Quote::where("id", $quoteId)->get()->first();
-        if($quote){
+        if ($quote) {
             $quote->is_preview = true;
             $quote->save();
         }
         return response()->json([
-           'statusCode' => Response::HTTP_OK
+            'statusCode' => Response::HTTP_OK
         ]);
     }
-
-    public function deliveryNote(Request $request,$quote_id){
-        $html = '';
-        $type = $request->get('type', 'pdf');
-
-        $configs = Config::getVals(['IGST','CGST','SGST']);
-
-        $quote = Quote::where('id',$quote_id)
-            ->with('user')
-            ->with('items')
-            ->get()
-            ->first();
-
-        $layout = true;
-        if ($type == 'html') {
-            $layout = false;
-        }
-        $var = [
-            'title' => 'Delivery Note',
-            'layout' => $layout,
-            'model' => $quote,
-            'configs' => $configs,
-        ];
-        $page = 'admin.pdf.delivery_note';
-        $prefix='Quote';
-
-        if($type == 'pdf'){
-            $pdf = \App::make('dompdf.wrapper');
-            $pdf->getDomPDF()->set_option("enable_php", true);
-            $pdf->loadView($page, $var);
-            return $pdf->download($quote->quote_no . '.pdf');
-
-        }else{
-            return view($page, $var);
-        }
-    }
-
-
 }

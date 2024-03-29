@@ -66,11 +66,11 @@
 {{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="freight">Freight Rate:</label>
-                                            <input type="text" name="freight" id="freight" class="form-control fixedOption">
+                                            <input type="number" name="freight" id="freight" class="form-control fixedOption">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="installation">Installation</label>
-                                            <input type="text" name="installation" id="installation" value="" class="form-control fixedOption">
+                                            <input type="number" name="installation" id="installation" value="" class="form-control fixedOption">
                                         </div>
 
                                         <div class="col-md-4">
@@ -83,6 +83,50 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <h6 class="" style="display:flex;margin-left: -9px;">
+                                    <div class="icheck-primary d-inline billingCheckbox">
+                                        <input type="checkbox" name="isSameAsBillingAddress" id="isSameAsBillingAddress" class="" checked>
+                                        <label for="isSameAsBillingAddress">
+                                            <span>Same as Billing Address</span>
+                                        </label>
+                                    </div>
+                                </h6>
+                                <div class="proposal-boxx--View dependOnCheckboxOfAddress" style="display:none">
+                                    <div class="row">
+                                        <div class="col-md-8 margin-bottom-20">
+                                            <label for="address">Shipping Street Address:</label>
+                                            <input type="text" class="form-control" name="address" id="address" value="" placeholder="Address" >
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-bottom-20">
+                                        <div class="col-md-4">
+                                            <label for="apt_no">Shipping Apt No</label>
+                                            <input type="text" class="form-control" name="apt_no" id="apt_no" value="" placeholder="Shipping Apt No">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="city">Shipping City<span class="validateClassOption">*</span></label>
+                                            <input type="text" class="form-control" name="city" id="city" value=""  placeholder="Shipping City" >
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="zipcode">Shipping Zipcode<span class="validateClassOption">*</span></label>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" value=""  placeholder="Shipping Zipcode" >
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4" style="clear: both">
+                                            <div class="form-group">
+                                                <label class="">Shipping State<span class="validateClassOption">*</span></label>
+                                                <input type="text" name="state" id="state" value=""  class="form-control">
+                                            </div>
+                                            <span class="text-danger" id="state_error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
                             </form>
                         </div>
