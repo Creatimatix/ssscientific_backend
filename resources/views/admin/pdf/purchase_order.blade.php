@@ -6,6 +6,13 @@
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
         /** {margin:0; padding:0; text-indent:0; }*/
+        body{
+            transform: scale(1.0);
+            transform-origin: 0 0;
+            background-image: url("{{ public_path('images/logobg.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
         p {
             color: black;
             text-decoration: none;
@@ -67,21 +74,24 @@
         <span>
 <table cellspacing="0" cellpadding="0" class='center'>
     <tr>
-        <td style="border: none;">
+        <td style="border: none; font-size:1.50em">
             <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                 Mansion, Dr,<br> Meisheri Road, Dongri, Mumbai - 400 009.</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra, India</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: 27AYQPS9651P1Z2</p>
         </td>
+        <td style='text-align:right;border: none;'>
+        <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
+        </td>
     </tr>
 </table>
 </span>
-</p>
+</p></br>
 <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">PURCHASE ORDER</h1>
 <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
 <p style="text-indent: 0pt;text-align: left;"><br/></p>
-<table class='center table-quotation'>
+<table class='center table-quotation' style="table-layout:fixed; height : 80vh;">
     <tr>
         <th colspan='4' class='left-align'>To</th>
         <th colspan='4' class='left-align'></th>
@@ -129,16 +139,16 @@
                 <td>{{ $product->product->pn_no }}</td>
                 <td>{{ $product->product->hsn_no }}</td>
                 <td colspan='2'>{{ $product->product->name }}
-                    <br />
-                    @if($product->product->images)
+                    <!-- <br /> -->
+                    <!-- @if($product->product->images)
                         @foreach($product->product->images as $image)
                             <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />
                         @endforeach
-                    @endif
+                    @endif -->
                 </td>
                 <td>1</td>
                 <td>{{ $product->product->sale_price }}</td>
-                <td>{{ $product->product->sale_price }}</td>
+                <td>{{ $product->product->sale_price*2 }}</td>
             </tr>
         @endforeach
     @endif
@@ -151,7 +161,7 @@
     </tr>
 
     <tr>
-        <td colspan='8' class='left-align no-border'>
+        <td colspan='8' class='left-align no-border' style="bottom: 20px;">
             <br>
             For, S. S SCIENTIFIC</br>
             <img width="130" height="85" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
@@ -159,6 +169,12 @@
         </td>
     </tr>
 </table>
+<div style="position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center; font-size:1.50em" ><b>Work Address:</b> 401, 4th floor, 3, navjeevan Society, Dr. D. B. Marg, Mumbai central, Mumbai  - 400 008. </br>
+           Email : support@ssscientific.net / sales@ssscientific.net Web :  www.ssscientific.net Mob. : +91 98332 41875</div>
+
 </span>
 </p>
 <style>
@@ -208,6 +224,9 @@
     }
     table {
         width: 90%;
+    }
+    td{
+        height:40px;
     }
 </style>
 </body>

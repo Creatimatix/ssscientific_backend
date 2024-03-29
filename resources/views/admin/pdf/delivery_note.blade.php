@@ -21,7 +21,7 @@
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: {{ $configs['GST_NO'] }}</p>
                 </td>
                 <td style='text-align:right;border: none;'>
-                <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
+                    <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
                 </td>
             </tr>
 </table>
@@ -144,6 +144,12 @@
                 @endforeach
             @endforeach
         </table>
+        <div id='footer' style="position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center; font-size:1.50em" ><b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
+           <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
+
         </span>
         </p>
     @endsection

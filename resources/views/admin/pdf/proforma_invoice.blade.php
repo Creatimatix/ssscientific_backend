@@ -6,6 +6,13 @@
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
         /** {margin:0; padding:0; text-indent:0; }*/
+        body{
+            transform: scale(1.0);
+            transform-origin: 0 0;
+            background-image: url("{{ public_path('images/logobg.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
         p {
             color: black;
             text-decoration: none;
@@ -63,6 +70,9 @@
                         Mansion, Dr,<br> Meisheri Road, Dongri, Mumbai - 400 009.</p>
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra, India</p>
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: 27AYQPS9651P1Z2</p>
+                </td>
+                <td style='text-align:right;border: none;'>
+                    <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
                 </td>
             </tr>
         </table>
@@ -261,6 +271,12 @@
     </tr>
 
 </table>
+<div id='footer' style="position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center; font-size:1.50em" ><b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
+           <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
+
 </span>
 </p>
 <style>
