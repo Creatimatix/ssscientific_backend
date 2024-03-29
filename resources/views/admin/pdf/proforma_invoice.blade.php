@@ -99,7 +99,8 @@
         <td colspan='4'>
             <p>P.O. No.: {{ $invoice->po_no }}</p>
             <p>Place of Supply: {{ $model->property_address }}</p>
-            <p>CUSTOMER GST NO.: XYZ00021</p>
+            <p>State: {{ $invoice->state }}        State Code : {{ substr($invoice->gst_no, 0, 2)  }}</p>
+            <p>GST NO.: {{ $invoice->gst_no  }}</p>
 {{--            @if($invoice->purchaseOrder->vendor)--}}
 {{--                <p>Vendor Code: {{ $invoice->purchaseOrder->vendor->vendor_code }}</p>--}}
 {{--            @endif--}}
@@ -274,7 +275,7 @@
 <div id='footer' style="position: fixed;
             bottom: 20px;
             width: 100%;
-            text-align: center; font-size:1.50em" ><b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
+            text-align: center; font-size:12pt" ><b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
            <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
 
 </span>
