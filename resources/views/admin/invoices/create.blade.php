@@ -47,7 +47,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;">
-                                            <label class="">Select Purchase Order<span class="validateClass">*</span></label>
+                                            <label class="">PO No.<span class="validateClass">*</span></label>
                                             <input type="text" name="po_id" id="po_id" class="form-control fixedOption">
 {{--                                            <select data-resource="po_id"--}}
 {{--                                                    class="form-control"--}}

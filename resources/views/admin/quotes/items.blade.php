@@ -224,6 +224,18 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-check">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 637px;display: flex;">
+                                    <label class="form-check-label" for="warranty_note" style="width:420px">
+                                        Warranty Note:
+                                    </label>
+                                    <div class="form-group" style=" margin-right: 30px; ">
+                                        <textarea  class="form-control form-control-border" id="warranty_note" name="percentage" placeholder="Warranty Note" cols="220" rows="2">{{ $quote->warranty_note }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-info btn-flat" id="terms_condition_btn">Save</button>
                             </span>

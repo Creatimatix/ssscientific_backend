@@ -80,6 +80,7 @@ class Quote extends BaseModel
         'updated_at',
         'total_title',
         'is_preview',
+        'warranty_note',
     ];
 
     protected $appends = ['property_address','shipto_address'];
