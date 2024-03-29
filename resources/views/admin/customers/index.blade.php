@@ -45,9 +45,12 @@
                                 </thead>
                                 <tbody>
                                     @foreach($customers as $key => $customer)
+                                        @php
+                                            $zone = ($customer->zone)?' -'.$customer->zone:'';
+                                        @endphp
                                     <tr>
                                             <td class="subj_name">{{ ++$key }}</td>
-                                            <td>{{ $customer->full_name }}</td>
+                                            <td>{{ $customer->full_name.' '.$zone }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone_number }}</td>
                                             <td>{{ status($customer->status) }}</td>

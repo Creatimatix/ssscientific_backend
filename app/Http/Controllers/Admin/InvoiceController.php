@@ -56,7 +56,7 @@ class InvoiceController extends Controller
        $type = $request->get('type');
        $invoice = new Invoice();
        $invoice->quote_id =  $request->get('quote_id');
-       $invoice->invoice_no =  Invoice::invoiceNumber($type);
+       $invoice->invoice_no =  Invoice::invoiceNumber($type)['invoiceNo'];
        $invoice->po_no =  $request->get('po_id');
        $invoice->freight =  $request->get('freight');
        $invoice->installation =  $request->get('installation');
@@ -69,6 +69,9 @@ class InvoiceController extends Controller
            $invoice->state =  $request->get('state');
        }else{
            $invoice->is_billing_address = true;
+       }
+       if($type == Invoice::INVOICE){
+           $invoice->tax_invoice_number = Invoice::invoiceNumber($type)['incrementNo'];
        }
        $invoice->status =  $request->get('status');
        $invoice->created_by =  Auth::user()->id;

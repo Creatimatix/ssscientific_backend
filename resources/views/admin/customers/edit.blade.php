@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
-                                            <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption" required value="{{ $model->phone_number }}">
+                                            <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required value="{{ $model->phone_number }}">
                                         </div>
                                     </div>
                                     <div class="row margin-bottom-20">

@@ -20,11 +20,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    const UNSUBSCRIBE_EMAIL  = 1;
+    const UNSUBSCRIBE_EMAIL = 1;
 
     const ZONES = [
-        "West Zone" ,
-        "East Zone"
+        "North",
+        "South",
+        "West",
+        "East"
     ];
     protected $fillable = [
         'first_name',
