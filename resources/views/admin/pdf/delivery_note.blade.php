@@ -120,27 +120,29 @@
                 <td class="text-top text-right">{{ $item->quantity }}</td>
             </tr>
                 @foreach($item->accessories as $aKey => $accessory)
-                    @php
-                        if($accessory->is_payable){
-                            $subPrice += $accessory->asset_value * $accessory->quantity;
-                            $totalAmount += $accessory->asset_value * $accessory->quantity;
-                        }
-                    @endphp
-                    <tr style="text-align: center; outline: thin solid">
-                        <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
-                        <td class="top-grey-border text-top">{{ $accessory->product->pn_no }}</td>
-                        <td colspan='2' class="top-grey-border text-left text-top" style="text-align:left">
-                            <b>{{ $accessory->product->name }}</b>
-                            <br />
-                            {{ $accessory->product->short_description }}
-                            <br />
-                            @if(!$accessory->is_payable)
-                                <b>Not Payable</b>
-                            @endif
-                        </td>
-                        <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
-                    </tr>
+                    @if($accessory->product)
+                        @php
+                            if($accessory->is_payable){
+                                $subPrice += $accessory->asset_value * $accessory->quantity;
+                                $totalAmount += $accessory->asset_value * $accessory->quantity;
+                            }
+                        @endphp
+                        <tr style="text-align: center; outline: thin solid">
+                            <td width="10px" style="padding: 0px 0px 100px 0px" class="top-grey-border text-top">{{ $itemKey.'.'.++$aKey }}</td>
+                            <td class="top-grey-border text-top">{{ $accessory->product?$accessory->product->pn_no:'' }}</td>
+                            <td colspan='2' class="top-grey-border text-left text-top" style="text-align:left">
+                                <b>{{ $accessory->product->name }}</b>
+                                <br />
+                                {{ $accessory->product->short_description }}
+                                <br />
+                                @if(!$accessory->is_payable)
+                                    <b>Not Payable</b>
+                                @endif
+                            </td>
+                            <td class="top-grey-border text-right text-top">{{ $accessory->quantity }}</td>
+                        </tr>
                     <!-- </div> -->
+                    @endif
                 @endforeach
             @endforeach
         </table>

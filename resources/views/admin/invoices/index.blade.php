@@ -88,7 +88,9 @@
                                                     }
                                                 @endphp
                                                 {!! table_buttons($buttons, false) !!}
-                                                <a href="{{ route('deliveryNote', ['id' => $invoice->id ,'type' => 'pdf']) }}" class="btn btn-primary" style="padding: 5px;font-size: 12px;line-height: 15px;text-decoration: none;">Delivery Note</a>
+                                                @if(request()->get('type') == \App\Models\Admin\Invoice::INVOICE)
+                                                    <a href="{{ route('deliveryNote', ['id' => $invoice->id ,'type' => 'pdf']) }}" class="btn btn-primary" style="padding: 5px;font-size: 12px;line-height: 15px;text-decoration: none;">Delivery Note</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

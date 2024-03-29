@@ -204,13 +204,13 @@ class InvoiceController extends Controller
             'configs' => $configs,
         ];
         $page = 'admin.pdf.delivery_note';
-        $prefix='Quote';
+        $prefix='DeliveryNote';
 
         if($type == 'pdf'){
             $pdf = \App::make('dompdf.wrapper');
             $pdf->getDomPDF()->set_option("enable_php", true);
             $pdf->loadView($page, $var);
-            return $pdf->download($invoice->quote->quote_no . '.pdf');
+            return $pdf->download('DeliveryNote-'.$invoice->invoice_no . '.pdf');
 
         }else{
             return view($page, $var);
