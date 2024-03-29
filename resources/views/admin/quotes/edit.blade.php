@@ -310,6 +310,7 @@
                                 </div>
                             @endif
                             <div class="btnRowList">
+                                <a href="{{ route('deliveryNote', ['id' => $model->id ,'type' => 'pdf']) }}" class="btn btn-primary">Delivery Note</a>
 {{--                                <button class="btn pull-right m-l-10 btn btn-success"--}}
 {{--                                        type="button">Send to Internal--}}
 {{--                                </button>--}}

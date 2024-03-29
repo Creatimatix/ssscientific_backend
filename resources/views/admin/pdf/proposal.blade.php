@@ -139,7 +139,7 @@
 <table id="Products_table" class='center table-quotation no-border' height="100%">
 <tr class='no-border'>
         <th class='no-border'>&nbsp;</th>
-    </tr>   
+    </tr>
 <tr>
         <th style="text-align:center;" colspan='8'>
             QUOTATION
@@ -249,7 +249,7 @@
         <!-- </div> -->
     @endforeach
     <!-- repeatable -->
-@if($key++ == $totalItems)
+    @if($key++ == $totalItems)
     <tr>
         <td colspan='4'>
             <p class="addressinfo"><b>Bank Account Details:</b></p>
@@ -338,7 +338,7 @@
         <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
         <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
    <!-- <script>
-    
+
 document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}})+" ONLY.";
     </script> -->
     </tr>
@@ -350,7 +350,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
             AUTHORIZED SIGNATORY
         </td>
     </tr>
-    @endif 
+    @endif
 </table>
 </span>
 </p>
@@ -497,7 +497,6 @@ function convertNumberToWords(number) {
   return words.toUpperCase();
 }
 
-console.log();
 document.getElementById('total').innerHTML = "Some Value";
     </script>
 </body>
