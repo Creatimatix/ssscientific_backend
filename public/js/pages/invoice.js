@@ -39,7 +39,7 @@ function initializeQuoteSelect2(){
         templateSelection: function (quote) {
             console.log('user 1',quote);
             if (!quote.id) {
-                return 'Select User';
+                return 'Select Quote';
             }
             var $state = $(
                 '<span>' + quote.quote_no + '</span>'
@@ -111,7 +111,7 @@ function initializePurchaseOrderSelect2(){
 
 $(function (){
     initializeQuoteSelect2();
-    initializePurchaseOrderSelect2();
+    // initializePurchaseOrderSelect2();
 });
 
 $(document).on('click', '#isSameAsBillingAddress', function (){

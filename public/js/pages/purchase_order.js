@@ -27,7 +27,6 @@ function initializeVendorSelect2(){
         minimumInputLength: 1,
         // dropdownParent: $('#poForm'),
         templateResult: function (user) {
-            console.log('user',user);
             if (!user.id) {
                 return user.first_name + ' ' + user.last_name;
             }
@@ -39,7 +38,7 @@ function initializeVendorSelect2(){
         templateSelection: function (user) {
             console.log('user 1',user);
             if (!user.id) {
-                return 'Select User';
+                return 'Select Vendor';
             }
             var $state = $(
                 '<span>' + user.full_name + ' (' + user.email + ')</span>'
