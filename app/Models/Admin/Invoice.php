@@ -27,17 +27,29 @@ class Invoice extends Model
         'city',
         'state',
         'is_billing_address',
+        'tax_invoice_number',
     ];
 
     protected $appends = ['shipto_address'];
 
     public static function invoiceNumber($type){
+
+        $invoiceId = (SELF::latest()->value('id')+1);
         if($type == 1){
-            $intial = "SSS/PI/";
+            $intial = "SSS/PI/".$invoiceId;
         }else{
-            $intial = "SSS/INV/";
+            $latestInvId = self::whereNotNull('tax_invoice_number')->orderBy('tax_invoice_number', 'desc')->get()->first();
+            if($latestInvId){
+                $invoiceId = $latestInvId->tax_invoice_number + 1;
+            }else{
+                $invoiceId = 1;
+            }
+            $intial = "SSS/INV/".$invoiceId;
         }
-        return $intial.(SELF::latest()->value('id')+1)."/".getFinancialYear();
+        return [
+            'invoiceNo' => $intial."/".getFinancialYear(),
+            'incrementNo' => $invoiceId
+        ];
     }
 
     public function quote(){

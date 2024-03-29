@@ -17,7 +17,7 @@
 <!DOCTYPE  html>
 <html lang="en">
 <head>
-    
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Quotation</title>
     <meta name="author" content="ssscientific"/>
@@ -218,6 +218,8 @@
             </div>
             <br />
             {{ $item->product->short_description }}
+            <br />
+            {{ $item->product->description }}
         </td>
         <td class="text-top text-right">{{ $item->quantity }}</td>
         <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
@@ -376,7 +378,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
             overflow:hidden;
             display:block;
             box-sizing: border-box;
-        
+
     }
     @font-face {
         font-family: 'Poppins';
@@ -422,7 +424,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
         visibility:visible;
     }
 
-  
+
   .Product_table {
         margin-top: 0px !important;
                         table-layout: fixed;

@@ -118,9 +118,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="slug" class="form-control-label">Description</label>
-                                                <div class="input-group">
-                                                    <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
-                                                </div>
+                                                <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
                                                 @if($errors->has('description'))
                                                     <span class="error">{{ $errors->first('description') }}</span>
                                                 @endif
@@ -223,6 +221,18 @@
 
         $('.select2bs4').select2({
             theme: 'bootstrap4'
+        })
+
+        $('#description').summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']]
+            ],
+            height: 200,
+            weight: 1000,
         })
     </script>
 @endsection
