@@ -17,6 +17,9 @@
     <title>Delivery Note</title>
     <meta name="author" content="ssscientific"/>
     <style type="text/css">
+  table {
+        width: 90%;
+    }
 
 
           </style>
