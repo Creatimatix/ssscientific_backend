@@ -18,7 +18,7 @@
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                         Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
                     <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
-                    <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: {{ $configs['GST_NO'] }}</p>
+                    <p style="padding-left: 7pt;text-indent: 0pt;line-height: 9pt;text-align: left;">GST: {{ isset($configs['GST_NO']) }}</p>
                 </td>
                 <td style='text-align:right;border: none;'>
                     <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
@@ -68,8 +68,8 @@
                     <p>
                         Invoice No.:{{ $invoice->invoice_no }} <br />
                         Date: {{ date('d.m.y', strtotime($invoice->created_at)) }} <br />
-                        GST No.: {{ $configs['GST_NO'] }} <br />
-                        PAN No.: {{ $configs['PAN_NO'] }} <br />
+                        GST No.: {{ isset($configs['GST_NO']) }} <br />
+                        PAN No.: {{ isset($configs['PAN_NO']) }} <br />
                     </p>
                 </td>
                 <td colspan='4'>
