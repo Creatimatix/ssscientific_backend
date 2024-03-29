@@ -17,6 +17,7 @@
 <!DOCTYPE  html>
 <html lang="en">
 <head>
+    
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Quotation</title>
     <meta name="author" content="ssscientific"/>
@@ -136,7 +137,7 @@
 <!-- </span>
 </p> -->
 
-<table id="Products_table" class='center table-quotation no-border' height="100%">
+<table id="Products_table" class='center table-quotation no-border' >
 <tr class='no-border'>
         <th class='no-border'>&nbsp;</th>
     </tr>
@@ -189,6 +190,8 @@
             <span style="padding-right: 13px;float: right;">Email: {{ $model->user->email }}</span>
         </td>
     </tr>
+    <!-- </table>
+    <table style="table-layout:fixed; height:90vh;" class="center no-border Product_table"> -->
     <tr>
         <th>S/N</th>
         <th>P/N</th>
@@ -200,13 +203,13 @@
     </tr>
     <!-- <div> -->
     <tr style="text-align: center;">
-        <td width="10px" style="padding: 0px 0px 100px 0px;" class='text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
-        <td class='text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
-        <td class='text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>
-        <td colspan='2'  class='text-left text-top no-bottom-border'>
+        <td width="10px" style="padding: 0px 0px 100px 0px;" class='text-top'><b>{{ $itemKey }}</b></td>
+        <td class='text-top'>{{ $item->product->pn_no }}</td>
+        <td class='text-top'>{{ $item->product->hsn_no }}</td>
+        <td colspan='2'  class='text-left text-top'>
             <b>{{ $item->product->name }}</b>
             <br />
-            <div class='text-center no-bottom-border'>
+            <div class='text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
                         <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
@@ -216,9 +219,9 @@
             <br />
             {{ $item->product->short_description }}
         </td>
-        <td class="text-top text-right no-bottom-border">{{ $item->quantity }}</td>
-        <td class="text-top text-right no-bottom-border"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
-        <td class="text-top text-right no-bottom-border"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
+        <td class="text-top text-right">{{ $item->quantity }}</td>
+        <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
+        <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
         @php
@@ -352,6 +355,12 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
     </tr>
     @endif
 </table>
+<div style="position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center; font-size:1.50em" ><b>Work Address:</b> 401, 4th floor, 3, navjeevan Society, Dr. D. B. Marg, Mumbai central, Mumbai  - 400 008. </br>
+           Email : support@ssscientific.net / sales@ssscientific.net Web :  www.ssscientific.net Mob. : +91 98332 41875</div>
+
 </span>
 </p>
 <style>
@@ -409,11 +418,16 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
         z-index: 11;
     }
 
-    @media print {
-  .Products_table {
-    height: 90vh; 
+    #print-wrapper *{
+        visibility:visible;
+    }
+
+  
+  .Product_table {
+        margin-top: 0px !important;
+                        table-layout: fixed;
   }
-}
+
     table {
         width: 90%;
     }
