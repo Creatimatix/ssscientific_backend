@@ -694,4 +694,41 @@ class QuoteController extends Controller
         ]);
     }
 
+    public function deliveryNote(Request $request,$quote_id){
+        $html = '';
+        $type = $request->get('type', 'pdf');
+
+        $configs = Config::getVals(['IGST','CGST','SGST']);
+
+        $quote = Quote::where('id',$quote_id)
+            ->with('user')
+            ->with('items')
+            ->get()
+            ->first();
+
+        $layout = true;
+        if ($type == 'html') {
+            $layout = false;
+        }
+        $var = [
+            'title' => 'Delivery Note',
+            'layout' => $layout,
+            'model' => $quote,
+            'configs' => $configs,
+        ];
+        $page = 'admin.pdf.delivery_note';
+        $prefix='Quote';
+
+        if($type == 'pdf'){
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            $pdf->loadView($page, $var);
+            return $pdf->download($quote->quote_no . '.pdf');
+
+        }else{
+            return view($page, $var);
+        }
+    }
+
+
 }

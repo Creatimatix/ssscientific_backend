@@ -66,7 +66,7 @@ class ProductCartItemsController extends Controller
             'status' => true
         ]);
     }
- public function previewItems(Request $request,$quote_id){
+    public function previewItems(Request $request,$quote_id){
         $html = '';
         $items = ProductCartItems::where('quote_id',$quote_id)
                     ->with('product')
