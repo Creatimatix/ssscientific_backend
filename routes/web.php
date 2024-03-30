@@ -32,7 +32,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
 
-        Route::get('/users', [CustomerController::class, 'getUsers  '])->name('admin.users');
+        Route::get('/users', [CustomerController::class, 'getUsers'])->name('admin.users');
         Route::get('/user/vendors', [CustomerController::class, 'getVendors'])->name('admin.vendors');
         Route::controller(ProductController::class)->group(function () {
             Route::get('/products','index')->name('products');
