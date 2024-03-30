@@ -580,6 +580,7 @@ $(document).on('click','#terms_condition_btn', function(e){
         var freightPercentage = $('#freight_percentage').val();
         var installationType = $('#getInstallationCharge').val();
         var installationPercentage = $('#percentage').val();
+        var warrantyNote = $('#warranty_note').val();
 
         $.ajax({
             type: 'post',
@@ -596,6 +597,7 @@ $(document).on('click','#terms_condition_btn', function(e){
                 'installationType': installationType,
                 'installationPercentage': installationPercentage,
                 'amended_on': $('#amended_on').val(),
+                'warranty_note': warrantyNote,
             },
             success: function (response) {
                 if(response.statusCode == 200){

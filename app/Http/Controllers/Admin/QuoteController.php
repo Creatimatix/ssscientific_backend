@@ -628,6 +628,7 @@ class QuoteController extends Controller
         $freightPercentage = $request->get('freightPercentage');
         $installationType = $request->get('installationType');
         $installationPercentage = $request->get('installationPercentage');
+        $warrantyNote = $request->get('warranty_note');
 
         $quote = Quote::where('id', $quoteId)->get()->first();
 
@@ -641,6 +642,7 @@ class QuoteController extends Controller
             $quote->freight_percentage = $freightPercentage;
             $quote->installation_type = $installationType;
             $quote->installation_percentage = $installationPercentage;
+            $quote->warranty_note = $warrantyNote;
             if ($amended_on) {
                 $quote->amended_on = date("Y-m-d", strtotime($amended_on));
             }
