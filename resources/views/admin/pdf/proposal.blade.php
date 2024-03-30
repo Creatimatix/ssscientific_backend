@@ -219,7 +219,7 @@
             <br />
             {{ $item->product->short_description }}
             <br />
-            {{ $item->product->description }}
+            {!! $item->product->description !!}
         </td>
         <td class="text-top text-right">{{ $item->quantity }}</td>
         <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
@@ -322,7 +322,7 @@
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
     </tr>
     <tr>
-        <td colspan='3' class='no-border' >@if($model->warranty_note) Warranty - {{ $model->warranty_note }} @endif</td>
+        <td colspan='3' class='no-border' ></td>
         <td colspan='3' class='no-border text-right'>Installation</td>
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</span></td>
     </tr>
