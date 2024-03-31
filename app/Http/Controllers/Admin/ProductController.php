@@ -101,7 +101,7 @@ class ProductController extends Controller
                 'max:255',
                 Rule::unique('products', 'name'),
             ],
-            'sku' => 'required',
+//            'sku' => 'required',
 //            'category' => 'required|integer',
             'pn_no' => [
                 'required',
@@ -119,7 +119,7 @@ class ProductController extends Controller
         try{
             $product  = new Product();
             $product->name = $request->get('name');
-            $product->sku = $request->get('sku');
+//            $product->sku = $request->get('sku');
             $product->id_category = $request->get('category');
             $product->sr_no = $request->get('sr_no');
             $product->pn_no = $request->get('pn_no');
@@ -166,7 +166,7 @@ class ProductController extends Controller
                     foreach($modelname as $key => $model){
                         $accessories  = new Product();
                         $accessories->name = $request->get('modelname')[$key];
-                        $accessories->sku = $request->get('acc_sku')[$key];
+//                        $accessories->sku = $request->get('acc_sku')[$key];
 //                    $accessories->sr_no = $request->get('acc_sr_no')[$key];
                         $accessories->pn_no = $request->get('acc_pn_no')[$key];
                         $accessories->hsn_no = $request->get('acc_hsn_no')[$key];
@@ -221,7 +221,7 @@ class ProductController extends Controller
                 'max:255',
                 Rule::unique('products', 'name')->ignore($productId),
             ],
-            'sku' => 'required',
+//            'sku' => 'required',
 //            'category' => 'required|integer',
             'pn_no' => [
                 'required',
@@ -241,7 +241,7 @@ class ProductController extends Controller
             $product->name = $request->get("name");
             $product->sku = $request->get("sku");
             $product->id_category = $request->get("category");
-            $product->sr_no = $request->get("sr_no");
+//            $product->sr_no = $request->get("sr_no");
             $product->pn_no = $request->get("pn_no");
             $product->hsn_no = $request->get("hsn_no");
             $product->slug = $request->get("slug");
@@ -281,7 +281,7 @@ class ProductController extends Controller
                    if(!empty($model)){
                        $accessories  = new Product();
                        $accessories->name = $request->get('modelname')[$key];
-                       $accessories->sku = $request->get('acc_sku')[$key];
+//                       $accessories->sku = $request->get('acc_sku')[$key];
 //                    $accessories->sr_no = $request->get('acc_sr_no')[$key];
                        $accessories->pn_no = $request->get('acc_pn_no')[$key];
                        $accessories->hsn_no = $request->get('acc_hsn_no')[$key];

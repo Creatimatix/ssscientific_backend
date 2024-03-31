@@ -6,8 +6,9 @@
                    cellspacing="0">
                 <thead>
                 <tr>
-                    <th>SKU</th>
+{{--                    <th>SKU</th>--}}
                     <th>Product Name</th>
+                    <th>P/N</th>
                     <th>Quantity</th>
                     <th>Asset Value</th>
                     <th>{{--Action--}}</th>
@@ -18,11 +19,12 @@
                     @if($product)
                         <tr id="tr<?php echo $cnt;?>">
                             <td>
-                                {{ $product->sku }}
-                                <input type="hidden" class="form-control _productId" value="{{ $product->id }}" style="width:50px;">
+                                {{ $product->name }}
+
                             </td>
                             <td>
-                                {{ $product->name }}
+                                {{ $product->pn_no }}
+                                <input type="hidden" class="form-control _productId" value="{{ $product->id }}" style="width:50px;">
                             </td>
                             <td>
                                 <input type="hidden" class="form-control _originalAssetValue" value="{{ $product->sale_price }}" style="width:50px;">

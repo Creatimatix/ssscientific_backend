@@ -40,13 +40,13 @@
                                                 <span class="error">{{ $errors->first('name') }}</span>
                                             @endif
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="sku">SKU</label>
-                                            <input type="text" name="sku" id="sku" class="form-control fixedOption" value="{{ old('sku') }}">
-                                            @if($errors->has('sku'))
-                                                <span class="error">{{ $errors->first('sku') }}</span>
-                                            @endif
-                                        </div>
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="sku">SKU</label>--}}
+{{--                                            <input type="text" name="sku" id="sku" class="form-control fixedOption" value="{{ old('sku') }}">--}}
+{{--                                            @if($errors->has('sku'))--}}
+{{--                                                <span class="error">{{ $errors->first('sku') }}</span>--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="relation">Brand:<span class="validateClass">*</span></label>
                                             <select name="category" id="category" class="form-control" >
@@ -64,7 +64,7 @@
 {{--                                            <input type="text" name="sr_no" id="sr_no" class="form-control fixedOption" >--}}
 {{--                                        </div>--}}
                                         <div class="col-md-4">
-                                            <label for="product_id">PN. No.</label>
+                                            <label for="product_id">P/N</label>
                                             <input type="text" name="pn_no" id="pn_no" class="form-control fixedOption"  value="{{ old('pn_no') }}">
                                             @if($errors->has('pn_no'))
                                                 <span class="error">{{ $errors->first('pn_no') }}</span>
@@ -91,7 +91,7 @@
                                                 <label for="slug" class="form-control-label">Product URL
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientific.com/</span>
+                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientific.net/</span>
                                                     <?php
                                                     $readOnly = (true) ? 'readonly' : '';
                                                     ?>
@@ -127,14 +127,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="product_image">Upload Image:</label>
+                                            <label for="product_image">Upload Product Image:</label>
                                             <input type="file"  class="form-control product_image" id="product_image" name="images" accept="image/png, image/jpeg, image/jpg, image/gif">
                                             @if($errors->has('images'))
                                                 <span class="error">{{ $errors->first('images') }}</span>
                                             @endif
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="document">Upload Document:</label>
+                                            <label for="document">Upload Product Catelog:</label>
                                             <input type="file"  class="form-control document" id="document" name="document">
                                         </div>
 {{--                                        <div class="col-md-4">--}}
@@ -154,24 +154,24 @@
                                             <div class="panel-heading">
                                                 <label for="relation">Product Accessories</label>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body" style="width: 60em;">
                                                 <div class="row">
-                                                    <div class="col-sm-3 nopadding">
+                                                    <div class="col-sm-5 nopadding">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model Name">
+                                                            <textarea class="form-control" id="modelname" name="modelname[]" placeholder="Model Name"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 nopadding">
+{{--                                                    <div class="col-sm-3 nopadding">--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+                                                    <div class="col-sm-2 nopadding">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">
+                                                            <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="P/N">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 nopadding">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="PN NO">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3 nopadding">
+                                                    <div class="col-sm-2 nopadding">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="" placeholder="HSN No">
                                                         </div>
@@ -214,7 +214,7 @@
 @endsection
 
 @section('pageScript')
-    <script src="{{ asset('/js/pages/product.js') }}"></script>
+
     <script>
 
         var room = 1;
@@ -235,4 +235,5 @@
             weight: 1000,
         })
     </script>
+    <script src="{{ asset('/js/pages/product.js') }}"></script>
 @endsection

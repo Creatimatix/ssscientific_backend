@@ -36,8 +36,7 @@
                                         <th class="subj_name">Id</th>
                                         <th>Model No</th>
                                         <th>Brand</th>
-                                        <th>SKU</th>
-                                        <th>Slug</th>
+                                        <th>Short Description</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -48,8 +47,7 @@
                                             <td class="subj_name">{{ $product->id }}</td>
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->category?$product->category->category_name:'NA' }}</td>
-                                            <td>{{ $product->sku }}</td>
-                                            <td>{{ $product->slug }}</td>
+                                            <td>{{ $product->short_description }}</td>
                                             <td>{{ status($product->status) }}</td>
                                             <td>
                                                 @php

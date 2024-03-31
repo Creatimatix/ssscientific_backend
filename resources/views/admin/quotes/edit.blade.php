@@ -34,7 +34,7 @@
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
-                                            <label class="">Select Primary Customer<span class="validateClass">*</span></label>
+                                            <label class="">Select Company<span class="validateClass">*</span></label>
                                             <select data-resource="user"
                                                     class="form-control"
                                                     style="width: 100%;"
@@ -43,7 +43,7 @@
                                                     data-parent="#quoteForm"
                                                     onchange="return getUserDetails(this.value,1)"
                                                     required>
-                                                <option value="">Select customer</option>
+                                                <option value="">Select Company</option>
                                                 @if(isset($model->user))
                                                     <option value="{{$model->user->id}}"
                                                             selected>{{$model->user->getFullname()}}
@@ -51,6 +51,16 @@
                                                     </option>
                                                 @endif
                                             </select>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label for="contact_person">Contact Person:</label>
+                                            <input type="text" name="contact_person" id="contact_person" class="form-control fixedOption"  value="{{ $model->contact_person }}">
+                                            <span class="error-message" id="contact_person-error"></span>
+                                        </div>
+                                        <div class="col-md-4" style="text-align: left;margin-top: 9px;">
+                                            <label for="contact_person_email">Contact Person E-Mail:<span class="validateClass">*</span></label>
+                                            <input type="email" name="contact_person_email" id="contact_person_email" class="form-control fixedOption" value="{{ $model->contact_person_email }}">
+                                            <span class="error-message" id="contact_person_email-error"></span>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
                                             <label class="">Currency Type<span class="validateClass">*</span></label>
@@ -66,15 +76,6 @@
                                             </select>
                                         </div>
                                         <div class="col-md-4" style="text-align: left;margin-top: 9px;">
-                                            <label for="order_type">Order Type:</label>
-                                            <select class="form-control" id="order_type" name="order_type">
-                                                <option value="">Select Order Type</option>
-                                                <option value="0"  {{ ($model->order_type == 0)?'selected':'' }}>Regular</option>
-                                                <option value="1"  {{ ($model->order_type == 1)?'selected':'' }}>Tender</option>
-                                                <option value="2"  {{ ($model->order_type == 2)?'selected':'' }}>Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
                                             <label for="phone_number">Phone Number:</label>
                                             <input type="text" name="phone_number" id="phone_number" class="form-control fixedOption"  value="{{ $model->phone_number }}" required>
                                         </div>
@@ -91,10 +92,33 @@
                                             </select>
                                             <span class="error-message" id="delivery_type-error"></span>
                                         </div>
+
                                         <div class="col-md-4">
-                                            <label for="relation">GST No:<span class="validateClass">*</span></label>
-                                            <input type="text" class="form-control"  value="{{ $model->gst_no }}" name="gst_no" id="gst_no" />
+                                            <label for="order_type">Order Type:</label>
+                                            <select class="form-control" id="order_type" name="order_type">
+                                                <option value="">Select Order Type</option>
+                                                <option value="0"  {{ ($model->order_type == 0)?'selected':'' }}>Regular</option>
+                                                <option value="1"  {{ ($model->order_type == 1)?'selected':'' }}>Tender</option>
+                                                <option value="2"  {{ ($model->order_type == 2)?'selected':'' }}>Other</option>
+                                            </select>
                                         </div>
+                                        <div class="col-md-4 depend_on_tendor" style="display:none">
+                                            <label for="bid_type">Bid Type:</label>
+                                            <select name="bid_type" id="bid_type" class="form-control" required>
+                                                <option value="">Select Bid Type</option>
+                                                <option value="1" {{ $model->status == 1?'selected':'' }}>Pricing Bid</option>
+                                                <option value="2" {{ $model->status == 1?'selected':'' }}>Technical Bid</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 depend_on_tendor" style="display:none">
+                                            <label for="tendor_no">Tendor Number:</label>
+                                            <input type="text" name="tendor_no" id="tendor_no" value="{{ $model->tendor_no }}" class="form-control fixedOption" required>
+                                        </div>
+                                        <div class="col-md-4 depend_on_tendor" style="display:none">
+                                            <label for="due_date">Due Date:<span class="validateClass">*</span></label>
+                                            <input type="date" name="due_date" id="due_date" value="{{ $model->due_date }}"  class="form-control fixedOption">
+                                        </div>
+
                                         <div class="col-md-4">
                                             <label for="relation">Status:<span class="validateClass">*</span></label>
                                             <select name="status" id="status" class="form-control" required>
@@ -106,18 +130,10 @@
                                             <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="col-md-4 depend_on_tendor" style="display:none">
-                                            <label for="tendor_no">Tendor Number:</label>
-                                            <input type="text" name="tendor_no" id="tendor_no" value="{{ $model->tendor_no }}" class="form-control fixedOption" required>
-                                        </div>
-                                        <div class="col-md-4 depend_on_tendor" style="display:none">
-                                            <label for="due_date">Due Date:<span class="validateClass">*</span></label>
-                                            <input type="date" name="due_date" id="due_date" value="{{ $model->due_date }}"  class="form-control fixedOption">
-                                        </div>
                                     </div>
                                 </div>
                                 <h6 class="">
-                                    Bill To:
+                                    To:
                                 </h6>
                                 <div class="proposal-boxx--View">
                                     <div class="row">
@@ -140,6 +156,12 @@
                                             <label for="zipcode">Zipcode<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control" name="zipcode" id="zipcode" value="{{ $model->zipcode }}" placeholder="Zipcode" required>
                                         </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="relation">GST No:
+                                            {{--                                                <span class="validateClass">*</span>--}}
+                                        </label>
+                                        <input type="text" class="form-control"  value="{{ $model->gst_no }}" name="gst_no" id="gst_no" />
                                     </div>
                                     <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="clear: both">

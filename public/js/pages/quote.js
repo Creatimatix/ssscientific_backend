@@ -66,7 +66,6 @@ var quote = {
         }
     },
     searchProduct:function (e) {
-        alert('eres');
         var sku = $(e).val();
         if(sku=='' || sku==null){
             return false;
@@ -226,6 +225,7 @@ var itemlist = {
         $('#discountBtn').attr("disabled", true);
         var discountAmount = $('#discount').val();
         var totalOrderAmount = $('#totalOrderAmount').val();
+        var discountPercentage = $('#discount_percentage').val();
         var url = $('#discountForm').attr('action');
         if (parseInt(discountAmount) >= parseInt(totalOrderAmount)) {
             $('#discountBtn').attr("disabled", false);
@@ -234,6 +234,7 @@ var itemlist = {
         }
         $.post(url,{
             discountAmount:discountAmount,
+            discountPercentage:discountPercentage,
             quoteId: $('#quote_id').val()
         },function(response){
             messages.saved('Discount', 'discount applied successfully.');
@@ -373,9 +374,8 @@ function initializeCustomerSelect2(){
             return $state;
         },
         templateSelection: function (user) {
-            console.log('user 1',user);
             if (!user.id) {
-                return 'Select User';
+                return 'Select Company';
             }
             var $state = $(
                 '<span>' + user.full_name + ' (' + user.email + ')</span>'
@@ -549,7 +549,8 @@ $(document).on('click','#terms_condition_btn', function(e){
             messages.error("T&C", "Please enter Freight value");
             return false;
         }
-
+        console.log("i_gest",$('#is_i_gst').prop('checked'));
+        console.log("cs_gest",$('#is_c_s_gst').prop('checked'));
         if($('#is_i_gst').prop('checked') == true){
             if($('#i_gst').val() == ''){
                 messages.error("T&C", "Please enter IGST value");
@@ -569,12 +570,12 @@ $(document).on('click','#terms_condition_btn', function(e){
         }
 
 
-        if($('#is_amended').prop('checked') == true){
-            if($('#amended_on').val() == ''){
-                messages.error("T&C", "Please choose amended date.");
-                return false;
-            }
-        }
+        // if($('#is_amended').prop('checked') == true){
+        //     if($('#amended_on').val() == ''){
+        //         messages.error("T&C", "Please choose amended date.");
+        //         return false;
+        //     }
+        // }
 
         var freightType = $('#getFreightCharge').val();
         var freightPercentage = $('#freight_percentage').val();
@@ -596,7 +597,7 @@ $(document).on('click','#terms_condition_btn', function(e){
                 'freightPercentage': freightPercentage,
                 'installationType': installationType,
                 'installationPercentage': installationPercentage,
-                'amended_on': $('#amended_on').val(),
+                'amended_on': $('#is_amended').prop('checked')?true:false,
                 'warranty_note': warrantyNote,
             },
             success: function (response) {
@@ -698,7 +699,7 @@ function getInstalltion(){
     if(type == '%'){
         $('#percentage').show();
     }else{
-        $('#percentage').val(0);
+        $('#percentage').val('');
         $('#percentage').hide();
     }
     percentage = $('#percentage').val();
@@ -719,7 +720,7 @@ function getFreight(){
     if(type == '%'){
         $('#freight_percentage').show();
     }else{
-        $('#freight_percentage').val(0);
+        $('#freight_percentage').val('');
         $('#freight_percentage').hide();
     }
     percentage = $('#freight_percentage').val();
@@ -742,6 +743,36 @@ function getAccessories(textSearch = '', itemId){
         data: {textSearch: textSearch,itemId: itemId},
         success: function (data) {
             $('#accessoriesRowData').html(data.htmlView);
+        }
+    });
+}
+
+$(document).on('change','#discount_type',function(e){
+    type = $('#discount_type').val();
+    if(type == '%'){
+        $('#discount_percentage').show();
+        $('#discount').attr('disabled', true);
+    }else{
+        $('#discount').attr('disabled', false);
+        $('#discount_percentage').val('');
+        $('#discount_percentage').hide();
+    }
+});
+
+$(document).on('keyup','#discount_percentage',function(e) {
+    if($(this).val() > 0){
+        getDiscount();
+    }
+});
+function getDiscount(){
+    quoteId = $('#quote_id').val();
+    percentage = $('#discount_percentage').val();
+    $.ajax({
+        type: 'get',
+        url: siteUrl+"/ajax/getDiscount",
+        data: {quoteId:quoteId,type:type,val:percentage},
+        success: function (data) {
+            $('#discount').val(data);
         }
     });
 }

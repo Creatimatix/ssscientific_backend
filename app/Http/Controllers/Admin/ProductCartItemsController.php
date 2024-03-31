@@ -91,9 +91,11 @@ class ProductCartItemsController extends Controller
     public function applyDiscount(Request $request){
         $quoteId = $request->get('quoteId');
         $discountAmount = $request->get('discountAmount');
+        $discountPercentage = $request->get('discountPercentage', 0);
         $quote = Quote::where('id',$quoteId)->get()->first();
         if($quote && !$quote->discount){
             $quote->discount = $discountAmount;
+            $quote->discount_percentage = $discountPercentage;
             $quote->save();
 
             return response()->json([

@@ -87,10 +87,13 @@ function accessories() {
     divtest.setAttribute("class", "form-group removeclass"+room);
     var rdiv = 'removeclass'+room;
 
-    divtest.innerHTML = '<div class="row"> <div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model name"> </div> </div> <div class="col-sm-3 nopadding"> <div class="form-group"> <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU"> </div> </div> <div class="col-sm-3 nopadding"> <div class="form-group"> <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="Pn No"> </div> </div> <div class="col-sm-3 nopadding"> <div class="form-group"> <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="" placeholder="HSN No"> </div> </div> <div class="col-sm-3 nopadding"> <div class="form-group"> <div class="input-group"> <input type="text" class="form-control" id="acc_sale_price" name="acc_sale_price[]" value="" placeholder="Sale Price"> <div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_accessories('+ room +');"> <span class="fa fa-minus" aria-hidden="true"></span> </button> </div> </div> </div> </div> </div>';
+    divtest.innerHTML = '<div class="row"> <div class="col-sm-5 nopadding"><div class="form-group"><textarea class="form-control" id="modelname" name="modelname[]" placeholder="Model Name"></textarea></div> </div> <div class="col-sm-2 nopadding"> <div class="form-group"> <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="P/N"> </div> </div> <div class="col-sm-2 nopadding"> <div class="form-group"> <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="" placeholder="HSN No"> </div> </div> <div class="col-sm-3 nopadding"> <div class="form-group"> <div class="input-group"> <input type="text" class="form-control" id="acc_sale_price" name="acc_sale_price[]" value="" placeholder="Sale Price"> <div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_accessories('+ room +');"> <span class="fa fa-minus" aria-hidden="true"></span> </button> </div> </div> </div> </div> </div>';
 
     objTo.appendChild(divtest)
 }
 function remove_accessories(rid) {
     $('.removeclass'+rid).remove();
 }
+
+
+// '<div class="col-sm-3 nopadding"> </div>  <div className="form-group"><input type="text" className="form-control" id="acc_sku" name="acc_sku[]" value=""\n' placeholder="SKU"></div>'

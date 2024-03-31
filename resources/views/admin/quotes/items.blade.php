@@ -101,6 +101,11 @@
                 <div class="pull-left">
                     <form name="discountForm" action="{{ route('applyDiscount') }}" id="discountForm" method="post">
                         <div class="form-group" style="display:flex">
+                            <select class="form-control form-control-border" id="discount_type" style="    width: 127px;">
+                                <option value="0"  {{ $quote->discount_type != '%'?'selected':'' }}>Fixed</option>
+                                <option value="%" {{ $quote->discount_type == '%'?'selected':'' }}>In %</option>
+                            </select>
+                            <input type="number" class="form-control form-control-border" id="discount_percentage" name="discount_percentage" placeholder="%" value="{{ $quote->installation_percentage }}" style="margin-top: 0px;margin-left: 16px;width: 73px;margin-right: 12px; display: {{ $quote->installation_type == '%'?'block':'none' }};">
                             <input type="text" name="discount" id="discount" class="form-control" style="width: 200px;"/>
                             <input type="button" id="discountBtn" class="btn btn-sm pButton" value="Apply Discount" onclick="itemlist.applyDiscount(this)">
                         </div>
@@ -127,7 +132,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }} {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} />
+                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} />
                                 <div style=" margin-top: 0px;margin-left: 16px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="is_i_gst">
                                         IGST
@@ -170,14 +175,14 @@
                         </div>
                         <div class="row" style="margin-bottom: 10px">
                             <div class="form-check" style=" display: flex; ">
-                                <input type="checkbox" class="form-check-input " id="is_amended" name="is_amended" {{ ($quote->amended_on || $quote->amended_on)?'checked':'' }}>
+                                <input type="checkbox" class="form-check-input " id="is_amended" name="is_amended" {{ ($quote->amended_on)?'checked':'' }}>
                                 <div style="margin-top: 0px;margin-left: 13px;width: 375px;display: flex;">
                                     <label class="form-check-label" for="is_amended">
                                         IS Amended?
                                     </label>
-                                    <div class="form-group">
-                                        <input type="date" class="form-control form-control-border" id="amended_on" name="amended_on" placeholder="Amended On" value="{{ $quote->amended_on? $quote->amended_on : 0 }}"  style="display: {{ $quote->amended_on?'block': 'none' }};">
-                                    </div>
+{{--                                    <div class="form-group">--}}
+{{--                                        <input type="date" class="form-control form-control-border" id="amended_on" name="amended_on" placeholder="Amended On" value="{{ $quote->amended_on? $quote->amended_on : 0 }}"  style="display: {{ $quote->amended_on?'block': 'none' }};">--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -190,7 +195,7 @@
                                     <div class="form-group">
                                         <select class="form-control form-control-border" id="getFreightCharge" style=" width: 127px;">
                                             <option value="0"  {{ $quote->freight_type != '%'?'selected':'' }}>Fixed</option>
-                                            <option value="%" {{ $quote->freight_type == '%'?'selected':'' }}>Pecentage</option>
+                                            <option value="%" {{ $quote->freight_type == '%'?'selected':'' }}>In %</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -211,7 +216,7 @@
                                     <div class="form-group">
                                         <select class="form-control form-control-border" id="getInstallationCharge" style="    width: 127px;">
                                             <option value="0"  {{ $quote->installation_type != '%'?'selected':'' }}>Fixed</option>
-                                            <option value="%" {{ $quote->installation_type == '%'?'selected':'' }}>Pecentage</option>
+                                            <option value="%" {{ $quote->installation_type == '%'?'selected':'' }}>In %</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style=" margin-right: 30px; ">
@@ -271,7 +276,11 @@
         <tr class="table-summary">
             <td colspan="4" class="text-right">(-)Discount Applied
                 <i class="icofont icofont-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rental/Buy/Sale Furniture Subtotal : $0<br>Sales Tax (10.25%) on Rental/Buy/Sale Furniture : $0<br>Total : $0" data-html="true"></i></td>
-            <td class="text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->discount }}</span></td>
+            <td class="text-right">
+                <span style="font-family: DejaVu Sans; sans-serif;">
+                    {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$quote->discount }}
+                </span>
+            </td>
             <td>
                 @php
                     $buttons = [
@@ -287,6 +296,22 @@
             </td>
         </tr>
     @endif
+
+    <tr class="table-summary">
+        <td colspan="4" class="text-right">
+            Net total
+        </td>
+        <td class="text-right">
+            <strong>
+                <span style="font-family: DejaVu Sans; sans-serif;">
+                {{ $quote?\App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].$totalPrice:0 }}
+                </span>
+            </strong>
+        </td>
+        <td>
+
+        </td>
+    </tr>
     @if($quote->freight)
         @php
             $totalPrice = $totalPrice + $quote->freight;

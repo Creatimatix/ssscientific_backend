@@ -44,13 +44,13 @@
                                             <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="product_id">SKU</label>
-                                            <input type="text" name="sku" id="sku" value="{{ $product->sku }}"  class="form-control fixedOption">
-                                            @error('sku')
-                                            <div class="error">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <label for="product_id">SKU</label>--}}
+{{--                                            <input type="text" name="sku" id="sku" value="{{ $product->sku }}"  class="form-control fixedOption">--}}
+{{--                                            @error('sku')--}}
+{{--                                            <div class="error">{{ $message }}</div>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
                                         <div class="col-md-4">
                                             <label for="relation">Brand:<span class="validateClass">*</span></label>
                                             <select name="category" id="category" class="form-control" required>
@@ -70,7 +70,7 @@
 {{--                                            <input type="text" name="sr_no" value="{{ $product->sr_no }}" id="sr_no" class="form-control fixedOption" required>--}}
 {{--                                        </div>--}}
                                         <div class="col-md-4">
-                                            <label for="product_id">PN. No.</label>
+                                            <label for="product_id">P/N</label>
                                             <input type="text" name="pn_no" value="{{ $product->pn_no }}" id="pn_no" class="form-control fixedOption">
                                             @error('pn_no')
                                             <div class="error">{{ $message }}</div>
@@ -97,7 +97,7 @@
                                                 <label for="slug" class="form-control-label">Product URL
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientif.com/</span>
+                                                    <span class="input-group-text input-group-addon" id="alighaddon1">www.ssscientif.net/</span>
                                                     <?php
                                                     $readOnly = (true) ? 'readonly' : '';
                                                     ?>
@@ -133,14 +133,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="relation">Upload Image:</label>
+                                            <label for="relation">Upload Product Image:</label>
                                             <input type="file"  class="form-control product_image" id="product_image" name="images">
                                             @error('images')
                                                 <div class="error">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-4">
-                                            <label for="document">Upload Document:</label>
+                                            <label for="document">Upload Product Catelog:</label>
                                             <input type="file"  class="form-control document" id="document" name="document">
                                         </div>
                                         <div class="col-md-4">
@@ -175,24 +175,24 @@
                                             <div class="panel-heading">
                                                 <label for="relation">Product Accessories</label>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body" style="width: 60em;">
                                                 <div class="row">
-                                                    <div class="col-sm-3 nopadding">
+                                                    <div class="col-sm-5 nopadding">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model Name">
+                                                            <textarea class="form-control" id="modelname" name="modelname[]" placeholder="Model Name"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 nopadding">
+{{--                                                    <div class="col-sm-3 nopadding">--}}
+{{--                                                        <div class="form-group">--}}
+{{--                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+                                                    <div class="col-sm-2 nopadding">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">
+                                                            <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="P/N">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 nopadding">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="PN NO">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3 nopadding">
+                                                    <div class="col-sm-2 nopadding">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="" placeholder="HSN No">
                                                         </div>
@@ -216,22 +216,22 @@
                                                     @endphp
                                                     @foreach($product->accessories as $key => $accessory)
                                                         <div class="row removeclass{{ $key  }}">
-                                                            <div class="col-sm-3 nopadding">
+                                                            <div class="col-sm-5 nopadding">
                                                                 <div class="form-group">
-                                                                    <input type="text" class="form-control" id="modelname" name="modelname[]" placeholder="Model Name" value="{{ $accessory->name }}">
+                                                                    <textarea class="form-control" id="modelname" name="modelname[]" placeholder="Model Name" >{{$accessory->name}}</textarea>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-3 nopadding">
+{{--                                                            <div class="col-sm-3 nopadding">--}}
+{{--                                                                <div class="form-group">--}}
+{{--                                                                    <input type="text" class="form-control" id="acc_sku" name="acc_sku[]"  value="{{ $accessory->sku }}" placeholder="SKU">--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+                                                            <div class="col-sm-2 nopadding">
                                                                 <div class="form-group">
-                                                                    <input type="text" class="form-control" id="acc_sku" name="acc_sku[]"  value="{{ $accessory->sku }}" placeholder="SKU">
+                                                                    <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]"  value="{{ $accessory->pn_no }}" placeholder="P/N">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-3 nopadding">
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]"  value="{{ $accessory->pn_no }}" placeholder="PN NO">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-3 nopadding">
+                                                            <div class="col-sm-2 nopadding">
                                                                 <div class="form-group">
                                                                     <input type="text" class="form-control" id="acc_hsn_no" name="acc_hsn_no[]" value="{{ $accessory->hsn_no }}"  placeholder="HSN No">
                                                                 </div>

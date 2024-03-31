@@ -84,6 +84,8 @@ class QuoteController extends Controller
 
             $customerEmail = $request->input('email');
             $quotes->cust_id = $request->input('id_user');
+            $quotes->contact_person = $request->input('contact_person');
+            $quotes->contact_person_email = $request->input('contact_person_email');
             $quotes->order_type = $request->input('order_type');
             $quotes->phone_number = $request->input('phone_number');
             $quotes->email = $request->input('email');
@@ -112,6 +114,7 @@ class QuoteController extends Controller
             if ($request->get('order_type') == Quote::ORDER_TYPE_TENDOR) {
                 $quotes->tendor_no = $request->get('tendor_no');
                 $quotes->due_date = $request->get('due_date');
+                $quotes->tender_quote_type = $request->get('bid_type');
             }
             $quotes->save();
             if ($quotes->wasRecentlyCreated) {
@@ -186,6 +189,8 @@ class QuoteController extends Controller
     {
         $customerEmail = $request->input('email');
         $quote->cust_id = $request->input('id_user');
+        $quotes->contact_person = $request->input('contact_person');
+        $quotes->contact_person_email = $request->input('contact_person_email');
         $quote->order_type = $request->input('order_type');
         $quote->phone_number = $request->input('phone_number');
         $quote->email = $request->input('email');
@@ -212,9 +217,11 @@ class QuoteController extends Controller
         if ($request->get('order_type') == Quote::ORDER_TYPE_TENDOR) {
             $quote->tendor_no = $request->get('tendor_no');
             $quote->due_date = date('Y-m-d', strtotime($request->get('due_date')));
+            $quote->tender_quote_type = $request->get('bid_type');
         } else {
             $quote->tendor_no = '';
             $quote->due_date = '';
+            $quote->tender_quote_type = '';
         }
         if (array_key_exists('change_quote_no', $request->all()) && !empty($request->get('change_quote_no'))) {
             $quoteNo = explode('/', $quote->quote_no);
@@ -644,7 +651,7 @@ class QuoteController extends Controller
             $quote->installation_percentage = $installationPercentage;
             $quote->warranty_note = $warrantyNote;
             if ($amended_on) {
-                $quote->amended_on = date("Y-m-d", strtotime($amended_on));
+                $quote->amended_on = date("Y-m-d");
             }
             $quote->save();
             return response()->json([
@@ -675,6 +682,22 @@ class QuoteController extends Controller
             $installtion = round($finalTotal['totalAmount'] * $val / 100);
         }
         return $installtion;
+    }
+
+    public function getDiscount(Request $request)
+    {
+        $quoteId = $request->get('quoteId');
+        $type = $request->get('type');
+        $val = $request->get('val');
+//        $config = Config::get('INSTALLATION');
+//        $installtion = $config['value'];
+        $discount = 0;
+        $finalTotal = 0;
+        if ($type == '%') {
+            $finalTotal = Quote::getQuoteTotal($quoteId);
+            $discount = round($finalTotal['totalAmount'] * $val / 100);
+        }
+        return round(($discount), 2);
     }
 
     public function getFreightCharge(Request $request)

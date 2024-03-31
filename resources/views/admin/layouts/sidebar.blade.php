@@ -97,7 +97,7 @@
                         <li class="nav-item">
                             <a href="{{ route('customers') }}" class="nav-link  {{ ($controllerName == 'CustomerController' && $segments == 'customers')?'active':'' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Customers</p>
+                                <p>Company</p>
                             </a>
                         </li>
                         <li class="nav-item">

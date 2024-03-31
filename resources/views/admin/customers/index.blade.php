@@ -38,7 +38,9 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Status</th>
-                                        <th>Role</th>
+                                        @if(in_array($type, ['user']))
+                                            <th>Role</th>
+                                        @endif
                                         <th>Created Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -54,7 +56,9 @@
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone_number }}</td>
                                             <td>{{ status($customer->status) }}</td>
+                                            @if(in_array($type, ['user']))
                                             <td>{{ $customer->role?$customer->role->role_name:'NA' }}</td>
+                                           @endif
                                             <td>{{ date('d-m-Y' , strtotime($customer->created_at)) }}</td>
                                             <td style="text-align: center">
                                                 @php
@@ -91,18 +95,18 @@
                                                         Change Password
                                                     </a>
                                                     @endif
-                                                @else
-                                                    @if(auth()->user()->id == $customer->id)
-                                                        @if(in_array(auth()->user()->role_id, [\App\Models\Admin\Role::ROLE_EXECUTIVE, \App\Models\Admin\Role::ROLE_BUSINESS_HEAD]))
-                                                        <a href="javascript:void(0)"
-                                                           class="change_password"
-                                                           data-id="{{ $customer->id }}"
-                                                           id="change_password"
-                                                        >
-                                                            Change Password
-                                                        </a>
-                                                        @endif
-                                                    @endif
+{{--                                                @else--}}
+{{--                                                    @if(auth()->user()->id == $customer->id)--}}
+{{--                                                        @if(in_array(auth()->user()->role_id, [\App\Models\Admin\Role::ROLE_EXECUTIVE, \App\Models\Admin\Role::ROLE_BUSINESS_HEAD]))--}}
+{{--                                                        <a href="javascript:void(0)"--}}
+{{--                                                           class="change_password"--}}
+{{--                                                           data-id="{{ $customer->id }}"--}}
+{{--                                                           id="change_password"--}}
+{{--                                                        >--}}
+{{--                                                            Change Password--}}
+{{--                                                        </a>--}}
+{{--                                                        @endif--}}
+{{--                                                    @endif--}}
                                                 @endif
                                             </td>
                                     </tr>

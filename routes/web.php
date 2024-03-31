@@ -106,6 +106,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/ajax/getInstallationCharge', 'getInstallationCharge')->name('quote.getInstallationCharge');
         Route::get('/ajax/getFreightCharge', 'getFreightCharge')->name('quote.getFreightCharge');
         Route::post('/quote/update-preview', 'updateQuotePreview')->name('quote.updateQuotePreview');
+        Route::get('/ajax/getDiscount', 'getDiscount')->name('quote.getDiscount');
     });
     Route::controller(ProductCartItemsController::class)->group(function(){
         Route::post('/product/additem','addCartItem')->name('product.additem');

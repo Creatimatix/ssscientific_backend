@@ -195,7 +195,7 @@
     </tr>
     <!-- </table>
     <table style="table-layout:fixed; height:90vh;" class="center no-border Product_table"> -->
-   
+
     @if($key != $totalItems)
     <!-- Blank table for background -->
     <div style="position:fixed; z-index:9; width:100%">
@@ -213,11 +213,11 @@
         </table>
     </div>
    @endif
-   
+
     <tr class="border-bottom"style="border: solid thin;">
         <th  class=''>S/N</th>
         <th  class=''>P/N</th>
-        <th  class=''>HSN Code</th>
+{{--        <th  class=''>HSN Code</th>--}}
         <th  class='' colspan='2'>Description of goods</th>
         <th  class=''>Qty</th>
         <th  class=''>Unit {{ $model->currency_type }}</th>
@@ -228,7 +228,7 @@
     <tr style="text-align: center;"  class='no-border'>
         <td   width="10px" style="padding: 0px 0px 100px 0px;" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
         <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
-        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>
+{{--        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>--}}
         <td  colspan='2'  class='{{($key != $totalItems ? "no-border" : "")}} text-left text-top no-bottom-border'>
             <b>{{ $item->product->name }}</b>
             <br />

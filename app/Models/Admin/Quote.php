@@ -81,6 +81,11 @@ class Quote extends BaseModel
         'total_title',
         'is_preview',
         'warranty_note',
+        'discount_percentage',
+        'contact_person',
+        'contact_person_email',
+        'tender_quote_type',
+        'amended_on',
     ];
 
     protected $appends = ['property_address','shipto_address'];
@@ -124,11 +129,10 @@ class Quote extends BaseModel
         $totalAmount = 0;
         $quote = SELF::where('id',$quoteId)->get()->first();
         if($quote){
-            $items = ProductCartItems::select(DB::raw('sum(asset_value * quantity) as totalamount'))->with('accessories')->where("quote_id", $quote->id)->get()->all();
-
+            $items = ProductCartItems::select(['id','asset_value', 'quantity', 'item_id','is_payable'])->with('accessories')->where("quote_id", $quote->id)->whereNull('item_id')->get()->all();
             if($items){
                 foreach ($items as $item){
-                    $totalAmount += $item->totalamount;
+                    $totalAmount += $item->asset_value * $item->quantity;
                     if($item->accessories){
                         foreach($item->accessories as $accessory){
                             if($accessory->is_payable){
