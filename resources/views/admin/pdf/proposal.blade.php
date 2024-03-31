@@ -39,13 +39,14 @@
             transform-origin: 0 0;
             background-image: url("{{ public_path('images/logobg.png') }}");
             background-size: cover;
-            background-position: center;
+            background-position: 10% 0%;
+            margin-bottom:20px;
         }
 
         p {
             color: black;
             text-decoration: none;
-            font-size: 12pt;
+            font-size: 10pt;
             margin: 0pt;
             padding-left:5pt;
             line-height: 1.6;
@@ -53,23 +54,23 @@
         h1 {
             color: black;
             text-decoration: none;
-            font-size: 13pt;
+            font-size: 12pt;
         }
         .s1 {
             color: black;
             text-decoration: none;
-            font-size: 12pt;
+            font-size: 10pt;
         }
         .s2 {
             color: black;
             text-decoration: none;
-            font-size: 12pt;
+            font-size: 10pt;
         }
 
         td, th{
             width:10%;
             padding-left:5pt;
-            font-size: 12pt;
+            font-size: 10pt;
         }
 
         .table-quotation, th, td {
@@ -112,18 +113,20 @@
             border-top : 2px solid #D3D3D3;
         }
 
-
+        tr.border-bottom td {
+        border-bottom: 1pt solid #ff000d;
+      }
         /*table, tbody {vertical-align: top; overflow: visible; }*/
     </style>
 
 </head>
 <body>
 <p style="text-indent: 0pt;text-align: left; pading-top:-10px; ">
-        <span style="">
+        <span style="margin-bottom:30px">
 <table cellspacing="0" height="100%" cellpadding="0" class='center'>
     <tr>
         <td style="border: none;">
-            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific - {{ $totalItems }}</p>
+            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">S S Scientific</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                 Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
@@ -153,7 +156,7 @@
     <tr>
         <th colspan='4' class='left-align'>To</th>
         <th colspan='4' class='left-align'></th>
-    </tr>
+    </tr
 
     <!-- <tr>
         <td colspan='4'>
@@ -192,24 +195,44 @@
     </tr>
     <!-- </table>
     <table style="table-layout:fixed; height:90vh;" class="center no-border Product_table"> -->
-    <tr>
-        <th>S/N</th>
-        <th>P/N</th>
-        <th>HSN Code</th>
-        <th colspan='2'>Description of goods</th>
-        <th>Qty</th>
-        <th>Unit {{ $model->currency_type }}</th>
-        <th>Amount {{ $model->currency_type }}</th>
+   
+    @if($key != $totalItems)
+    <!-- Blank table for background -->
+    <div style="position:fixed; z-index:9; width:100%">
+
+        <table style="width:90%; border-size:2px; margin-left:0px;"  cellspacing="0" class="center Product_table" cellpadding="0" >
+        <tr>
+            <th>&nbsp;</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></th>
+            <th></th>
+            <th></th>
+            <th colspan='2'></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </table>
+    </div>
+   @endif
+   
+    <tr class="border-bottom"style="border: solid thin;">
+        <th  class=''>S/N</th>
+        <th  class=''>P/N</th>
+        <th  class=''>HSN Code</th>
+        <th  class='' colspan='2'>Description of goods</th>
+        <th  class=''>Qty</th>
+        <th  class=''>Unit {{ $model->currency_type }}</th>
+        <th  class=''>Amount {{ $model->currency_type }}</th>
     </tr>
+    <!-- <tr style="border-bottom:2px"></tr> -->
     <!-- <div> -->
-    <tr style="text-align: center;">
-        <td width="10px" style="padding: 0px 0px 100px 0px;" class='text-top'><b>{{ $itemKey }}</b></td>
-        <td class='text-top'>{{ $item->product->pn_no }}</td>
-        <td class='text-top'>{{ $item->product->hsn_no }}</td>
-        <td colspan='2'  class='text-left text-top'>
+    <tr style="text-align: center;"  class='no-border'>
+        <td   width="10px" style="padding: 0px 0px 100px 0px;" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
+        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
+        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>
+        <td  colspan='2'  class='{{($key != $totalItems ? "no-border" : "")}} text-left text-top no-bottom-border'>
             <b>{{ $item->product->name }}</b>
             <br />
-            <div class='text-center'>
+            <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
                         <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
@@ -221,9 +244,9 @@
             <br />
             {!! $item->product->description !!}
         </td>
-        <td class="text-top text-right">{{ $item->quantity }}</td>
-        <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
-        <td class="text-top text-right"><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
+        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'>{{ $item->quantity }}</td>
+        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
+        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
         @php
@@ -232,18 +255,18 @@
                 $totalAmount += $accessory->asset_value * $accessory->quantity;
             }
         @endphp
-        <tr style="text-align: center;  outline: thin solid ">
-            <td width="10px" style="padding: 10px 0px 100px 0px" class="no-top-border text-top no-bottom-border">{{ $itemKey.'.'.++$aKey }}</td>
-            <td class="no-top-border text-top no-bottom-border">{{ $accessory->product->pn_no }}</td>
-            <td class="no-top-border text-top no-bottom-border">{{ $accessory->product->hsn_no }}</td>
-            <td colspan='2' class="no-top-border text-left text-top no-bottom-border">
+        <tr style="text-align: center;  outline: thin solid">
+            <td width="10px" style="padding: 10px 0px 100px 0px" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $itemKey.'.'.++$aKey }}</td>
+            <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->pn_no }}</td>
+            <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->hsn_no }}</td>
+            <td colspan='2' class='no-top-border text-left text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
                 <b>{{ $accessory->product->name }}</b>{{ sizeof($item->accessories) }}
                 <br />
                 {{ $accessory->product->short_description }}
             </td>
-            <td class="no-top-border text-right text-top no-bottom-border">{{ $accessory->quantity }}</td>
-            <td class="text-top text-right no-top-border no-bottom-border" ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
-            <td class="text-top text-right no-top-border no-bottom-border   ">
+            <td class='no-top-border text-center text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->quantity }}</td>
+            <td class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}' ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
+            <td class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
                 @if($accessory->is_payable)
                     <span style="font-family: DejaVu Sans; sans-serif;">
                 {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
@@ -427,7 +450,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
 
   .Product_table {
         margin-top: 0px !important;
-                        table-layout: fixed;
+        table-layout: fixed;
   }
 
     table {
@@ -436,7 +459,7 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
 
     td .addressinfo {
         line-height: 17px !important;
-        font-size: 13px;
+        font-size: 12px;
         padding: -2px;
     }
 </style>
