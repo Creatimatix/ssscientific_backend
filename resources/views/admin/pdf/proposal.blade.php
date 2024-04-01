@@ -67,7 +67,7 @@
             font-size: 10pt;
         }
 
-        td, th{
+        td, th .{
             width:10%;
             padding-left:5pt;
             font-size: 10pt;
@@ -92,9 +92,14 @@
             border-bottom : 0px;
         }
 
+        .no-side-border{
+            border-left: 1px solid; 
+            border-right: 1px solid;
+        }
+
         .left-align{
             text-align:left;
-            padding-left:5pt;
+            padding-left:1pt;
         }
 
         .center {
@@ -156,9 +161,9 @@
     <tr>
         <th colspan='4' class='left-align'>To</th>
         <th colspan='4' class='left-align'></th>
-    </tr
+    </tr>
 
-    <!-- <tr>
+    <tr>
         <td colspan='4'>
             <p>
                 {{ $model->property_address }}
@@ -167,7 +172,8 @@
         <td colspan='4'>
             <p>{{ $model->shipto_address }}</p>
         </td>
-    </tr> -->
+    </tr> 
+    <tr><td style="width:5%" class="no-border"></br></td></tr>
     <tr>
         <td colspan='4'>
             <p>
@@ -202,35 +208,35 @@
 
         <table style="width:90%; border-size:2px; margin-left:0px;"  cellspacing="0" class="center Product_table" cellpadding="0" >
         <tr>
-            <th>&nbsp;</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></th>
-            <th></th>
-            <th></th>
-            <th colspan='2'></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th style="width:5%">&nbsp;</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></th>
+            <th style="width:10%"></th>
+            <!-- <th></th> -->
+            <th colspan='3'></th>
+            <th style="width:5%"></th>
+            <th style="width:15%"></th>
+            <th style="width:15%"></th>
         </tr>
         </table>
     </div>
    @endif
 
     <tr class="border-bottom"style="border: solid thin;">
-        <th  class=''>S/N</th>
-        <th  class=''>P/N</th>
-{{--        <th  class=''>HSN Code</th>--}}
-        <th  class='' colspan='2'>Description of goods</th>
-        <th  class=''>Qty</th>
-        <th  class=''>Unit {{ $model->currency_type }}</th>
-        <th  class=''>Amount {{ $model->currency_type }}</th>
+        <th style="width:5%" class='no-side-border'>S/N</th>
+        <th style="width:10%"  class='no-side-border'>P/N</th>
+        <!-- <th  class='no-side-border'>HSN Code</th> -->
+        <th class='no-side-border' colspan='3'>Description of goods</th>
+        <th style="width:5%" class='no-side-border'>Qty</th>
+        <th style="width:15%" class='no-side-border'>Unit {{ $model->currency_type }}</th>
+        <th style="width:15%" class='no-side-border'>Amount {{ $model->currency_type }}</th>
     </tr>
     <!-- <tr style="border-bottom:2px"></tr> -->
     <!-- <div> -->
     <tr style="text-align: center;"  class='no-border'>
-        <td   width="10px" style="padding: 0px 0px 100px 0px;" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
-        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
-{{--        <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>--}}
-        <td  colspan='2'  class='{{($key != $totalItems ? "no-border" : "")}} text-left text-top no-bottom-border'>
-            <b>{{ $item->product->name }}</b>
+        <td style="width:5%" style="padding: 0px 0px 10px 0px; width:5%" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
+        <td  style="width:10%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
+        <!-- <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>--}} -->
+        <td  colspan='3'  class='{{($key != $totalItems ? "no-border" : "")}} left-align text-top no-bottom-border'>
+            <b class='left-align'>{{ $item->product->name }}</b>
             <br />
             <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
                 @if($item->product)
@@ -244,9 +250,9 @@
             <br />
             {!! $item->product->description !!}
         </td>
-        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'>{{ $item->quantity }}</td>
-        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
-        <td  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
+        <td  style="width:5%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'>{{ $item->quantity }}</td>
+        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
+        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
     </tr>
     @foreach($item->accessories as $aKey => $accessory)
         @php
@@ -256,17 +262,17 @@
             }
         @endphp
         <tr style="text-align: center;  outline: thin solid">
-            <td width="10px" style="padding: 10px 0px 100px 0px" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $itemKey.'.'.++$aKey }}</td>
-            <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->pn_no }}</td>
-            <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->hsn_no }}</td>
-            <td colspan='2' class='no-top-border text-left text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
+            <td style="width:5%" style="padding: 10px 0px 10px 0px" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $itemKey.'.'.++$aKey }}</td>
+            <td style="width:10%" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->pn_no }}</td>
+            <!-- <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->hsn_no }}</td> -->
+            <td colspan='3' class='no-top-border text-left text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
                 <b>{{ $accessory->product->name }}</b>{{ sizeof($item->accessories) }}
                 <br />
                 {{ $accessory->product->short_description }}
             </td>
-            <td class='no-top-border text-center text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->quantity }}</td>
-            <td class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}' ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
-            <td class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
+            <td style="width:5%" class='no-top-border text-center text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->quantity }}</td>
+            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}' ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
+            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
                 @if($accessory->is_payable)
                     <span style="font-family: DejaVu Sans; sans-serif;">
                 {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
