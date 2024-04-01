@@ -33,6 +33,12 @@
                                 <h6 class="title_in_caps" style="margin-bottom: 9px !important;">{{ \App\Models\User::userTypes[$type] }} Information:</h6>
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
+                                        @if(in_array($type, ['vendor']))
+                                        <div class="col-md-4">
+                                            <label for="company_name">Company Name:</label>
+                                            <input type="text" name="company_name" id="company_name" class="form-control fixedOption" required>
+                                        </div>
+                                        @endif
                                         <div class="col-md-4">
                                             <label for="first_name">First Name:</label>
                                             <input type="text" name="first_name" id="first_name" class="form-control fixedOption" required>
@@ -45,8 +51,6 @@
                                             <label for="phone_number">Phone Number:</label>
                                             <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required>
                                         </div>
-                                    </div>
-                                    <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="email">E-Mail Address:</label>
                                             <input type="email" name="email" id="email" class="form-control fixedOption" value="{{ old('email') }}">
@@ -102,9 +106,6 @@
 {{--                                                <input type="vendor_code" name="vendor_code" id="vendor_code" class="form-control fixedOption">--}}
 {{--                                            </div>--}}
                                         @endif
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-md-8 margin-bottom-20">
                                             <label for="property_address">Street Address:<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
@@ -113,8 +114,6 @@
                                             <label for="apt_no">Apt No</label>
                                             <input type="text" class="form-control" name="apt_no" id="apt_no" placeholder="Apt No">
                                         </div>
-                                    </div>
-                                    <div class="row margin-bottom-20">
                                         <div class="col-md-4">
                                             <label for="city">City<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control" name="city" id="city" placeholder="City" required>

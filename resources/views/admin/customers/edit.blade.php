@@ -33,6 +33,12 @@
                                 <div class="margin-bottom-20">
                                     <input type="hidden" value="{{ $model->id }}" name="id">
                                     <div class="row margin-bottom-20">
+                                        @if(in_array($type, ['vendor']))
+                                            <div class="col-md-4">
+                                                <label for="company_name">Company Name:</label>
+                                                <input type="text" name="company_name" id="company_name" class="form-control fixedOption" value="{{ $model->company_name }}">
+                                            </div>
+                                        @endif
                                         <div class="col-md-4">
                                             <label for="first_name">First Name:</label>
                                             <input type="text" name="first_name" id="first_name" class="form-control fixedOption" required value="{{ $model->first_name }}">
@@ -45,8 +51,6 @@
                                             <label for="phone_number">Phone Number:</label>
                                             <input type="number" name="phone_number" id="phone_number" class="form-control fixedOption" required value="{{ $model->phone_number }}">
                                         </div>
-                                    </div>
-                                    <div class="row margin-bottom-20">
                                         <div class="col-md-4" style="margin-top: 2px;">
                                             <label for="email">E-Mail Address:<span class="validateClass">*</span></label>
                                             <input type="email" name="email" id="email" class="form-control fixedOption" value="{{ old('email') ? old('email') : $model->email }}" >
@@ -108,8 +112,6 @@
                                                 <option value="2" {{ $model->status == 2?'selected': '' }}>Inactive</option>
                                             </select>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-8 margin-bottom-20">
                                             <label for="property_address">Street Address:<span class="validateClass">*</span></label>
                                             <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="{{ $model->address }}" required>

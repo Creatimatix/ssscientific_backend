@@ -582,6 +582,8 @@ $(document).on('click','#terms_condition_btn', function(e){
         var installationType = $('#getInstallationCharge').val();
         var installationPercentage = $('#percentage').val();
         var warrantyNote = $('#warranty_note').val();
+        var paymentTerms = $('#payment_terms').val();
+        var validity = $('#validity').val();
 
         $.ajax({
             type: 'post',
@@ -599,6 +601,8 @@ $(document).on('click','#terms_condition_btn', function(e){
                 'installationPercentage': installationPercentage,
                 'amended_on': $('#is_amended').prop('checked')?true:false,
                 'warranty_note': warrantyNote,
+                'payment_terms': paymentTerms,
+                'validity': validity,
             },
             success: function (response) {
                 if(response.statusCode == 200){
