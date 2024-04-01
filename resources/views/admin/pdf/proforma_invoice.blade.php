@@ -106,13 +106,25 @@
 {{--            @endif--}}
         </td>
     </tr>
+    @php
+        $contactPerson = $model->user->full_name;
+        $contactPersonEmail = $model->user->email;
+        $contactPersonNumber = $model->phone_number;
+
+        if($model->contact_person){
+            $contactPerson = $model->contact_person;
+        }
+        if($model->contact_person_email){
+            $contactPersonEmail = $model->contact_person_email;
+        }
+    @endphp
     <tr>
-        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">CONTACT PERSON: {{ $model->user->full_name }}</td>
+        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">CONTACT PERSON: {{ $contactPerson }}</td>
     </tr>
     <tr>
         <td  class='no-border' colspan='8' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
-            <span style="padding-right: 120px;float: left;">MOBILE: {{ $model->user->phone_number }}</span>
-            <span style="padding-right: 13px;float: right;">Email:{{ $model->user->email }}</span>
+            <span style="padding-right: 120px;float: left;">MOBILE: {{ $contactPersonNumber }}</span>
+            <span style="padding-right: 13px;float: right;">Email:{{ $contactPersonEmail }}</span>
         </td>
     </tr>
     <tr>
@@ -148,12 +160,12 @@
                 <td colspan='2' style="text-align: center">
                     {{ $item->product->name }}
                     <br />
-                    @if($item->product)
-                        @foreach($item->product->images as $image)
-                            <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />
-                        @endforeach
-                    @endif
-                    <br />
+{{--                    @if($item->product)--}}
+{{--                        @foreach($item->product->images as $image)--}}
+{{--                            <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
+{{--                    <br />--}}
                     {{ $item->product->short_description }}
                 </td>
                 <td>{{ $item->quantity }}</td>

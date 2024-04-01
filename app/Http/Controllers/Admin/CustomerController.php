@@ -50,6 +50,7 @@ class CustomerController extends Controller
         $customer = User::updateOrCreate(
             ['id' => $id],
             [
+                'company_name' => $request->get('company_name'),
                 'first_name' => $request->get('first_name'),
                 'last_name' => $request->get('last_name'),
                 'phone_number' => $request->get('phone_number'),

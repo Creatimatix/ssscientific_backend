@@ -129,6 +129,29 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
+                    @php
+                        $defaultIGst = null;
+                        $defaultCGst = null;
+                        $defaultSGst = null;
+
+                        if($quote->i_gst){
+                            $defaultIGst = $quote->i_gst;
+                        }else if(!$quote->i_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE){
+                            $defaultIGst = isset($configs['INTRASTATE'])?$configs['INTRASTATE']:'';
+                        }
+
+                        if($quote->c_gst){
+                            $defaultCGst = $quote->c_gst;
+                        }else if(!$quote->c_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE){
+                            $defaultCGst = isset($configs['INTERSTATE'])?$configs['INTERSTATE']:'';
+                        }
+
+                        if($quote->s_gst){
+                            $defaultSGst = $quote->s_gst;
+                        }else if(!$quote->s_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE){
+                            $defaultSGst = isset($configs['INTERSTATE'])?$configs['INTERSTATE']:'';
+                        }
+                    @endphp
                     <div class="card-body">
                         <div class="row">
                             <div class="form-check">
@@ -139,7 +162,7 @@
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ ($quote->i_gst)?$quote->i_gst:'' }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }}>
+                                            <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ $defaultIGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }}>
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -155,7 +178,7 @@
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $quote->c_gst? $quote->c_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                            <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $defaultCGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?  $configs['INTERSTATE']:'disabled' }} >
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -166,7 +189,7 @@
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $quote->s_gst? $quote->s_gst : 0 }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                            <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $defaultSGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -209,7 +232,7 @@
                         </div>
                         <div class="row">
                             <div class="form-check">
-                                <div style="margin-top: 0px;margin-left: -22px;width: 380px;display: flex;">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 555px;display: flex;">
                                     <label class="form-check-label" for="freight" style="width:420px">
                                         Installation Charges (<span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type] }}</span>)
                                     </label>
@@ -223,7 +246,7 @@
                                         <input type="text" class="form-control form-control-border" id="percentage" name="percentage" placeholder="%" value="{{ $quote->installation_percentage }}" style=" margin-top: -4px; margin-left: 16px; display: {{ $quote->installation_type == '%'?'block':'none' }};">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-border" id="installation" name="installation" placeholder="Installation"  value="{{ $quote->installation? $quote->installation : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">
+                                        <input type="text" class="form-control form-control-border" id="installation" name="installation" placeholder="Installation"  value="{{ $quote->installation? $quote->installation : 0 }}" style="margin-top: -4px;margin-left: 16px;width: 121px;">
                                     </div>
                                 </div>
                             </div>
@@ -236,6 +259,30 @@
                                     </label>
                                     <div class="form-group" style=" margin-right: 30px; ">
                                         <textarea  class="form-control form-control-border" id="warranty_note" name="percentage" placeholder="Warranty Note" cols="220" rows="2">{{ $quote->warranty_note }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-check">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 637px;display: flex;">
+                                    <label class="form-check-label" for="payment_terms" style="width:420px">
+                                        Payment Terms:
+                                    </label>
+                                    <div class="form-group" style=" margin-right: 30px; ">
+                                        <textarea  class="form-control form-control-border" id="payment_terms" name="payment_terms" placeholder="Payment Terms" cols="220" rows="2">{{ $quote->payment_terms }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-check">
+                                <div style="margin-top: 0px;margin-left: -22px;width: 637px;display: flex;">
+                                    <label class="form-check-label" for="validity" style="width:420px">
+                                        Validity:
+                                    </label>
+                                    <div class="form-group" style=" margin-right: 30px; ">
+                                        <textarea  class="form-control form-control-border" id="validity" name="validity" placeholder="Validity" cols="220" rows="2">{{ $quote->validity }}</textarea>
                                     </div>
                                 </div>
                             </div>

@@ -29,6 +29,7 @@ class User extends Authenticatable
         "East"
     ];
     protected $fillable = [
+        'company_name',
         'first_name',
         'last_name',
         'email',
@@ -49,7 +50,7 @@ class User extends Authenticatable
     ];
 
     const userTypes = [
-        'customer' => "Company",
+        'customer' => "Customer",
         'vendor' => "Vendor",
         'user' => "User",
     ];

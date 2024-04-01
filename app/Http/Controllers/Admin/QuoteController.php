@@ -189,8 +189,8 @@ class QuoteController extends Controller
     {
         $customerEmail = $request->input('email');
         $quote->cust_id = $request->input('id_user');
-        $quotes->contact_person = $request->input('contact_person');
-        $quotes->contact_person_email = $request->input('contact_person_email');
+        $quote->contact_person = $request->input('contact_person');
+        $quote->contact_person_email = $request->input('contact_person_email');
         $quote->order_type = $request->input('order_type');
         $quote->phone_number = $request->input('phone_number');
         $quote->email = $request->input('email');
@@ -636,6 +636,8 @@ class QuoteController extends Controller
         $installationType = $request->get('installationType');
         $installationPercentage = $request->get('installationPercentage');
         $warrantyNote = $request->get('warranty_note');
+        $paymentTerms = $request->get('payment_terms');
+        $validity = $request->get('validity');
 
         $quote = Quote::where('id', $quoteId)->get()->first();
 
@@ -650,6 +652,8 @@ class QuoteController extends Controller
             $quote->installation_type = $installationType;
             $quote->installation_percentage = $installationPercentage;
             $quote->warranty_note = $warrantyNote;
+            $quote->payment_terms = $paymentTerms;
+            $quote->validity = $validity;
             if ($amended_on) {
                 $quote->amended_on = date("Y-m-d");
             }

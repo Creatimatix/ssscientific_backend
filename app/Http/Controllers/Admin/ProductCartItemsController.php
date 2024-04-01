@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Config;
 use App\Models\Admin\ProductCartItems;
 use App\Models\Admin\Quote;
 use Illuminate\Http\Request;
@@ -54,10 +55,15 @@ class ProductCartItemsController extends Controller
                     ->get()
                     ->all();
         $quote = Quote::where('id',$quote_id)->get()->first();
+        $configs = Config::getVals([
+            'INTERSTATE',
+            'INTRASTATE'
+        ]);
         if($quote){
             $html =  view('admin.quotes.items',[
                 'items' => $items,
                 'quote' => $quote,
+                'configs' => $configs,
             ])->render();
         }
 
