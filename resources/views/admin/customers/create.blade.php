@@ -33,7 +33,7 @@
                                 <h6 class="title_in_caps" style="margin-bottom: 9px !important;">{{ \App\Models\User::userTypes[$type] }} Information:</h6>
                                 <div class="proposal-boxx--View">
                                     <div class="row margin-bottom-20">
-                                        @if(in_array($type, ['vendor']))
+                                        @if(in_array($type, ['vendor','customer']))
                                         <div class="col-md-4">
                                             <label for="company_name">Company Name:</label>
                                             <input type="text" name="company_name" id="company_name" class="form-control fixedOption" required>

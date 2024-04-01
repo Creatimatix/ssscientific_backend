@@ -50,7 +50,7 @@ class User extends Authenticatable
     ];
 
     const userTypes = [
-        'customer' => "Company",
+        'customer' => "Customer",
         'vendor' => "Vendor",
         'user' => "User",
     ];

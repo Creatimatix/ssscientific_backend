@@ -33,7 +33,7 @@
                                 <div class="margin-bottom-20">
                                     <input type="hidden" value="{{ $model->id }}" name="id">
                                     <div class="row margin-bottom-20">
-                                        @if(in_array($type, ['vendor']))
+                                        @if(in_array($type, ['vendor','customer']))
                                             <div class="col-md-4">
                                                 <label for="company_name">Company Name:</label>
                                                 <input type="text" name="company_name" id="company_name" class="form-control fixedOption" value="{{ $model->company_name }}">
