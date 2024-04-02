@@ -94,6 +94,10 @@ class Quote extends BaseModel
         return $this->belongsTo(User::class,'cust_id','id');
     }
 
+    public function createdBy(){
+        return $this->belongsTo(User::class,'created_by','id');
+    }
+
     public function getPropertyAddressAttribute() {
         $array = [
             $this->address,

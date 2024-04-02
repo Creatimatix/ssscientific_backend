@@ -34,6 +34,9 @@
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
+                                        @if(in_array($type, ['customer','vendor']))
+                                            <th>Company Name</th>
+                                        @endif
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
@@ -52,6 +55,9 @@
                                         @endphp
                                     <tr>
                                             <td class="subj_name">{{ ++$key }}</td>
+                                            @if(in_array($type, ['customer','vendor']))
+                                                <td>{{ $customer->company_name }}</td>
+                                            @endif
                                             <td>{{ $customer->full_name.' '.$zone }}</td>
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->phone_number }}</td>

@@ -454,10 +454,10 @@ class QuoteController extends Controller
         $configs = Config::getVals(['IGST', 'CGST', 'SGST']);
         $quote = Quote::where('id', $quote_id)
             ->with('user')
+            ->with('createdBy')
             ->with('items')
             ->get()
             ->first();
-//        dd($quote);
         $layout = true;
         if ($type == 'html') {
             $layout = false;

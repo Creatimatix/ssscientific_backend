@@ -93,7 +93,7 @@
         }
 
         .no-side-border{
-            border-left: 1px solid; 
+            border-left: 1px solid;
             border-right: 1px solid;
         }
 
@@ -172,7 +172,7 @@
         <td colspan='4'>
             <p>{{ $model->shipto_address }}</p>
         </td>
-    </tr> 
+    </tr>
     <tr><td style="width:5%" class="no-border"></br></td></tr>
     <tr>
         <td colspan='4'>
@@ -191,12 +191,12 @@
     </tr>
 
     <tr>
-        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->user->full_name }}</td>
+        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->contact_person }}</td>
     </tr>
     <tr>
-        <td  class='no-border' colspan='8' style="font-size: 15px;line-height: 10px;display: table-cell;padding-bottom: 22px;">
-            <span style="padding-right: 120px;float: left;">TEL: {{ $model->user->phone_number }}</span>
-            <span style="padding-right: 13px;float: right;">Email: {{ $model->user->email }}</span>
+        <td  class='no-border left-align' colspan='8' style="font-size: 15px;display: table-cell;padding-bottom: 22px;">
+            <span style="margin-right: 1px;float: left;">TEL: {{ $model->user->phone_number }}</span>
+            <span style="padding-right: 13px;float: right;">Email: {{ $model->contact_person_email }}</span>
         </td>
     </tr>
     <!-- </table>
@@ -301,9 +301,9 @@
             <p class="addressinfo">Shop No. 11, Jamal Mansion,</p>
             <p class="addressinfo">Navroji Hill Road No. 1, Dongri,</p>
             <p class="addressinfo">Mumbai - 400 009</p>
-            <p class="addressinfo">Contact No.: Suresh Samala</p>
-            <p class="addressinfo">Email: ssuresh@ssscientific.net</p>
-            <p class="addressinfo">Mobile No.: +91 9833241875</p>
+            <p class="addressinfo">Contact No.: {{ $model->createdBy->full_name }}</p>
+            <p class="addressinfo">Email: {{ $model->createdBy->email }} </p>
+            <p class="addressinfo">Mobile No.: {{ $model->createdBy->phone_number }}</p>
         </td>
     </tr>
      @php
