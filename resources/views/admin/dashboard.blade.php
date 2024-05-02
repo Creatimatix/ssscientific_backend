@@ -107,8 +107,7 @@
                                 </div>
                                 <div class="card-body" style="height: 420px">
                                     <div id="quotationPieChartDiv">
-                                        <canvas id="quotationPieChart" width="299" height="200" style="display: block; width: 299px; height: 200px;">
-                                        </canvas>
+                                        <span class='wait'>Please wait....</span>
                                     </div>
 
                                 </div>
@@ -125,8 +124,7 @@
 
 @section('pageScript')
     <style src="{{ asset('css/dashboard.css') }}"></style>
-{{--    <script src="{{ asset('public/plugins/chart.js/Chart.bundle.min.js') }}"></script>--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <script src="{{ asset('js/Chart.bundle.min.js') }}"></script>
     <script>
         var quotationChart=null;
         $(document).ready(function() {
@@ -138,15 +136,16 @@
         });
 
         function loadQuotationChart(status=false){
+            $('#quotationPieChartDiv').html("<span class='wait'>Please wait....</span>");
+            var pieChartContent = document.getElementById('quotationPieChartDiv');
+            pieChartContent.innerHTML = '&nbsp;';
+            $('#quotationPieChartDiv').append('<canvas id="quotationPieChart"  width="299" height="200" style="display: block; width: 299px; height: 200px;"><canvas>');
             $.ajax({
                 url: siteUrl+'/dashboard-quote-chart',
                 method: 'GET',
                 data: {"year":$('#quoteYearFilter').val()},
                 success: function(response) {
                     var data = response.data;
-                    var pieChartContent = document.getElementById('quotationPieChartDiv');
-                    pieChartContent.innerHTML = '&nbsp;';
-                    $('#quotationPieChartDiv').append('<canvas id="quotationPieChart"  width="299" height="200" style="display: block; width: 299px; height: 200px;"><canvas>');
 
                     var ctx = $("#quotationPieChart").get(0).getContext("2d");
 
