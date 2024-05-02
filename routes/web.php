@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/dashboard-quote-chart', 'quoteChart')->name('quoteChart');
     });
     Route::controller(QuoteController::class)->group(function () {
         Route::get('/quotes', 'index')->name('quotes');
