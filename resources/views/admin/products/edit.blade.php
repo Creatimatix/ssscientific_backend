@@ -161,7 +161,7 @@
                                                 @foreach($product->images as $image)
                                                     @if($image->type == 0)
                                                         <div class="imageDiv" id="p_image_{{ $image->id }}">
-                                                            <img src="{{ asset("images\products\/").$image->image_name }}" />
+                                                            <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" />
                                                             <span class="deleteImg" onclick="return product.deleteImage({{ $image->id }})">X</span>
                                                         </div>
                                                     @endif

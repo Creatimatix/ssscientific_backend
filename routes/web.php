@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\ConfigController;
 |
 */
 
+Route::get('/upload-attachment', [\App\Http\Controllers\HomeController::class, 'upload']);
+Route::post('/upload-attachment', [\App\Http\Controllers\HomeController::class, 'UploadFile']);
 
 Auth::routes();
 
@@ -159,3 +161,5 @@ Route::get('send-mail', function () {
     dd("Email is Sent.");
 });
 Route::get('/category-product', [\App\Http\Controllers\Api\GeneralController::class, 'index']);
+
+

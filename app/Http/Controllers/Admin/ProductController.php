@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
@@ -138,9 +139,15 @@ class ProductController extends Controller
             $product->save();
 
             if ($request->hasFile('images')) {
-                $image = $request->file('images');
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('images/products'), $imageName);
+                $file = $request->file('images');
+
+                $getFileName = explode(".",$file->getClientOriginalName());
+                $imageName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$file->getClientOriginalName();
+                $filePath  = 'products/images/'.$imageName;
+
+                $controller = new ImageController($request);
+                $controller->uploadToS3($file, $filePath);
+
 
                 $productImage = new ProductImage();
                 $productImage->id_product = $product->id;
@@ -150,12 +157,17 @@ class ProductController extends Controller
 
             if ($request->hasFile('document')) {
                 $document = $request->file('document');
-                $imageName = time() . '_' . $document->getClientOriginalName();
-                $document->move(public_path('images/products/document'), $imageName);
+
+                $getFileName = explode(".",$document->getClientOriginalName());
+                $documentName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$document->getClientOriginalName();
+                $documentPath  = 'products/documents/'.$documentName;
+
+                $controller = new ImageController($request);
+                $controller->uploadToS3($document, $documentPath);
 
                 $productImage = new ProductImage();
                 $productImage->id_product = $product->id;
-                $productImage->image_name = $imageName;
+                $productImage->image_name = $documentName;
                 $productImage->type = 1;
                 $productImage->save();
             }
@@ -214,6 +226,8 @@ class ProductController extends Controller
     }
 
     public function update(Request $request){
+        ini_set("MAX_EXECUTION_TIME ", 300);
+        ini_set("upload_max_filesize ", 300);
         $productId = $request->get('id_product');
         $request->validate([
             'name' => [
@@ -254,9 +268,15 @@ class ProductController extends Controller
             $product->save();
 
            if ($request->hasFile('images')) {
-               $image = $request->file('images');
-               $imageName = time() . '_' . $image->getClientOriginalName();
-               $image->move(public_path('images/products'), $imageName);
+               $file = $request->file('images');
+
+               $getFileName = explode(".",$file->getClientOriginalName());
+               $imageName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$file->getClientOriginalName();
+               $filePath  = 'products/images/'.$imageName;
+
+               $controller = new ImageController($request);
+               $controller->uploadToS3($file, $filePath);
+
                $productImage = new ProductImage();
                $productImage->id_product = $product->id;
                $productImage->image_name = $imageName;
@@ -265,11 +285,17 @@ class ProductController extends Controller
 
            if ($request->hasFile('document')) {
                $document = $request->file('document');
-               $imageName = time() . '_' . $document->getClientOriginalName();
-               $document->move(public_path('images/products/document'), $imageName);
+
+               $getFileName = explode(".",$document->getClientOriginalName());
+               $documentName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$document->getClientOriginalName();
+               $documentPath  = 'products/documents/'.$documentName;
+
+               $controller = new ImageController($request);
+               $controller->uploadToS3($document, $documentPath);
+
                $productImage = new ProductImage();
                $productImage->id_product = $product->id;
-               $productImage->image_name = $imageName;
+               $productImage->image_name = $documentName;
                $productImage->type = 1;
                $productImage->save();
            }
@@ -304,66 +330,6 @@ class ProductController extends Controller
                return redirect()->back()->with('productErrorMsg',"something went wrong.");
            }
        }
-    }
-
-    public function uploadImageToBucket(Request $request){
-        $product_sku = $request->get('sku');
-        $image = $request->get('image');
-    }
-
-    public function uploadImageToS3($image, $psku){
-        $image = str_replace('\\', '', $image);
-        $fileName= time().'.png';
-
-        $s3  = Storage::disk(config('filesystems.cloud'));
-        $env = config('app.env') == 'production' ? '' : '';
-        $basePath = $env. 'products/'.$psku.'/';
-        $filePath = $basePath.$fileName;
-
-        $thumbPath = $basePath.'thumbs/'.$fileName;
-
-        $img = Image::make($image)->resize(450, null, function ($constraint){
-            $constraint->aspectRatio();
-        });
-
-        $s3->put($filePath, file_get_contents($image,'public'));
-        $s3->put($thumbPath, (string)$img->encode('png', 90),'public');
-    }
-    public function uploadImageToGcp($image, $psku){
-        $image = str_replace('\\', '', $image);
-        $baseImage = base64_encode(file_get_contents($image));
-        $pngImage = null;
-        $fileName = time().'.png';
-
-        $filePath = storage_path('app\\images\\', $fileName);
-        $pngImage = $filePath.$fileName;
-        $pngImage=$this->base64ToImage($baseImage,$pngImage);
-
-        $s3 = Storage::disk(config('filesystems.cloud'));
-
-        $env = config('app.en') == 'production'?'':'';
-
-        $basePath = $env.'products/'.$psku.'/';
-        $filePath = $basePath.$fileName;
-
-        $thumbPath = $basePath.'thumbs/'.$fileName;
-
-        $img = Image::make($pngImage)->resize(450, null, function ($constraint){
-            $constraint->aspectRation();
-        });
-
-        $s3->put($filePath, file_get_contents($pngImage),'public');
-        $s3->put($thumbPath, (string)$img->encode('png', 90), 'public');
-
-        return $fileName;
-    }
-
-    function base64ToImage($base64_string, $output_file){
-        $file = fopen($output_file, "wb");
-        fwrite($file, base64_decode($base64_string));
-        fclose($file);
-
-        return $output_file;
     }
 
     function deleteProductImage(Request $request){
@@ -442,6 +408,8 @@ class ProductController extends Controller
 
 
     public function actionUpload(Request $request){
+        ini_set("MAX_EXECUTION_TIME ", 300);
+        ini_set("upload_max_filesize ", 300);
         if($request->get('action')=="uploadProduct") {
             $invalidSalesTaxZipcode = [];
             if($request->hasFile('import_file')) {
@@ -454,6 +422,7 @@ class ProductController extends Controller
                     $data = Excel::toArray([], $request->file('import_file'));
                     $data = array_slice($data[0], 1);
                     if (isset($data) && count($data) > 0) {
+                        dd($data);
                         foreach ($data as $key => $value) {
                             $productName = isset($value[0])?$value[0]:null;
                             $categoryName = isset($value[1])?$value[1]:null;

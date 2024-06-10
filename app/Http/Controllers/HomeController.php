@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\ImageController;
 use App\Models\Admin\Role;
 use App\Models\User;
+use Aws\S3\Exception\S3Exception;
+use Aws\S3\S3Client;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -18,7 +22,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -90,4 +94,73 @@ class HomeController extends Controller
         ])->onRegister($data);
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function upload(Request $request){
+        return view('upload');
+    }
+    public function UploadFile(Request $request){
+
+        $request->validate([
+            'file' => 'required|mimes:pdf,docx,doc,pptx,ppt,xls,xlsx,jpg|max:2048'
+        ]);
+
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $getFileName = explode(".",$file->getClientOriginalName());
+            $name = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$file->getClientOriginalName();
+            $filePath  = 'products/images/'.$name;
+            $controller = new ImageController($request);
+            $url = $controller->uploadToS3($file, $filePath);
+
+            return response()->json(['url' => $url], 200);
+        }
+
+        //create s3 client
+        $s3 = new S3Client([
+            'version' => 'latest',
+            'region'  => env('AWS_DEFAULT_REGION'),
+            'credentials' => [
+                'key'    => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            ]
+        ]);
+        $keyname = 'products/images/' . $file->getClientOriginalName();
+        //create bucket
+        if (!$s3->doesBucketExist(env('AWS_BUCKET'))) {
+            // Create bucket if it doesn't exist
+            try{
+                $s3->createBucket([
+                    'Bucket' => env('AWS_BUCKET'),
+                ]);
+            } catch (S3Exception $e) {
+                return response()->json([
+                    'Bucket Creation Failed' => $e->getMessage()
+                ]);
+            }
+        }
+        //upload file
+        try {
+            $result = $s3->putObject([
+                'Bucket' => env('AWS_BUCKET'),
+                'Key'    => $keyname,
+                'Body'   => fopen($file, 'r'),
+                'ACL'    => 'public-read'
+            ]);
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('products/images/', $filename, 's3');
+            // Print the URL to the object.
+            return response()->json([
+                'message' => 'File uploaded successfully',
+                'file link' => $result['ObjectURL']
+            ]);
+        } catch (S3Exception $e) {
+            return response()->json([
+                'Upload Failed' => $e->getMessage()
+            ]);
+        }
+    }
 }
