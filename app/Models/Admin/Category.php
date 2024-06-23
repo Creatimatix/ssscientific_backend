@@ -2,12 +2,15 @@
 
 namespace App\Models\Admin;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Category extends BaseModel
 {
     use HasFactory;
+
+    const STATUS_ACTIVE = 1;
 
     protected $fillable = [
         'category_name',
@@ -25,11 +28,12 @@ class Category extends Model
     }
 
     public function products(){
-        return $this->hasMany(Product::class,'id_category','id');
+        return $this->hasMany(Product::class,'id_category','id')->with('accessories')->whereNull('id_product');
     }
 
     public function childLevelCategories()
     {
-        return $this->childCategories()->with('childLevelCategories');
+        return $this->childCategories()->with('products')->with('childLevelCategories');
     }
+
 }

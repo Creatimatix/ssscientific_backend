@@ -1,3 +1,204 @@
-name,category,sale_price,pn_no,hsn_no,sku,short_description,description
-NPM 4501,Normalab France-sas,5000,pn001,hsn001,SSS_1,short desc,desc
-NPV Tech ,Normalab France-sas,1000,pn002,hsn002,SSS_2,GO / NO GO - Automated,dec
+Product name / model,Type ,Brand,MPN,Capacity,Readability,Short copy,Long copy,Power,Housing,Calibration,Display,Weighing units,Pan size,Overall Dimensions,Shipping Dimensions,Weight,Shipping Weight,Accessories,Image 1,Image 2,Image 3,Image 4,Data sheet,User manual,PN NO,HSN NO,SKU
+Adam Luna Analytical Balance,Parent,Adam Equipment,,,,"•High accuracy analytical balances with large display
+•USB and RS-232 outputs for sending data to printer/PC
+•Print-outs include date and time in line with Good Laboratory Practices (GLP) guidelines
+•5-year manufacturer's warranty
+•Large, grade 304 stainless steel pan
+•Multilingual display
+•Selectiable digital filtering helps the balance provide dependable results
+•Weigh-below hook for density determination
+•Internal calibration models available (those with 'i' suffix)
+•Use for weighing, parts counting, checkweighing, check counting, percentage weighing, density determination, dynamic weighing","Luna analytical balances are high accuracy, easy to use analytical lab balances. They feature a huge display with 24mm-high digits, selectable digital filtering and a USB/RS-232 output for sending GLP-compliant reports to a printer (Adam's ATP2 Thermal Printer)or PC (using Adam's AdumDU data capture software). Luna analytical balances are used for very high accuracy weighing in lab environments. They are designed for accuracy and convenience: the huge display makes it easy to read results, the USB/RS-232 output mean you can record your weight readings easily, and internal caliabration on some models means the balance will calibrate itself periodorically - saving you time! Every Luna analytical balance is covered by a 5-year manufacturer's warranty.",18VDC 830mA adaptor,ABS plastic,Internal and External calibration,Backlit LCD with 24mm high digits,"g,kg,lb,lb:oz,oz,ct,GN,dwt,ozt,tl.H,tl.S,tl.T,T, custom unit",,,,,,"104008036 AVT Anti-vibration table, 1060015357 Density determination kit, 3012014260 In-use cover, 700100410 ABI-1 Ioniser, 1120015779 ATP2 Thermal printer, 3014011014 RS-232 cable 9M-9F, 3014016217 USB A-A cable, 600002028 AdamDU Data collection program, 700660290 Calibration certificate",Luna analytical balance.jpg,https://images.salsify.com/image/upload/s--uA4wi4bm--/lari50wxytfkt6viqsbk,https://images.salsify.com/image/upload/s--xJpqxacn--/bcdddiccd7pbillhsszs,,https://images.salsify.com/image/upload/s--UsQgm7dR--/jlwj8ikuscsvgcu7xn9t,https://www.adamequipment.co.uk/media/docs/Print%20Publications/Manuals/Luna_UM_EN.pdf,,,
+LAB 84i,Child,Adam Equipment,LAB 84i,80g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 124i,Child,Adam Equipment,LAB 124i,120g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 214i,Child,Adam Equipment,LAB 214i,210g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 254i,Child,Adam Equipment,LAB 254i,250g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 84e,Child,Adam Equipment,LAB 84e,80g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 124e,Child,Adam Equipment,LAB 124e,120g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 214e,Child,Adam Equipment,LAB 214e,210g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+LAB 254e,Child,Adam Equipment,LAB 254e,250g,0.0001g,,,,,,,,80mm ⌀,224x338x374mm,390x530x530mm,6kg,8kg,,,,,,,,,,
+Adam Luna Precision Balance,Parent,Adam Equipment,,,,"•High accuracy precision balances with large display
+•USB and RS-232 outputs for sending data to printer/PC
+•Print-outs include date and time in line with Good Laboratory Practices (GLP) guidelines
+•5-year manufacturer's warranty
+•Large, grade 304 stainless steel pan
+•Multilingual display
+•Selectiable digital filtering helps the balance provide dependable results
+•Weigh-below hook for density determination
+•Internal calibration models available (those with 'i' suffix)
+•Use for weighing, parts counting, checkweighing, check counting, percentage weighing, density determination, dynamic weighing","The Adam's Luna precision balance is an easy to use lab balance with accuracy to 0.001g. They feature a huge display with 24mm-high digits, selectable digital filtering and a USB/RS-232 output for sending GLP-compliant reports to a printer (Adam's ATP2 Thermal Printer)or PC (using Adam's AdumDU data capture software). The multilingual display means the scale can be used in many countries, and the internal calibration models (those with an 'i' suffix) will ensure your weight readings are always reliable. Every Luna precision balance is covered by a 5-year manufacturer's warranty.</p>",18VDC 830mA adaptor,ABS plastic,Internal and External calibration,Backlit LCD with 24mm high digits,"g,kg,lb,lb:oz,oz,ct,GN,dwt,ozt,tl.H,tl.S,tl.T,T, custom unit",,,,,,"104008036 AVT Anti-vibration table, 1060015357 Density determination kit, 3012014260 In-use cover, 700100410 ABI-1 Ioniser, 1120015779 ATP2 Thermal printer, 3014011014 RS-232 cable 9M-9F, 3014016217 USB A-A cable, 600002028 AdamDU Data collection program, 700660290 Calibration certificate",Luna precision balance.jpg,https://images.salsify.com/image/upload/s--DuvsTigm--/h3jb8mra1z2ppyrdchih,https://images.salsify.com/image/upload/s--n8SmDusa--/lkqmkpgkcz97j2dusmeo,,https://images.salsify.com/image/upload/s--rncS0VNE--/e5fhm8qu1ahdkf1jt0wy,https://www.adamequipment.co.uk/media/docs/Print%20Publications/Manuals/Luna_UM_EN.pdf,,,
+LPB 223i,Child,Adam Equipment,LPB 223i,220g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 423i,Child,Adam Equipment,LPB 423i,420g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 623i,Child,Adam Equipment,LPB 623i,620g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 823i,Child,Adam Equipment,LPB 823i,820g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 223e,Child,Adam Equipment,LPB 223e,220g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 423e,Child,Adam Equipment,LPB 423e,420g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 623e,Child,Adam Equipment,LPB 623e,620g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+LPB 823e,Child,Adam Equipment,LPB 823e,820g,0.001g,,,,,,,,120mm ⌀,219x224x374mm,390x530x420mm,6kg,7kg,,,,,,,,,,
+Adam Luna Top Loader Balance,Parent,Adam Equipment,,,,"•High accuracy precision balances with large, bright display
+•USB and RS-232 outputs for sending data to printer/PC
+•Print-outs include date and time in line with Good Laboratory Practices (GLP) guidelines
+•5-year manufacturer's warranty
+•Large, grade 304 stainless steel pan
+•Multilingual display
+•Selectiable digital filtering helps the balance provide dependable results
+•Weigh-below hook for density determination
+•Internal calibration models available (those with 'i' suffix)
+•Use for weighing, parts counting, checkweighing, check counting, percentage weighing, density determination, dynamic weighing","Luna top loader balances feature a huge display with 24mm-high digits, and large stainless steel weighing platform. USB/RS-232 outputs can be used to send GLP-compliant reports to a printer (Adam's ATP2 Thermal Printer)or PC (using Adam's AdumDU data capture software). Internal caliabration models (those with an 'i' suffix) will self-calibrate periodorically - saving you time and meaning there is no need for manual calibration with weights! Every Luna lab balance is covered by a 5-year manufacturer's warranty.",18VDC 830mA adaptor,ABS plastic,Internal and External calibration,Backlit LCD with 24mm high digits,"g,kg,lb,lb:oz,oz,ct,GN,dwt,ozt,tl.H,tl.S,tl.T,T, custom unit",,,,,,"104008036 AVT Anti-vibration table, 1060015357 Density determination kit, 3012014259 In-use cover, 700100410 ABI-1 Ioniser, 1120015779 ATP2 Thermal printer, 3014011014 RS-232 cable 9M-9F, 3014016217 USB A-A cable, 600002028 AdamDU Data collection program, 302120953 Weigh-below hook, 700660290 Calibration certificate",Luna toploader balance.jpg,https://images.salsify.com/image/upload/s--cHNj-0aF--/o7gr2qlnf51q2qx01mlu,https://images.salsify.com/image/upload/s--D0_r9zj---/vkfnbw2uudyy6abcmopw,,https://images.salsify.com/image/upload/s--rncS0VNE--/e5fhm8qu1ahdkf1jt0wy,https://www.adamequipment.co.uk/media/docs/Print%20Publications/Manuals/Luna_UM_EN.pdf,,,
+LTB 2602i,Child,Adam Equipment,LTB 2602i,2600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 3602i,Child,Adam Equipment,LTB 3602i,3600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 4602i,Child,Adam Equipment,LTB 4602i,4600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 6002i,Child,Adam Equipment,LTB 6002i,6000g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 2602e,Child,Adam Equipment,LTB 2602e,2600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 3602e,Child,Adam Equipment,LTB 3602e,3600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 4602e,Child,Adam Equipment,LTB 4602e,4600g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LTB 6002e,Child,Adam Equipment,LTB 6002e,6000g,0.01g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LBB 6001e,Child,Adam Equipment,LBB 6001e,6000g,0.1g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LBB 8001e,Child,Adam Equipment,LBB 8001e,8000g,0.1g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LBB 12001e,Child,Adam Equipment,LBB 12001e,12000g,0.1g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+LBB 15001e,Child,Adam Equipment,LBB 15001e,15000g,0.1g,,,,,,,,185x185mm,95x224x374mm,390x530x300,5.5kg,6.5kg,,,,,,,,,,
+Adam Cruiser CKT Bench Checkweighing Scale,Parent,Adam Equipment,,,,"•Tough, durable checkweighing bench scale
+•ABS housing 
+•Stainless steel platform
+•Overload protection
+•Sealed keypad
+•Backlight changes colour during checkweighing (red/amber/green)
+•Checkweighing alarm
+•RS-232 output for sending data to printers/PCs
+•Internal memory for 50 PLUs
+•Optional weigh-below hook for density determination/materials testing applications
+•Optional USB output
+•5-year manufacturer's warranty 
+• Weighing, parts counting, checkweighing, check counting, percentage weighing and accumulation modes","The Adam Cruiser CKT is a highly robust bench scale with advanced checkweighing capabilities. Repetitive weighing tasks are fast, with a backlit display that changes colour to show if a sample is under (amber), over (red), or within (green) the preset limits. The compact design is ideal for limited workspaces or when multiple scales are not an option. Connect to inventory management systems (use the optional AdamDU software for data capture) and printers (Adam's ATP2 Thermal Printer) with the RS-232 interface or optional USB. Eash Cruiser bench scale is covered by Adam's 5-year warranty. Powered by rechargeable battery, CKT bench scales can last up to 100 hours between charges.","12VDC 800mA adaptor, internal rechargeable battery",ABS plastic,External calibration,Backlit LCD with 15mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"3022013911 In use cover, 2020013913 In use cover (pack of 5), 2020013914 In user cover (pack of 10), 302013912 Hard carry case with lock, 303149759 Large scoop (with fitting to scale), 303149760 Small scoop (with fitting to scale), 1120015779 ATP2 Thermal Printer, 3014011014 RS-232 cable 9M-9F, 3074010507 RS-232 to USB adaptor, 3084010267 USB cable, 600002028 AdamDU Data collection program, 700660290 Calibration certificate, 202000001 Weigh below hook",CKT4-Right.jpg,CKT4-Center.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EfbGM95zZsZGpwoMdMGRUm8BeOPV8Tx90V6vMDAOqJZWWA?e=loREUf,,https://images.salsify.com/image/upload/s--pnlk2XLO--/lmjcszva7yvfbrq3o9xf,https://images.salsify.com/image/upload/s--exJd356t--/u2rf7vmbt2glwynsm6kf,,,
+CKT 4,Child,Adam Equipment,CKT 4,4kg,0.1g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 8,Child,Adam Equipment,CKT 8,8kg,0.2g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 16,Child,Adam Equipment,CKT 16,16kg,0.5g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 32,Child,Adam Equipment,CKT 32,32kg,1g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 48,Child,Adam Equipment,CKT 48,48kg,2g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 8H,Child,Adam Equipment,CKT 8H,8kg,0.1g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 8UH,Child,Adam Equipment,CKT 8UH,8kg,0.05g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 16UH,Child,Adam Equipment,CKT 16UH,16kg,0.1g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 32UH,Child,Adam Equipment,CKT 32UH,32kg,0.2g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 48UH,Child,Adam Equipment,CKT 48UH,48kg,0.5g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+Adam Cruiser CKT Trade Approved Bench Scale,Parent,Adam Equipment,,,,"•Tough, durable checkweighing bench scale
+•EC trade approved
+•ABS housing 
+•Stainless steel platform
+•Overload protection
+•Sealed keypad
+•Backlight changes colour during checkweighing (red/amber/green)
+•Checkweighing alarm
+•RS-232 output for sending data to printers/PCs
+•Internal memory for 50 PLUs
+•Optional weigh-below hook for density determination/materials testing applications
+•Optional USB output
+•5-year manufacturer's warranty 
+• Weighing, parts counting, checkweighing, check counting, percentage weighing and accumulation modes",">The Adam Cruiser CKT is a highly robust bench scale with advanced checkweighing capabilities, suitable for weighing applications where price is determined by weight. Repetitive weighing tasks are fast, with a backlit display that changes colour to show if a sample is under, over, or within the preset limits. The compact design is ideal for limited workspaces or when multiple scales are not an option. The rechargeable battery allows for portable operation (with up to 100 hours of battery life); connect to inventory management systems (use the optional AdamDU software for data capture) and printers (Adam's ATP2 Thermal Printer) with the RS-232 interface or optional USB. All Cruiser bench scales are covered by Adam's 5-year warranty.","Adaptor, internal rechargeable battery",ABS plastic,External calibration,Backlit LCD with 15mm-high digits,"g, kg",,,,,,"3022013911 In use cover, 2020013913 In use cover (pack of 5), 2020013914 In user cover (pack of 10), 302013912 Hard carry case with lock, 303149759 Large scoop (with fitting to scale), 303149760 Small scoop (with fitting to scale), 1120015779 ATP2 Thermal Printer, 3014011014 RS-232 cable 9M-9F, 3074010507 RS-232 to USB adaptor, 3084010267 USB cable, 600002028 AdamDU Data collection program, 700660290 Calibration certificate, 202000001 Weigh below hook",CKT4-Right.jpg,CKT4-Center.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EfbGM95zZsZGpwoMdMGRUm8BeOPV8Tx90V6vMDAOqJZWWA?e=loREUf,,https://images.salsify.com/image/upload/s--pnlk2XLO--/lmjcszva7yvfbrq3o9xf,https://images.salsify.com/image/upload/s--exJd356t--/u2rf7vmbt2glwynsm6kf,,,
+CKT 4M,Child,Adam Equipment,CKT 4M,4kg,1g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 8M,Child,Adam Equipment,CKT 8M,8kg,2g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 20M,Child,Adam Equipment,CKT 20M,20kg,5g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+CKT 40M,Child,Adam Equipment,CKT 40M,40kg,10g,,,,,,,,210x300mm,115x355x326mm,190x370x420mm,3.3kg,4.5kg,,,,,,,,,,
+Adam Nimbus NBL Heavy Duty Precision Balance,Parent,Adam Equipment,,,,"•Tough, durable large pan precision balance
+•Large grade 304 stainless steel weighing pan
+•USB and RS-232 for connecting to printers and PCs
+•Print-outs include date and time in line with Good Laboratory Practices (GLP) guidelines
+•Sealed keypad
+•Overload protection
+•Security password to prevent unauthorised access
+•Multilingual display
+•Optional weigh-below hook for density determination/materials testing applications
+•Selectiable digital filtering helps the balance provide dependable results
+•Rechargeable battery (with up to 216 hours of battery life)
+•5-year manufacturer's warranty 
+• Weighing, parts counting, checkweighing, check counting, percentage weighing and accumulation modes","Designed to be durable, Adam Equipment's Nimbus precision balances feature solid metal construction throughout the balance to withstand chemicals and rigorous daily use. Navigation buttons are large and colour-coded, helping users operate the balance with minimal training. The weighing sensor in the Nimbus is crafted from a single block, and contains fewer parts than a traditional force motor balance. This optimised internal mechanism is fabricated using hardened materials, helping the Nimbus tolerate rigorous laboratory use. Efficiency in the mechanics, plus improved processing power of the electronics, leads to excellent performance. Powered by rechargeable battery, NBL heavy duty precision balances can last up to 216 hours between charges.","18VDC 830mA adaptor, internal rechargeable battery","ABS plastic indicator with aluminium lower csase, die-cast aluminium upper casing and base",External calibration,Backlit LCD with 20mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"1120015779 ATP2 Thermal Printer, 700400103, 3014011014 RS-232 cable, 3074010267 USB cable, 600002028 AdamDU Data collection program, 1100011297 Relay box, 700660290 Calibration certificate",NBL-F copy.jpg,NBL-R copy.jpg,NBL-R copy.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EXLaBle1DAFHmqSOQtenRwAB3EBCtlqdh7EgbjgNiZ5pMA?e=vG1Vtu,https://adamequipment.co.uk/media/docs/data_sheets/NBL-Nimbus-2-DS-LT-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/NBLe_i_UM_EN.pdf,,,
+NBL 12001e,Child,Adam Equipment,NBL 12001e,12000g,0.1g,,,,,,,,300x400mm,400x470x100mm,457x508x203mm,8.6kg,9.6kg,,,,,,,,,,
+NBL 22001e,Child,Adam Equipment,NBL 22001e,22000g,0.1g,,,,,,,,300x400mm,400x470x100mm,457x508x203mm,8.6kg,9.6kg,,,,,,,,,,
+NBL 32001e,Child,Adam Equipment,NBL 32001e,32000g,0.1g,,,,,,,,300x400mm,400x470x100mm,457x508x203mm,8.6kg,9.6kg,,,,,,,,,,
+NBL 12001P (with pillar),Child,Adam Equipment,NBL 12001P ,12000g,0.1g,,,,,,,,300x400mm,400x470x590mm,457x508x203mm,8.6kg,11kg,,,,,,,,,,
+NBL 22001P (with pillar,Child,Adam Equipment,NBL 22001P,22000g,0.1g,,,,,,,,300x400mm,400x470x590mm,457x508x203mm,8.6kg,11kg,,,,,,,,,,
+NBL 32001P (with pillar),Child,Adam Equipment,NBL 32001P,32000g,0.1g,,,,,,,,300x400mm,400x470x590mm,457x508x203mm,8.6kg,11kg,,,,,,,,,,
+Adam CPWplus Small Bench Scale,Parent,Adam Equipment,,,,"•Rugged, versatile small bench scale or floor scale
+•Splashproof housing, keypad and display are easy to clean
+•Wall-mount bracket for placing indicator on vertical surface
+•Selectable digital filtering helps minimise effects of vibration and disturbances
+•Grade 304 stainless steel weighing pan
+•Hold function freezes the weight on the display
+•RS-232 output for connecting to printers and PCs (use Adam's ATP2 printer or AdamDU data capture software)
+•3-year manufacturer's warranty 
+","The CPWplus is a versatile small bench scale, that can also be used as a floor scale. Each model is rugged yet easy to use, making it perfect for general industrial weighing tasks. There is an RS-232 output to send weight information to a printer or PC - choose Adam Equipment's ATP2 printer or AdamDU data capture software, and use in conjunction with Adam's RS-232 cable. The CPWplus indicator is splashproof, and the weighing pan is stainless steel. Use battery power and this becomes a portable small bench scale that can be used wherever needed!","Adaptor, 6x AA batteries",Mild steel base and aluminium extrusion indicator,External calibration,Backlit LCD with 22mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"1120015779 ATP2 Thermal Printer, 3074010266 RS-232 cable, 600002028 AdamDU Data collection program, 700100099 Hard carry case, 700660290 Calibration certificate",https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EUhl2R2yfKxCg0UNPFdp-TcBEO351Ejhib3a57-IK61GGw?e=97mk5G,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EdJx688SxkRIo2NR3_kMGWMB1M2pI9v5K-ksbkdGdZKGuw?e=fhUiMf,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/ERXEJTIKdS1Hv28JnwJgoA4B5sNPuXKYjQyjUqu0BIXqYQ?e=MdRXUp,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/ERp9j0jNDvNKpfjNqdE1UjYBSqbdhPZGD1cq1etwysAlgw?e=zFcO5L,https://adamequipment.co.uk/media/docs/data_sheets/CPWplus-DS-A4-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/CPWplus_UM_EN.pdf,,,
+CPWplus 6,Child,Adam Equipment,CPWplus 6,6kg,2g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+CPWplus 15,Child,Adam Equipment,CPWplus 15,15kg,5g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+CPWplus 35,Child,Adam Equipment,CPWplus 35,35kg,10g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+CPWplus 75,Child,Adam Equipment,CPWplus 75,75kg,20g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+CPWplus 150,Child,Adam Equipment,CPWplus 150,150kg,50g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+CPWplus 200,Child,Adam Equipment,CPWplus 200,200kg,50g,,,,,,,,300x300mm,300x300x50mm,102x482x381mm,4kg,5kg,,,,,,,,,,
+Adam CPWplus M Floor Scale,Parent,Adam Equipment,,,,"•Rugged, versatile floor scale
+•Splashproof housing, keypad and display are easy to clean
+•Wall-mount bracket for placing indicator on vertical surface
+•Selectable digital filtering helps minimise effects of vibration and disturbances
+• Rechargeable battery (up to 210 hours of battery life between charges)
+•Grade 304 stainless steel weighing pan
+•Hold function freezes the weight on the display
+•RS-232 output for connecting to printers and PCs (use Adam's ATP2 printer or AdamDU data capture software)
+•3-year manufacturer's warranty 
+","The CPWplus M is a rugged, easy to use floor scale from Adam Equipment. Each model is perfect for general industrial weighing tasks. There is an RS-232 output to send weight information to a printer or PC - choose Adam Equipment's ATP2 printer or AdamDU data capture software, and use in conjunction with Adam's RS-232 cable. The CPWplus indicator is splashproof, and the weighing pan is stainless steel. The rechargeable battery provides up to 210 hours of weighing between charges.","Adaptor, internal rechargeable battery",Mild steel base and aluminium extrusion indicator,External calibration,Backlit LCD with 22mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"1120015779 ATP2 Thermal Printer, 3074010266 RS-232 cable, 600002028 AdamDU Data collection program, 700660290 Calibration certificate",https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EapRzZxBRpFLquGaXI6buCIBhTEzWSBRayZOVBLJ5dPbNA?e=Y3uLz6,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/ES4KZLDto_tCjm-nDF58erIBMGYFiNjO-hYpLw3sz093Jw?e=fdmHII,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/ERp9j0jNDvNKpfjNqdE1UjYBSqbdhPZGD1cq1etwysAlgw?e=zFcO5L,,https://adamequipment.co.uk/media/docs/data_sheets/CPWplus-DS-A4-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/CPWplus_UM_EN.pdf,,,
+CPWplus 35M,Child,Adam Equipment,CPWplus 35M,35kg,10g,,,,,,,,500x500mm,500x500x78mmmm,127x584x559mm,8.9kg,10.4kg,,,,,,,,,,
+CPWplus 75M,Child,Adam Equipment,CPWplus 75M,75kg,20g,,,,,,,,500x500mm,500x500x78mmmm,127x584x559mm,8.9kg,10.4kg,,,,,,,,,,
+CPWplus 150M,Child,Adam Equipment,CPWplus 150M,150kg,50g,,,,,,,,500x500mm,500x500x78mmmm,127x584x559mm,8.9kg,10.4kg,,,,,,,,,,
+CPWplus 200M,Child,Adam Equipment,CPWplus 200M,200kg,50g,,,,,,,,500x500mm,500x500x78mmmm,127x584x559mm,8.9kg,10.4kg,,,,,,,,,,
+Adam CPWplus L Large Floor Scale,Parent,Adam Equipment,,,,"•Rugged, versatile large floor scale
+•Splashproof housing, keypad and display are easy to clean
+•Wall-mount bracket for placing indicator on vertical surface
+•Selectable digital filtering helps minimise effects of vibration and disturbances
+• Rechargeable battery (up to 210 hours of battery life between charges)
+•Grade 304 stainless steel weighing pan
+•Hold function freezes the weight on the display
+•RS-232 output for connecting to printers and PCs (use Adam's ATP2 printer or AdamDU data capture software)
+•3-year manufacturer's warranty 
+","The CPWplus M is a rugged, easy to use large floor scale from Adam Equipment. Each model is perfect for general industrial weighing tasks, with the large 900x600mm base accommodating many sizes of items for weighing. There is an RS-232 output to send weight information to a printer or PC - choose Adam Equipment's ATP2 printer or AdamDU data capture software, and use in conjunction with Adam's RS-232 cable. The CPWplus indicator is splashproof, and the weighing pan is stainless steel. The rechargeable battery provides up to 210 hours of weighing between charges.","Adaptor, internal rechargeable battery",Mild steel base and aluminium extrusion indicator,External calibration,Backlit LCD with 22mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"1120015779 ATP2 Thermal Printer, 3074010266 RS-232 cable, 600002028 AdamDU Data collection program, 700100099 Hard carry case, 700660290 Calibration certificate",E-CPWplus-L-360-01a-Hero-Miiddle-v2.jpg,E-CPWplus-L-360-23a-Hero-Right-v2.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/ERp9j0jNDvNKpfjNqdE1UjYBSqbdhPZGD1cq1etwysAlgw?e=zFcO5L,,https://adamequipment.co.uk/media/docs/data_sheets/CPWplus-DS-A4-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/CPWplus_UM_EN.pdf,,,
+CPWplus 35L,Child,Adam Equipment,CPWplus 35L,35kg,10g,,,,,,,,900x600mm,900x600x78mm,102x1092x660mm,14.4kg,16.3kg,,,,,,,,,,
+CPWplus 75L,Child,Adam Equipment,CPWplus 75L,75kg,20g,,,,,,,,900x600mm,900x600x78mm,102x1092x660mm,14.4kg,16.3kg,,,,,,,,,,
+CPWplus 150L,Child,Adam Equipment,CPWplus 150L,150kg,50g,,,,,,,,900x600mm,900x600x78mm,102x1092x660mm,14.4kg,16.3kg,,,,,,,,,,
+CPWplus 200L,Child,Adam Equipment,CPWplus 200L,200kg,50g,,,,,,,,900x600mm,900x600x78mm,102x1092x660mm,14.4kg,16.3kg,,,,,,,,,,
+CPWplus 300L,Child,Adam Equipment,CPWplus 300L,300kg,100g,,,,,,,,900x600mm,900x600x78mm,102x1092x660mm,14.4kg,16.3kg,,,,,,,,,,
+Adam GBK Bench Checkweighing Scale,Parent,Adam Equipment,,,,"•Rugged, high accuracy checkweighing scale with high capacity options
+•Checkweighing LEDs clearly show under, over and within acceptable limits
+•Audible checkweighing alarm
+•Large, grade 304 stainless steel pan 
+• Rechargeable battery (up to 120 hours of battery life between charges)
+•RS-232 output for connecting to printers and PCs (use Adam's ATP2 printer or AdamDU data capture software)
+•Full numeric keypad for easy entering of checkweighing limits
+•Memory accumulation so multiple weights can be totalised
+•Parts counting with freely selectable sample sizes
+•Parts counting optimisation automatically refines piece weight as parts are added
+•Selectable digital filtering helps minimise effects of vibration and disturbances
+•Sealed keypad
+•Capacity tracker to help avoid overloading
+•5-year manufacturer's warranty
+","Durable and flexible, GBK bench checkweighing scales provide a superb value for anyone that needs a scale to perform multiple functions. GBK is well-suited for use in demanding environments where weighing takes place every day - and thanks to its 5-year warranty, you can trust these checkweighing scales to deliver. GBK fits easily on a cart or table and is ideal for parts counting, batching or routine weighing. For flexible positioning, the pillar mounted display can be used without the pillar. Oversized rubber feet offer stability, while the cast aluminum frame provides even weight distribution and ensures consistent readings regardless of where the object is placed during weighing. Intuitive software helps save time and reduces errors when logging data; use the RS-232 output to send weight data to Adam's ATP2 Thermal Printer, or a PC in conjunction with AdamDU software.","Adaptor, internal rechargeable battery",ABS plastic indicator with mild steel base,External calibration,Backlit LCD with 20mm-high digits,"g, kg, lb, oz, lb:oz.  ",,,,,,"3052010526 In use cover, 1120015779 ATP2 Thermal Printer, 3074010266 RS-232 cable, 3074010507 RS-232 to USB adaptor, 600002028 AdamDU Data collection program, 700660290 Calibration certificate",GBK R.jpg,GBK F.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EUHDDNmAZflCgp6dw_8oYxQBUY_52B3E8YxnraTNQR0T1Q?e=cngLWM,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EcgX-FXXaqRKpRndo3M9P1MBJflg4zTjZPsmJ7uyeOqe_w?e=r48tTC,https://adamequipment.co.uk/media/docs/data_sheets/GBK-DS-A4-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/GK_GBK_GFK_UM_EN.pdf,,,
+GBK 8,Child,Adam Equipment,GBK 8,8kg,0.1g,,,,,,,,300x400mm,300x510x680mm,780x400x160mm,7.6kg,9kg,,,,,,,,,,
+GBK 16,Child,Adam Equipment,GBK 16,16kg,0.5g,,,,,,,,300x400mm,300x510x680mm,780x400x160mm,7.6kg,9kg,,,,,,,,,,
+GBK 32,Child,Adam Equipment,GBK 32,32kg,1g,,,,,,,,300x400mm,300x510x680mm,780x400x160mm,7.6kg,9kg,,,,,,,,,,
+GBK 60,Child,Adam Equipment,GBK 60,60kg,2g,,,,,,,,300x400mm,300x510x680mm,780x400x160mm,7.6kg,9kg,,,,,,,,,,
+GBK 120,Child,Adam Equipment,GBK 120,120kg,5g,,,,,,,,300x400mm,300x510x680mm,780x400x160mm,7.6kg,9kg,,,,,,,,,,
+Adam GFK Floor Checkweighing Scale,Parent,Adam Equipment,,,,"•Rugged, high accuracy checkweighing floor scale with high capacity options
+•Checkweighing LEDs clearly show under, over and within acceptable limits
+•Audible checkweighing alarm
+•Large, grade 304 stainless steel pan 
+• Rechargeable battery (up to 120 hours of battery life between charges)
+•RS-232 output for connecting to printers and PCs (use Adam's ATP2 printer or AdamDU data capture software)
+•Full numeric keypad for easy entering of checkweighing limits
+•Memory accumulation so multiple weights can be totalised
+•Parts counting with freely selectable sample sizes
+•Parts counting optimisation automatically refines piece weight as parts are added
+•Selectable digital filtering helps minimise effects of vibration and disturbances
+•Sealed keypad
+•Capacity tracker to help avoid overloading
+•5-year manufacturer's warranty
+","Durable and flexible, GBK floor checkweighing scales provide a superb value for anyone that needs a scale to perform multiple functions. GBK is well-suited for use in demanding environments where weighing takes place every day - and thanks to its 5-year warranty, you can trust these checkweighing scales to deliver. GFK models have a large, stainless steel base that can weigh items up to a high capacity (600kg on the largest model). For flexible positioning, the pillar mounted display can be used without the pillar. Oversized rubber feet offer stability, while the cast aluminum frame provides even weight distribution and ensures consistent readings regardless of where the object is placed during weighing. Intuitive software helps save time and reduces errors when logging data; use the RS-232 output to send weight data to Adam's ATP2 Thermal Printer, or a PC in conjunction with AdamDU software.","Adaptor, internal rechargeable battery",ABS plastic indicator with mild steel base,External calibration,Backlit LCD with 20mm-high digits,"g, kg, lb",,,,,,"3052010526 In use cover, 1120015779 ATP2 Thermal Printer, 3074010266 RS-232 cable, 3074010507 RS-232 to USB adaptor, 600002028 AdamDU Data collection program, 700660290 Calibration certificate",GFK150-R copy.jpg,GFK600-F copy.jpg,GFK600-R copy.jpg,https://adamequipment777-my.sharepoint.com/:i:/g/personal/d_smith_adamequipment_com/EcgX-FXXaqRKpRndo3M9P1MBJflg4zTjZPsmJ7uyeOqe_w?e=r48tTC,https://adamequipment.co.uk/media/docs/data_sheets/GBK-DS-A4-EN.pdf,https://adamequipment.co.uk/media/docs/manuals/GK_GBK_GFK_UM_EN.pdf,,,
+GFK 75,Child,Adam Equipment,GFK 75,75kg,5g,,,,,,,,400x500mm,400x620x860mm,460x895x210mm,12.5kg,18.1kg,,,,,,,,,,
+GFK 75H,Child,Adam Equipment,GFK 75H,75kg,1g,,,,,,,,400x500mm,400x620x860mm,460x895x210mm,12.5kg,18.1kg,,,,,,,,,,
+GFK 150,Child,Adam Equipment,GFK 150,150kg,10g,,,,,,,,400x500mm,400x620x860mm,460x895x210mm,12.5kg,18.1kg,,,,,,,,,,
+GFK 150H,Child,Adam Equipment,GFK 150H,150kg,2g,,,,,,,,400x500mm,400x620x860mm,460x895x210mm,12.5kg,18.1kg,,,,,,,,,,
+GFK 300,Child,Adam Equipment,GFK 300,300kg,20g,,,,,,,,400x500mm,400x620x860mm,460x895x210mm,12.5kg,18.1kg,,,,,,,,,,
+GFK 600,Child,Adam Equipment,GFK 600,600kg,50g,,,,,,,,600x800mm,600x940x900mm,660x1168x203mm,25.5kg,34.9kg,,,,,,,,,,

@@ -295,6 +295,18 @@
             theme: 'bootstrap4'
         })
 
+        $('#short_description').summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']]
+            ],
+            height: 200,
+            weight: 1000,
+        });
+
         $('#description').summernote({
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],

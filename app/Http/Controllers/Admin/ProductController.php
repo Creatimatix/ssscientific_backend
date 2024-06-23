@@ -18,16 +18,112 @@ use Image;
 use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::with('category')
-                    ->where('status', 1)
-                    ->where('type', 0)
-//                    ->orderBy('id', 'desc')
-                    ->get()
-                    ->all();
+    public function index(Request $request){
+        if ($request->ajax()) {
+            return $this->actionAjaxIndex($request);
+        }
+
+        $categories = Category::where(['status'=>Category::STATUS_ACTIVE])->get()->all();
         return view('admin.products.index',[
-            'products' => $products
+            'products' => [],
+            'categories' => $categories
         ]);
+    }
+
+    public function actionAjaxIndex(Request $request){
+        $id_category=$request->get('id_category');
+        $columns = ['id','model_no','brand','short_description','status'];
+        $sEcho = $request->get('sEcho', 1);
+        $start = $request->get('iDisplayStart', 0);
+        $limit = $request->get('iDisplayLength', 0);
+        $colSort = $columns[(int) $request->get('iSortCol_0', 'name')];
+        $colSortOrder = strtoupper($request->get('sSortDir_0', 'asc'));
+        $searchTerm = trim($request->get('sSearch', ''));
+        $page = ($start / $limit) + 1;
+        if ($page < 1) {
+            $page = 1;
+        }
+        $currentPage = $page;
+
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
+
+        $product = Product::getTableName();
+        $category = Category::getTableName();
+        $columns = [
+            $product.'.id',
+            $product.'.name as model_no',
+            $product.'.id_category',
+            $category.'.category_name as brand',
+            $product.'.short_description',
+            $product.'.status'
+        ];
+        $products = Product::select($columns)->with('category')
+            ->join($category, $product.'.id_category',$category.'.id')
+            ->where($product.'.status', Product::PRODUCT_STATUS)
+            ->where($product.'.type', 0);
+
+        if($id_category!="All"){
+            $products->where($product.'.id_category',$id_category);
+        }
+
+        if ($searchTerm !== '' && strlen($searchTerm) > 0) {
+            $products->where(function ($query) use ($searchTerm, $product, $category) {
+                $query->where($product . '.product_name', 'LIKE', '%' . $searchTerm . '%')
+                        ->where($category . '.category_name', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+
+        switch ($colSort) {
+            default:
+                $products->orderBy($colSort, $colSortOrder);
+                break;
+        }
+
+        $products = $products->paginate($limit, $columns);
+        $aaData = [];
+        foreach ($products as $property) {
+            $buttons = [
+                'edit' => [
+                    'label' => 'Edit',
+                    'attributes' => [
+                        'id' => $property->id.'_edit',
+                        'href' => route('edit.product', ['id_product' => $property->id]),
+                    ]
+                ],
+                'trash' => [
+                    'label' => 'Delete',
+                    'attributes' => [
+                        'id' => $property->id.'_delete',
+                        'href' => route('delete.product', ['product' => $property->id,'class' => 'ConfirmDelete']),
+                        'class' => 'ConfirmDelete'
+                    ]
+                ]
+            ];
+
+            if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
+                unset($buttons['trash']);
+            }
+
+            $aaData[] = [
+                'id' => $property->id,
+                'model_no' => $property->model_no,
+                'brand' => $property->brand,
+                'short_description'=> $property->short_description,
+                'status' => ($property->status == Product::PRODUCT_STATUS) ? 'Active' : 'Inactive',
+                'controls' => table_buttons($buttons, false)
+            ];
+        }
+
+        $total = $products->total();
+        $output = array(
+            "sEcho" => $sEcho,
+            "iTotalRecords" => $total,
+            "iTotalDisplayRecords" => $total,
+            "aaData" => $aaData
+        );
+        return response()->json($output);
     }
 
     public function getProduct(Request $request){
@@ -420,18 +516,45 @@ class ProductController extends Controller
                     $filepath = $file->getRealPath();
 
                     $data = Excel::toArray([], $request->file('import_file'));
-                    $data = array_slice($data[0], 1);
+                    $data = array_slice($data[0], 1);;
                     if (isset($data) && count($data) > 0) {
-                        dd($data);
+                        $parentId = null;
                         foreach ($data as $key => $value) {
+                            $productType = isset($value[1])?$value[1]:null;
+                            $categoryName = isset($value[2])?$value[2]:null;
                             $productName = isset($value[0])?$value[0]:null;
-                            $categoryName = isset($value[1])?$value[1]:null;
-                            $price = isset($value[2])?$value[2]:null;
-                            $pnNo = isset($value[3])?$value[3]:null;
-                            $hsnNo = isset($value[4])?$value[4]:null;
-                            $sku = isset($value[5])?$value[5]:null;
+
+                            $category = Category::where('category_name', $categoryName)->get()->first();
+
+                            if(!$category){
+                                $category = new Category();
+                                $category->category_name = $categoryName;
+                                $category->status = Category::STATUS_ACTIVE;
+                                $category->save();
+                            }
+
+                            $price = isset($value[28])?$value[28]:0;
+                            $mpn = isset($value[3])?$value[3]:null;
+                            $capacity = isset($value[4])?$value[4]:null;
+                            $readability = isset($value[5])?$value[5]:null;
                             $shortDesc = isset($value[6])?$value[6]:null;
                             $desc = isset($value[7])?$value[7]:null;
+                            $power = isset($value[8])?$value[8]:null;
+                            $housing = isset($value[9])?$value[9]:null;
+                            $calibration = isset($value[10])?$value[10]:null;
+                            $display = isset($value[11])?$value[11]:null;
+                            $weighing_units = isset($value[12])?$value[12]:null;
+                            $pan_size = isset($value[13])?$value[13]:null;
+                            $overall_dimensions = isset($value[14])?$value[14]:null;
+                            $shipping_dimensions = isset($value[15])?$value[15]:null;
+                            $weight = isset($value[16])?$value[16]:null;
+                            $shipping_weight = isset($value[17])?$value[17]:null;
+                            $accessories = isset($value[18])?$value[18]:null;
+
+                            $pnNo = isset($value[25])?$value[25]:null;
+                            $hsnNo = isset($value[26])?$value[26]:null;
+                            $sku = isset($value[27])?$value[27]:null;
+
 
 
                             if(!empty($productName)){
@@ -439,12 +562,6 @@ class ProductController extends Controller
                                 $product = Product::where('slug', $slug)->get()->first();
                                 $category = Category::where('category_name', $categoryName)->get()->first();
                                 if(!$product){
-                                    $product = new Product();
-                                }
-                                if(!$category){
-                                    $category = new Category();
-                                }
-                                if($product && $category->category_name != $categoryName) {
                                     $product = new Product();
                                 }
 
@@ -458,7 +575,30 @@ class ProductController extends Controller
                                 $product->description = $desc;
                                 $product->sale_price = $price;
                                 $product->status = Product::PRODUCT_STATUS;
+                                if($productType == 'Parent'){
+                                    $product->power = $power;
+                                    $product->housing = $housing;
+                                    $product->calibration = $calibration;
+                                    $product->display = $display;
+                                    $product->weighing_units = $weighing_units;
+                                    $product->item_accessories = $accessories;
+                                    $product->id_product = null;
+                                }else{
+                                    $product->id_product = $parentId;
+                                    $product->mpn = $mpn;
+                                    $product->capacity = $capacity;
+                                    $product->readability = $readability;
+                                    $product->pan_size = $pan_size;
+                                    $product->overall_dimensions = $overall_dimensions;
+                                    $product->shipping_dimensions = $shipping_dimensions;
+                                    $product->weight = $weight;
+                                    $product->shipping_weight = $shipping_weight;
+                                }
                                 $product->save();
+
+                                if($productType == 'Parent'){
+                                    $parentId = $product->id;
+                                }
                             }
                         }
                         return redirect()->route('product.upload')->with('productUploadSuccessMsg', 'Product imported successfully.');

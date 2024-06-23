@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/vendors', [CustomerController::class, 'getVendors'])->name('admin.vendors');
         Route::controller(ProductController::class)->group(function () {
             Route::get('/products','index')->name('products');
+            Route::get('/ajax/product-list','index')->name('ajax.product-list');
             Route::any('/product/upload','actionUpload')->name('product.upload');
             Route::get('/ajax/product','getProduct')->name('ajax.product');
             Route::get('/ajax/products','getProducts')->name('ajax.products');

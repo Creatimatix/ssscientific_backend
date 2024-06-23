@@ -30,7 +30,18 @@
                             </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="productTable" class="table table-bordered table-striped">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="category_filter" class="form-control-label">Category</label>
+                                    <select class="form-control" id="category_filter">
+                                        <option value="All">All</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <table id="productTable" class="table dt-responsive table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">Id</th>
@@ -42,39 +53,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($products as $product)
+{{--                                    @foreach($products as $product)--}}
+{{--                                    <tr>--}}
+{{--                                            <td class="subj_name">{{ $product->id }}</td>--}}
+{{--                                            <td>{{ $product->name }}</td>--}}
+{{--                                            <td>{{ $product->category?$product->category->category_name:'NA' }}</td>--}}
+{{--                                            <td>{{ $product->short_description }}</td>--}}
+{{--                                            <td>{{ status($product->status) }}</td>--}}
+{{--                                            <td>--}}
+{{--                                                @php--}}
+{{--                                                    $buttons = [--}}
+{{--                                                        'trash' => [--}}
+{{--                                                            'label' => 'Delete',--}}
+{{--                                                            'attributes' => [--}}
+{{--                                        //                        'id' => $property->id.'_view',--}}
+{{--                                                                'href' => route('delete.product', ['product' => $product->id]),--}}
+{{--                                                                'class' => 'ConfirmDelete'--}}
+{{--                                                            ]--}}
+{{--                                                        ],--}}
+{{--                                                        'edit' => [--}}
+{{--                                                            'label' => 'Edit',--}}
+{{--                                                            'attributes' => [--}}
+{{--                                                                'href' => route('edit.product', ['id_product' => $product->id]),--}}
+{{--                                                            ]--}}
+{{--                                                        ]--}}
+{{--                                                    ];--}}
+{{--                                                    if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){--}}
+{{--                                                        unset($buttons['trash']);--}}
+{{--                                                    }--}}
+{{--                                                @endphp--}}
+{{--                                                {!! table_buttons($buttons, false) !!}--}}
+{{--                                            </td>--}}
+{{--                                    </tr>--}}
+{{--                                    @endforeach--}}
                                     <tr>
-                                            <td class="subj_name">{{ $product->id }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->category?$product->category->category_name:'NA' }}</td>
-                                            <td>{{ $product->short_description }}</td>
-                                            <td>{{ status($product->status) }}</td>
-                                            <td>
-                                                @php
-                                                    $buttons = [
-                                                        'trash' => [
-                                                            'label' => 'Delete',
-                                                            'attributes' => [
-                                        //                        'id' => $property->id.'_view',
-                                                                'href' => route('delete.product', ['product' => $product->id]),
-                                                                'class' => 'ConfirmDelete'
-                                                            ]
-                                                        ],
-                                                        'edit' => [
-                                                            'label' => 'Edit',
-                                                            'attributes' => [
-                                                                'href' => route('edit.product', ['id_product' => $product->id]),
-                                                            ]
-                                                        ]
-                                                    ];
-                                                    if(auth()->user()->role_id != \App\Models\Admin\Role::ROLE_ADMIN){
-                                                        unset($buttons['trash']);
-                                                    }
-                                                @endphp
-                                                {!! table_buttons($buttons, false) !!}
-                                            </td>
+                                        <td colspan="6" style="text-align:center">Please wait loading....</td>
                                     </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -91,8 +105,11 @@
     <!-- /.content -->
 @endsection
 @section('pageScript')
+
+<script src="{{ asset('/js/pages/product.js') }}"></script>
 <script>
 
+    var productAjax = "{{ route('ajax.product-list') }}";
     var productSuccessMsg = "{{ session('productSuccessMsg') }}";
     var productErrorMsg = "{{ session('productErrorMsg') }}";
     if(productSuccessMsg){
@@ -103,11 +120,11 @@
         messages.error("Product", productErrorMsg);
     }
 
-  $(function () {
-    $("#productTable").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#productTable_wrapper .col-md-6:eq(0)');
-  });
+  // $(function () {
+  //   $("#productTable").DataTable({
+  //     "responsive": true, "lengthChange": false, "autoWidth": false,
+  //   //   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+  //   }).buttons().container().appendTo('#productTable_wrapper .col-md-6:eq(0)');
+  // });
 </script>
 @endsection

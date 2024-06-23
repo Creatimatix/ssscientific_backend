@@ -21,8 +21,71 @@ var product = {
                 return false;
             }
         });
-    }
+    },
+    listTable: '#productTable',
+    init: function () {
+        var obj = this;
+        var $table = $(obj.listTable);
+        if ($table.length) {
+            var dt = $table.DataTable({
+                dom: 'Bfrtip',
+                bProcessing: false,
+                bServerSide: true,
+                sAjaxSource: productAjax,
+                fnServerParams: function (aoData) {
+                    //d.type = 'bo';
+                    aoData.push(
+                    {
+                        'name': 'id_category',
+                        'value': $('#category_filter').val()
+                    });
+                },
+                pageLength: 15,
+                rowGroup: {
+                    enable: false
+                },
+                autoWidth: false,
+                columns: [
+                    {data: 'id'},
+                    {data: 'model_no'},
+                    {data: 'brand'},
+                    {data: 'short_description', className: 'text-center'},
+                    {data: 'status'},
+                    {data: 'controls'}
+                ],
+                columnDefs: [
+                    {className: 'text-center', "targets": [0]},
+                    {className: 'text-center', "targets": [1]},
+                    {className: 'text-center', "targets": [2]},
+                    {className: 'text-center', "targets": [3]},
+                    {className: 'text-center', "targets": [4]},
+                    {className: 'text-center', "targets": [5]}
+                ],
+                order: [[0, 'desc']],
+                buttons: [
+                    //'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                stateSave: false,
+                // stateSaveCallback: function (settings, data) {
+                //     localStorage.setItem('invoice_' + settings.sInstance, JSON.stringify(data));
+                // },
+                // stateLoadCallback: function (settings) {
+                //     return JSON.parse(localStorage.getItem('invoice_' + settings.sInstance));
+                // }
+            });
+            // $('body').on('click', '#refreshInvoices', function () {
+            //     dt.ajax.reload();
+            // });
+            $('body').on('change', '#category_filter', function () {
+                dt.ajax.reload();
+            });
+        }
+    },
 }
+
+$(function (){
+    product.init();
+});
 
 $('#productName').keyup(function () {
     var slug = product.slugify($(this).val());
@@ -68,17 +131,22 @@ $(function() {
 
 
 const imageInput = document.getElementById('product_image');
-imageInput.addEventListener('change', function () {
-    const selectedFile = this.files[0];
-    if (selectedFile) {
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!allowedTypes.includes(selectedFile.type)) {
-            messages.error("Upload","Please select a valid image file (JPEG, PNG, GIF).");
-            this.value = ''; // Clear the file input
+
+console.log("imageInput => ", imageInput);
+
+if(imageInput){
+    imageInput.addEventListener('change', function () {
+        const selectedFile = this.files[0];
+        if (selectedFile) {
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(selectedFile.type)) {
+                messages.error("Upload","Please select a valid image file (JPEG, PNG, GIF).");
+                this.value = ''; // Clear the file input
+            }
         }
-    }
-});
-console.log("room", room);
+    });
+}
+
 function accessories() {
     room++;
     console.log("room", room);
