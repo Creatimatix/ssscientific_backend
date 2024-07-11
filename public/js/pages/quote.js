@@ -368,8 +368,10 @@ function initializeCustomerSelect2(){
             if (!user.id) {
                 return user.first_name + ' ' + user.last_name;
             }
+            var companyName =  (typeof(user.company_name) !== "undefined" && user.company_name !== null )? user.company_name : '';
             var $state = $(
-                '<span clas="user-list">' + user.first_name + ' ' + user.last_name + '(<em>' + user.email + '</em>)</span>'
+                // '<span clas="user-list">' + user.first_name + ' ' + user.last_name + '(<em>' + user.email + '</em>)</span>'
+                '<span class="user-list">' + companyName + ' ' + '(<em>' + user.first_name + ' ' + user.last_name + '</em>)</span>'
             );
             return $state;
         },
@@ -458,7 +460,6 @@ function getUserDetails(val,type, isUpdate = false){
         url: siteUrl+"/user/info",
         data: {id:val, type},
         success: function (data) {
-            console.log('data',data)
             if(data.email){
                 $('#email').val(data.email);
             }

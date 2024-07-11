@@ -25,12 +25,14 @@ class ProductImage extends Model
 
     public function getImageUrlAttribute()
     {
-        $url =  url('/images/products/').'/'.$this->image_name;
+//        $url =  url('/images/products/').'/'.$this->image_name;
+        $url =  env('AWS_ATTACHEMENT_URL').'products/images/'.$this->image_name;
         return ($this->type == 0) ? $url : '';
     }
     public function getDocumentUrlAttribute()
     {
-        $url =  url('/images/products/document/').'/'.$this->image_name;
+//        $url =  url('/images/products/document/').'/'.$this->image_name;
+        $url =  env('AWS_ATTACHEMENT_URL').'products/documents/'.$this->image_name;
         return ($this->type == 1) ? $url : '';
     }
 }

@@ -504,8 +504,11 @@ class ProductController extends Controller
 
 
     public function actionUpload(Request $request){
-        ini_set("MAX_EXECUTION_TIME ", 300);
-        ini_set("upload_max_filesize ", 300);
+        ini_set("max_execution_time", 1800);
+        ini_set("max_input_time", -1);
+        ini_set("post_max_size ", "100M");
+        ini_set("upload_max_filesize ", "100M");
+        ini_set("memory_limit ", "256M");
         if($request->get('action')=="uploadProduct") {
             $invalidSalesTaxZipcode = [];
             if($request->hasFile('import_file')) {

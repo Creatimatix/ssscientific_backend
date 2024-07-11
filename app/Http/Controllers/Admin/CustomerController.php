@@ -74,7 +74,7 @@ class CustomerController extends Controller
             $customer->save();
         }
         if(!$id){
-            $customer->password = Hash::make('password');
+            $customer->password = Hash::make(env('USER_PASSWORD', ''));
             $customer->save();
         }
 
