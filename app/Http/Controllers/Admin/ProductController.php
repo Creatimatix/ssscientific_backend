@@ -70,8 +70,8 @@ class ProductController extends Controller
 
         if ($searchTerm !== '' && strlen($searchTerm) > 0) {
             $products->where(function ($query) use ($searchTerm, $product, $category) {
-                $query->where($product . '.product_name', 'LIKE', '%' . $searchTerm . '%')
-                        ->where($category . '.category_name', 'LIKE', '%' . $searchTerm . '%');
+                $query->where($product . '.name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere($category . '.category_name', 'LIKE', '%' . $searchTerm . '%');
             });
         }
 
@@ -192,6 +192,11 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
+        ini_set("max_execution_time", 1800);
+        ini_set("max_input_time", -1);
+        ini_set("post_max_size ", "100M");
+        ini_set("upload_max_filesize ", "100M");
+        ini_set("memory_limit ", "256M");
         $request->validate([
             'name' => [
                 'required',
@@ -322,8 +327,11 @@ class ProductController extends Controller
     }
 
     public function update(Request $request){
-        ini_set("MAX_EXECUTION_TIME ", 300);
-        ini_set("upload_max_filesize ", 300);
+        ini_set("max_execution_time", 1800);
+        ini_set("max_input_time", -1);
+        ini_set("post_max_size ", "100M");
+        ini_set("upload_max_filesize ", "100M");
+        ini_set("memory_limit ", "256M");
         $productId = $request->get('id_product');
         $request->validate([
             'name' => [

@@ -241,7 +241,8 @@
             <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
-                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />
+{{--                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />--}}
+                        <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" style="width:80px;height:60px;" />
                     @endforeach
                 @endif
             </div>
@@ -376,9 +377,9 @@
 document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}})+" ONLY.";
     </script> -->
     </tr>
-    <tr>
+    <tr class="" style="position:relative; top:-20px; height:10px;">
         <td colspan='8' class='left-align no-border'>
-    </br>
+    </br></br></br></br>
             For, S. S SCIENTIFIC</br>
             <img width="130px" height="85px" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
             AUTHORIZED SIGNATORY
@@ -389,7 +390,9 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
 <div id='footer' style="position: fixed;
             bottom: 20px;
             width: 100%;
-            text-align: center; font-size:12pt" ><b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
+            text-align: center; font-size:12pt" >
+
+    <b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
            <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
 
 </span>
@@ -467,6 +470,12 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
         line-height: 17px !important;
         font-size: 12px;
         padding: -2px;
+    }
+    tr.stick-bottom{
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+        text-align: center; font-size:12pt;
     }
 </style>
 <script>

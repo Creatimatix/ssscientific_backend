@@ -100,6 +100,10 @@ class ProductCartItemsController extends Controller
         $discountPercentage = $request->get('discountPercentage', 0);
         $quote = Quote::where('id',$quoteId)->get()->first();
         if($quote && !$quote->discount){
+//            if($discountPercentage){
+//                $finalTotal = Quote::getQuoteTotal($quoteId);
+//                $discountAmount = round($finalTotal['totalAmount'] * $discountPercentage / 100);
+//            }
             $quote->discount = $discountAmount;
             $quote->discount_percentage = $discountPercentage;
             $quote->save();

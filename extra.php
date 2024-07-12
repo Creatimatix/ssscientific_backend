@@ -66,3 +66,38 @@ Child Product
 - Shipping Dimensions
 - Weight
 - Shipping Weight
+
+$finalTotal = Quote::getQuoteTotal($quoteId);
+$installtion = round($finalTotal['totalAmount'] * $val / 100);
+
+
+Root Folder:
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /ssbackend
+
+    # Remove 'index.php' from URL
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+//public
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+    RewriteBase /ssbackend
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
