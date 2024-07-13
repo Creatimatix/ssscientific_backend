@@ -59,7 +59,10 @@ class ImageController extends Controller{
         // }else{
         //     $s3->put($folderPath, file_get_contents($document), 'public');
         // }
-        Storage::disk('s3')->put($folderPath, file_get_contents($document));
+        // Storage::disk('s3')->put($folderPath, file_get_contents($document));
+        Storage::disk('s3')->put($folderPath, file_get_contents($document) , [
+            'ContentDisposition' => 'attachment'
+       ]);
         $url = Storage::disk('s3')->url($folderPath);
         // $url = $s3->url($folderPath);
         return $url;
