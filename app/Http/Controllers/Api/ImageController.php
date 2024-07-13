@@ -52,9 +52,16 @@ class ImageController extends Controller{
     }
 
 
-    public function uploadToS3($image, $folderPath){
-        Storage::disk('s3')->put($folderPath, file_get_contents($image));
+    public function uploadToS3($document, $folderPath, $type = ''){
+        // $s3 = Storage::disk("s3");
+        // if($type == 'document'){
+        //     $s3->put($folderPath, file_get_contents($document), 'public');
+        // }else{
+        //     $s3->put($folderPath, file_get_contents($document), 'public');
+        // }
+        Storage::disk('s3')->put($folderPath, file_get_contents($document));
         $url = Storage::disk('s3')->url($folderPath);
+        // $url = $s3->url($folderPath);
         return $url;
     }
 }

@@ -329,9 +329,9 @@ class ProductController extends Controller
     public function update(Request $request){
         ini_set("max_execution_time", 1800);
         ini_set("max_input_time", -1);
-        ini_set("post_max_size ", "100M");
-        ini_set("upload_max_filesize ", "100M");
-        ini_set("memory_limit ", "256M");
+        ini_set("upload_max_filesize", "10M");
+        ini_set("post_max_size", "10M");
+        ini_set("memory_limit", "256M");
         $productId = $request->get('id_product');
         $request->validate([
             'name' => [
@@ -379,7 +379,7 @@ class ProductController extends Controller
                $filePath  = 'products/images/'.$imageName;
 
                $controller = new ImageController($request);
-               $controller->uploadToS3($file, $filePath);
+               $controller->uploadToS3($file, $filePath, 'image');
 
                $productImage = new ProductImage();
                $productImage->id_product = $product->id;
@@ -395,7 +395,7 @@ class ProductController extends Controller
                $documentPath  = 'products/documents/'.$documentName;
 
                $controller = new ImageController($request);
-               $controller->uploadToS3($document, $documentPath);
+               $controller->uploadToS3($document, $documentPath, 'document');
 
                $productImage = new ProductImage();
                $productImage->id_product = $product->id;
