@@ -539,10 +539,10 @@ class ProductController extends Controller
 
                             if(!$category){
                                 $category = new Category();
-                                $category->category_name = $categoryName;
-                                $category->status = Category::STATUS_ACTIVE;
-                                $category->save();
                             }
+                            $category->category_name = $categoryName;
+                            $category->status = Category::STATUS_ACTIVE;
+                            $category->save();
 
                             $price = isset($value[28])?$value[28]:0;
                             $mpn = isset($value[3])?$value[3]:null;

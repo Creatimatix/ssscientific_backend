@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
+use App\Models\Admin\ProductImage;
 use Faker\Guesser\Name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 $id = 0;
 class GeneralController extends Controller
@@ -558,6 +560,45 @@ class GeneralController extends Controller
         $string = preg_replace('/-+$/', '', $string);
 
         return $string;
+    }
+
+    function updateExistingProductInfo(){
+        $path = public_path('ss_products.json');
+
+        // Check if the file exists
+        if (!File::exists($path)) {
+            return response()->json(['error' => 'File not found'], 404);
+        }
+
+        // Get the file contents
+        $json = File::get($path);
+
+        // Decode the JSON data
+        $data = json_decode($json, true);
+
+        foreach($data as $key => $product){
+            $productDb = Product::where(['name' => $product['Name']])->get()->first();
+            if($productDb) {
+                if(isset($product['Image_URL']) && !empty($product['Image_URL'])){
+                    $productDocument =new ProductImage();
+                    $productDocument->id_product = $productDb->id;
+                    $productDocument->image_name = $product['Image_URL'];
+                    $productDocument->type = 0;
+                    $productDocument->save();
+                }
+                if(isset($product['File_URL']) && !empty($product['File_URL'])){
+                    $productDocument =new ProductImage();
+                    $productDocument->id_product = $productDb->id;
+                    $productDocument->image_name = $product['File_URL'];
+                    $productDocument->type = 1;
+                    $productDocument->save();
+                }
+            }
+        }
+
+        // Return the manipulated data as a response
+        return response()->json(['messages' => 'data sync']);
+
     }
 }
 
