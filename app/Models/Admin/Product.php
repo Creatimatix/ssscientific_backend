@@ -36,7 +36,7 @@ class Product extends BaseModel
     }
 
     public function images(){
-        return $this->hasMany(ProductImage::class, 'id_product', 'id');
+        return $this->hasMany(ProductImage::class, 'id_product', 'id')->where('type' , 0);
     }
 
     public function accessories(){

@@ -270,7 +270,7 @@ class QuoteController extends Controller
     public function actionAjaxIndex(Request $request)
     {
         $user = auth()->user();
-        $columns = ['id', 'cust', 'status', 'quote_no', 'created_at'];
+        $columns = ['id', 'company_name', 'cust', 'status', 'quote_no', 'created_at'];
 
         $sEcho = $request->get('sEcho', 1);
 
@@ -319,6 +319,9 @@ class QuoteController extends Controller
             'quote_by.first_name as e_first_name',
             'quote_by.last_name as e_last_name',
             $tblUser . '.email',
+            $tblUser . '.company_name',
+            $tblQuote . '.contact_person',
+            $tblQuote . '.contact_person_email'
         ];
         $source = Quote::select($selectColumns)
             ->with('items')
@@ -426,7 +429,10 @@ class QuoteController extends Controller
                 'id' => $count++,
                 'created_at' => $property->created_at,
                 'quote_no' => $property->quote_no . $order_reference . $download_proposal,
-                'cust_info' => '<a href="" target="_blank">' . $client_name . '</a><br>' . $property->email . '<br>' . $property->phone_number,
+//                'cust_info' => '<a href="" target="_blank">' . $client_name . '</a><br>' . $property->email . '<br>' . $property->phone_number,
+//                'cust_info' => $property->contact_person . '<br>' . $property->contact_person_email,
+                'company_info' => '<a href="" target="_blank">' . $property->company_name . '</a>',
+                'contact_info' => $property->contact_person . '<br>' . $property->contact_person_email,
                 'product_desc' => $productDesc,
                 'total_price' => $finalTotal,
                 'created_by' => $created_by,

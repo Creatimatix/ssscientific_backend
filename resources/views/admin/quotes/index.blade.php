@@ -58,8 +58,10 @@
                                         <th class="subj_name">SR No</th>
                                         <th>Created Date</th>
                                         <th>Quotation No</th>
-                                        <th>Customer Name</th>
-                                        <th>Description</th>
+                                        <th>Company Name</th>
+                                        <th>Contact Person</th>
+{{--                                        <th>Description</th>--}}
+                                        <th>Products</th>
                                         <th>Total Price</th>
                                         <th>Created By</th>
                                         <th>Status</th>
@@ -68,7 +70,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td colspan="9" style="text-align:center;">Please wait...</td>
+                                        <td colspan="10" style="text-align:center;">Please wait...</td>
                                     </tr>
                                 </tbody>
                             </table>

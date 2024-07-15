@@ -29,8 +29,9 @@ var quote = {
                     {data: 'id'},
                     {data: 'created_at'},
                     {data: 'quote_no'},
-                    {data: 'cust_info', className: 'text-center'},
-                    {data: 'product_desc', className: 'text-center product_desc'},
+                    {data: 'company_info', className: 'text-center'},
+                    {data: 'contact_info', className: 'text-center'},
+                    {data: 'product_desc', className: 'text-center'},
                     {data: 'total_price'},
                     {data: 'created_by'},
                     {data: 'status'},
@@ -379,10 +380,11 @@ function initializeCustomerSelect2(){
             if (!user.id) {
                 return 'Select Company';
             }
+            var companyName =  (typeof(user.company_name) !== "undefined" && user.company_name !== null )? user.company_name : '';
             var $state = $(
-                '<span>' + user.full_name + ' (' + user.email + ')</span>'
+                '<span>' + companyName + ' (' +  user.first_name + ' ' + user.last_name + ')</span>'
             );
-            if (typeof user.full_name === typeof undefined && typeof user.email === typeof undefined) {
+            if (typeof user.company_name === typeof undefined && typeof user.email === typeof undefined) {
                 $state = $(
                     '<span>' + user.text + '</span>'
                 );
