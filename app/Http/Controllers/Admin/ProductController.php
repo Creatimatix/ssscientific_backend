@@ -609,7 +609,7 @@ class ProductController extends Controller
                                     if(isset($value[19]) && !empty($value[19])){
 //                                        if (strpos($value[19], 'https') !== false)
 //                                        {
-                                            $documentPath  = 'products/images/uploadedImage/';
+                                            $documentPath  = 'products/images/';
                                             $controller = new ImageController($request);
                                             if (strpos($value[19], 'sharepoint') !== false){
                                                 $imageUrl = $controller->storeSharePointFileToS3($value[19], $documentPath, 'image', $productName);
