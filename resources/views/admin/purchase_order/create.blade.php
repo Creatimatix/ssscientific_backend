@@ -64,18 +64,47 @@
 {{--                                            </select>--}}
 {{--                                        </div>--}}
                                     </div>
-                                    <div class="row  " style=" margin-top: 19px;">
-                                        <div class="col-md-12">
-                                            <label class="">Select Product</label>
-                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)" multiple>
-                                                <option value="">Select Product</option>
-                                            </select>
-                                        </div>
-                                    </div>
+{{--                                    <div class="row  " style=" margin-top: 19px;">--}}
+{{--                                        <div class="col-md-12">--}}
+{{--                                            <label class="">Select Product</label>--}}
+{{--                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)" multiple>--}}
+{{--                                                <option value="">Select Product</option>--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="row  " style=" margin-top: 19px;">
                                         <div class="col-md-12">
                                             <label class="">Terms & Condition</label>
                                             <textarea id="summernote" name="term_n_condition"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" style="width: 60em;">
+                                        <div class="row">
+                                            <div class="col-sm-5 nopadding">
+                                                <div class="form-group">
+                                                    <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)">
+                                                        <option value="">Select Product</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 nopadding">
+                                                <div class="form-group">
+                                                    <input type="number " class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 nopadding">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" onclick="addProduct();"> <span class="fa fa-plus" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div id="education_fields">
                                         </div>
                                     </div>
                                 </div>
@@ -98,6 +127,7 @@
 @section('pageScript')
     <script src="{{ asset('/js/pages/purchase_order.js') }}"></script>
     <script>
+        var room = 0;
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         });

@@ -55,8 +55,8 @@ function initializeVendorSelect2(){
 }
 
 
-function initializeProductSelect2(){
-    $('#ddlVendorProducts').select2({
+function initializeProductSelect2(elementSelector){
+    $(elementSelector).select2({
         ajax: {
             url: siteUrl+"/admin/ajax/products",
             dataType: 'json',
@@ -116,7 +116,7 @@ function initializeProductSelect2(){
 
 $(function (){
     initializeVendorSelect2();
-    initializeProductSelect2();
+    initializeProductSelect2('#ddlVendorProducts');
 });
 
 function getVendorDetails(val,type, isUpdate = false){
@@ -145,4 +145,41 @@ function searchVendorProduct(val,type, isUpdate = false){
             $('.productResultContainer').html(data.htmlView);
         }
     });
+}
+
+
+function searchProduct(val,type, isUpdate = false){
+    var sku = val;
+    if(sku=='' || sku==null){
+        return false;
+    }
+    $('.addMoreProductLable').hide();
+    $('.productResultContainer').html('<p>Loading...</p>');
+    $.ajax({
+        type: 'get',
+        url: siteUrl+"/admin/ajax/product",
+        data: {id:val},
+        success: function (data) {
+            $('.productResultContainer').html(data.htmlView);
+            $('.productResultContainer').show();
+        }
+    });
+}
+
+function addProduct() {
+    room++;
+    console.log("room", room);
+    var objTo = document.getElementById('education_fields')
+    var divtest = document.createElement("div");
+    divtest.setAttribute("class", "form-group removeclass"+room);
+    var rdiv = 'removeclass'+room;
+    var selectId = 'ddlVendorProducts_'+room;
+    divtest.innerHTML = '<div class="row"> <div class="col-sm-5 nopadding"><div class="form-group"><select class="form-control select2bs4" data-resource="product" data-parent="#'+selectId+'" style="width: 100%;" name="product[]" id="'+selectId+'" onchange="return searchVendorProduct(this.value,1)"> <option value="">Select Product</option></select></div></div><div class="col-sm-4 nopadding"> <div class="form-group"><input type="number " class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity"></div></div><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_product('+ room +');"> <span class="fa fa-minus" aria-hidden="true"></span> </button> </div> </div> </div> </div> </div>';
+
+    objTo.appendChild(divtest)
+    initializeProductSelect2('#'+selectId);
+}
+
+function remove_product(rid) {
+    $('.removeclass'+rid).remove();
 }

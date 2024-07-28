@@ -536,13 +536,12 @@ class ProductController extends Controller
                             $productName = isset($value[0])?$value[0]:null;
 
                             $category = Category::where('category_name', $categoryName)->get()->first();
-
-                            if(!$category){
+                            if(!$category && !empty($categoryName)){
                                 $category = new Category();
+                                $category->category_name = $categoryName;
+                                $category->status = Category::STATUS_ACTIVE;
+                                $category->save();
                             }
-                            $category->category_name = $categoryName;
-                            $category->status = Category::STATUS_ACTIVE;
-                            $category->save();
 
                             $price = isset($value[28])?$value[28]:0;
                             $mpn = isset($value[3])?$value[3]:null;
@@ -566,12 +565,9 @@ class ProductController extends Controller
                             $hsnNo = isset($value[26])?$value[26]:null;
                             $sku = isset($value[27])?$value[27]:null;
 
-
-
-                            if(!empty($productName)){
+                            if(!empty($productName) && $category){
                                 $slug = slug($productName);
                                 $product = Product::where('slug', $slug)->get()->first();
-                                $category = Category::where('category_name', $categoryName)->get()->first();
                                 if(!$product){
                                     $product = new Product();
                                 }
@@ -604,11 +600,30 @@ class ProductController extends Controller
                                     $product->shipping_dimensions = $shipping_dimensions;
                                     $product->weight = $weight;
                                     $product->shipping_weight = $shipping_weight;
+
                                 }
                                 $product->save();
 
                                 if($productType == 'Parent'){
                                     $parentId = $product->id;
+                                    if(isset($value[19]) && !empty($value[19])){
+//                                        if (strpos($value[19], 'https') !== false)
+//                                        {
+                                            $documentPath  = 'products/images/uploadedImage/';
+                                            $controller = new ImageController($request);
+                                            if (strpos($value[19], 'sharepoint') !== false){
+                                                $imageUrl = $controller->storeSharePointFileToS3($value[19], $documentPath, 'image', $productName);
+                                            }else{
+                                                $imageUrl = $controller->storeImageFromUrlToS3($value[19], $documentPath, 'image', $productName);
+                                            }
+                                            if($imageUrl){
+                                                $productImage = new ProductImage();
+                                                $productImage->id_product = $parentId;
+                                                $productImage->image_name = $imageUrl;
+                                                $productImage->save();
+                                            }
+//                                        }
+                                    }
                                 }
                             }
                         }

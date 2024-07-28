@@ -139,16 +139,15 @@
                 <td>{{ $product->product->pn_no }}</td>
                 <td>{{ $product->product->hsn_no }}</td>
                 <td colspan='2'>{{ $product->product->name }}
-                    <!-- <br /> -->
-                    <!-- @if($product->product->images)
+                     @if($product->product->images)
                         @foreach($product->product->images as $image)
                             <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />
                         @endforeach
-                    @endif -->
+                    @endif
                 </td>
-                <td>1</td>
+                <td>{{ $product->quantity }}</td>
                 <td>{{ $product->product->sale_price }}</td>
-                <td>{{ $product->product->sale_price*2 }}</td>
+                <td>{{ $product->product->sale_price * $product->quantity }}</td>
             </tr>
         @endforeach
     @endif

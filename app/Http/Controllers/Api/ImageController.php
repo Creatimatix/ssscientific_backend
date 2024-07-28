@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 
 class ImageController extends Controller{
     function uploadImageToGcp($image,$folderName){
@@ -66,5 +68,53 @@ class ImageController extends Controller{
         $url = Storage::disk('s3')->url($folderPath);
         // $url = $s3->url($folderPath);
         return $url;
+    }
+
+    public function storeImageFromUrlToS3($imageUrl, $folderPath, $type = '', $modelName= null) {
+
+        try{
+            $filename = $modelName."_".Str::random(5) . '.jpg';
+
+            $imageContents = file_get_contents($imageUrl);
+
+            if ($imageContents === false) {
+                return false;
+            }
+
+            $path = $folderPath. $filename;
+            $stored = Storage::disk('s3')->put($path, $imageContents);
+
+            if (!$stored) {
+                return false;
+            }
+            $url = Storage::disk('s3')->url($path);
+            return $filename;
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+
+    function storeSharePointFileToS3($imageUrl, $folderPath, $type = '', $modelName= null) {
+        // Create a new Guzzle Client
+        $client = new Client();
+
+        try {
+            $response = $client->get($imageUrl);
+
+            $contentType = $imageUrl->getHeaderLine('Content-Type');
+            $extension = explode('/', $contentType)[1] ?? 'bin';
+            $filename = $modelName."_".Str::random(5) . '.'.$extension;
+            $fileContents = $response->getBody()->getContents();
+
+            $path = $folderPath. $filename;
+            $stored = Storage::disk('s3')->put($path, $fileContents, 'public');
+
+            if (!$stored) {
+               return false;
+            }
+            return $filename;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

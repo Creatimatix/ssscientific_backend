@@ -24,7 +24,7 @@ class PurchaseOrderController extends Controller
     }
 
     public function store(Request $request){
-//        dd($request->all());
+
         $poId = PurchaseOrder::purchaseOrderNumber();
         $request->request->add(['po_no' => $poId]);
         $validate = $request->validate([
@@ -42,14 +42,18 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->created_at = date('Y-m-d H:i:s');
         $purchaseOrder->updated_at = date('Y-m-d H:i:s');
         $purchaseOrder->save();
+        $products = $request->get('product');
+        $quantity = $request->get('quantity');
+        if($purchaseOrder->id > 0 && $products){
 
-        if($purchaseOrder->id > 0){
-            $products = $request->get('product');
-            foreach($products as $product){
-                $poProduct = new PurchaseOrderProduct();
-                $poProduct->purchase_order_id = $purchaseOrder->id;
-                $poProduct->id_product = $product;
-                $poProduct->save();
+            foreach($products as $key => $product){
+                if($product && !empty($product)){
+                    $poProduct = new PurchaseOrderProduct();
+                    $poProduct->purchase_order_id = $purchaseOrder->id;
+                    $poProduct->id_product = $product;
+                    $poProduct->quantity = $quantity[$key];
+                    $poProduct->save();
+                }
             }
         }
         return redirect()->route('purchase.orders')->with("poSuccessMsg",'Purchase Order created successfully');
@@ -65,6 +69,7 @@ class PurchaseOrderController extends Controller
     }
 
     public function update(Request $request,PurchaseOrder $purchaseOrder){
+
         $request->validate([
             'vendor' => 'required',
             'attn_no' => 'required',
@@ -82,11 +87,15 @@ class PurchaseOrderController extends Controller
             if($purchaseOrder->id > 0){
                 PurchaseOrderProduct::where('purchase_order_id',$purchaseOrder->id)->delete();
                 $products = $request->get('product');
-                foreach($products as $product){
-                    $poProduct = new PurchaseOrderProduct();
-                    $poProduct->purchase_order_id = $purchaseOrder->id;
-                    $poProduct->id_product = $product;
-                    $poProduct->save();
+                $quantity = $request->get('quantity');
+                foreach($products as $key => $product){
+                    if($product && !empty($product)){
+                        $poProduct = new PurchaseOrderProduct();
+                        $poProduct->purchase_order_id = $purchaseOrder->id;
+                        $poProduct->id_product = $product;
+                        $poProduct->quantity = $quantity[$key];
+                        $poProduct->save();
+                    }
                 }
             }
 

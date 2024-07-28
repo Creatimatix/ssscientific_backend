@@ -73,67 +73,138 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="row  " style=" margin-top: 19px;">
-                                        <div class="col-md-12">
-                                            <label class="">Select Product</label>
-                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)" multiple>
-                                                <option value="">Select Product</option>
-                                                @if(isset($model->products))
-                                                    @foreach($model->products as $product)
-                                                        <option value="{{$product->product->id}}"
-                                                                selected>{{$product->product->name}}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            @error('product')
-                                            <div class="error">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row  " style=" margin-top: 19px;">
+{{--                                    <div class="row  " style=" margin-top: 19px;">--}}
+{{--                                        <div class="col-md-12">--}}
+{{--                                            <label class="">Select Product</label>--}}
+{{--                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)" multiple>--}}
+{{--                                                <option value="">Select Product</option>--}}
+{{--                                                @if(isset($model->products))--}}
+{{--                                                    @foreach($model->products as $product)--}}
+{{--                                                        <option value="{{$product->product->id}}"--}}
+{{--                                                                selected>{{$product->product->name}}--}}
+{{--                                                        </option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                @endif--}}
+{{--                                            </select>--}}
+{{--                                            @error('product')--}}
+{{--                                            <div class="error">{{ $message }}</div>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                    <div class="row " style=" margin-top: 19px;">
                                         <div class="col-md-12">
                                             <label class="">Terms & Condition</label>
                                             <textarea id="summernote" name="term_n_condition">{{ $model->terms_n_condition }}</textarea>
                                         </div>
                                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
-                            </form>
+                                    <div class="row">
+                                        <div class="panel panel-default" style="margin-top: 20px; margin-left: 10px;">
+                                            <div class="panel-heading">
+                                                <label for="relation">Product Accessories</label>
+                                            </div>
+                                            <div class="panel-body" style="width: 60em;">
+                                                <div class="row">
+                                                    <div class="col-sm-5 nopadding">
+                                                        <div class="form-group">
+                                                            <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)">
+                                                                <option value="">Select Product</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 nopadding">
+                                                        <div class="form-group">
+                                                            <input type="number " class="form-control" id="quantity" name="quantity[]" value="" placeholder="Quantity">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 nopadding">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-btn">
+                                                                    <button class="btn btn-success" type="button" onclick="addProduct();"> <span class="fa fa-plus" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div id="education_fields"></div>
+                                                @if($model->products)
+                                                    @php
+                                                        $totalProducts = $model->products->count();
+                                                    @endphp
+                                                    @foreach($model->products as $key => $product)
+                                                        <div class="row removeclass{{ $key  }}">
+                                                            <div class="col-sm-5 nopadding">
+                                                                <div class="form-group">
+                                                                    <select class="form-control select2bs4" data-resource="product" data-parent="#addVendorProduct" style="width: 100%;" name="product[]" id="ddlVendorProducts" onchange="return searchVendorProduct(this.value,1)">
+                                                                        <option value="{{$product->product->id}}"
+                                                                   selected>{{$product->product->name}} </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 nopadding">
+                                                                    <div class="form-group">
+                                                                        <input type="number " class="form-control" id="quantity" name="quantity[]" value="{{ $product->quantity }}" placeholder="Quantity">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3 nopadding">
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-btn">
+                                                                            <button
+                                                                                class="btn btn-danger" type="button" onclick="remove_product({{ $key++ }});">
+                                                                                <span class="fa fa-minus" aria-hidden="true"></span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary pull-right customerFormBtn" id="customerFormBtn" data-type="save">Submit</button>
+                                </form>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-@endsection
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    @endsection
 
-@section('pageScript')
-    <script src="{{ asset('/js/pages/purchase_order.js') }}"></script>
-    <script>
-        var poSuccessMsg = "{{ session('poSuccessMsg') }}";
-        var poErrorMsg = "{{ session('poErrorMsg') }}";
-        if(poSuccessMsg){
-            messages.saved("Purchase Order", poSuccessMsg);
-        }
-        if(poErrorMsg){
-            messages.error("Purchase Order", poErrorMsg);
-        }
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['para', ['ul', 'ol']],
-                ['insert', ['link']],
-                ['view', ['fullscreen']]
-            ],
-            height: 200 // Set the height of the editor as needed
-        })
-    </script>
-@endsection
+    @section('pageScript')
+        <script src="{{ asset('/js/pages/purchase_order.js') }}"></script>
+        <script>
+            var room = "{{ $totalProducts }}";
+            var poSuccessMsg = "{{ session('poSuccessMsg') }}";
+            var poErrorMsg = "{{ session('poErrorMsg') }}";
+            if(poSuccessMsg){
+                messages.saved("Purchase Order", poSuccessMsg);
+            }
+            if(poErrorMsg){
+                messages.error("Purchase Order", poErrorMsg);
+            }
+            $('#summernote').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['para', ['ul', 'ol']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen']]
+                ],
+                height: 200 // Set the height of the editor as needed
+            })
+        </script>
+    @endsection

@@ -161,11 +161,6 @@
                                                             <textarea class="form-control" id="modelname" name="modelname[]" placeholder="Model Name"></textarea>
                                                         </div>
                                                     </div>
-{{--                                                    <div class="col-sm-3 nopadding">--}}
-{{--                                                        <div class="form-group">--}}
-{{--                                                            <input type="text" class="form-control" id="acc_sku" name="acc_sku[]" value="" placeholder="SKU">--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
                                                     <div class="col-sm-2 nopadding">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" id="acc_pn_no" name="acc_pn_no[]" value="" placeholder="P/N">
