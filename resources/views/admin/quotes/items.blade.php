@@ -5,13 +5,13 @@
     $cGSTTotal = 0;
     $sGSTTotal = 0;
 
-    $collape_type = 'collapsed-card';
-    $collape_btn_type = 'fas fa-plus';
+    $collape_type = '';
+    $collape_btn_type = 'fas fa-minus';
 
-    if($quote->i_gst || $quote->s_gst || $quote->c_gst){
-        $collape_type = '';
-        $collape_btn_type = 'fas fa-minus';
-    }
+//    if($quote->i_gst || $quote->s_gst || $quote->c_gst) {
+//        $collape_type = '';
+//        $collape_btn_type = 'fas fa-minus';
+//    }
 ?>
 <table class="productSummaryTable table">
     <thead>
@@ -225,7 +225,7 @@
                                         <input type="text" class="form-control form-control-border" id="freight_percentage" name="freight_percentage" value="{{ $quote->freight_percentage }}" placeholder="%"  style=" margin-top: -4px; margin-left: 16px; display: {{ $quote->freight_type == '%'?'block':'none' }}; ">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-border" id="freight" name="freight" placeholder="Freight"  value="{{ $quote->freight? $quote->freight : 0 }}" style=" margin-top: -4px; margin-left: 16px; ">
+                                        <input type="text" class="form-control form-control-border" id="freight" name="freight" placeholder="Freight"  value="{{ $quote->freight? $quote->freight : 0 }}" style=" margin-top: -4px; margin-left: 36px; ">
                                     </div>
                                 </div>
                             </div>
@@ -488,11 +488,11 @@
     </tbody>
 </table>
 <style>
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        margin: 0; 
+        margin: 0;
     }
 </style>

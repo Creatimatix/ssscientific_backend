@@ -129,7 +129,7 @@ class Quote extends BaseModel
             ->with('product');
     }
 
-    public static function getQuoteTotal($quoteId){
+    public static function getQuoteTotal($quoteId , $isRecalculate = false){
         $totalAmount = 0;
         $quote = SELF::where('id',$quoteId)->get()->first();
         if($quote){
@@ -146,12 +146,53 @@ class Quote extends BaseModel
                     }
                 }
             }
-            if($quote && $quote->discount > 0){
-                $totalAmount = $totalAmount - $quote->discount;
+            if(!$isRecalculate){
+                if($quote && $quote->discount > 0){
+                    $totalAmount = $totalAmount - $quote->discount;
+                }
             }
         }
         return [
             'totalAmount' => $totalAmount
+        ];
+    }
+
+    public static function quoteRecalculation($quoteId){
+        $quote = SELF::where('id',$quoteId)->get()->first();
+        $discountAmount = 0;
+        $total = 0;
+        if($quote && $quote->discount){
+            $total = self::getQuoteTotal($quote->id, true)['totalAmount'];
+            if($total > 0){
+                if($quote->discount_percentage){
+                    $discountAmount = round($total * $quote->discount_percentage / 100);
+                    $quote->discount = $discountAmount;
+                    $quote->save();
+                }
+            }
+        }
+        if($quote && $quote->freight && $quote->freight_percentage){
+            $total = self::getQuoteTotal($quote->id)['totalAmount'];
+            if($total > 0){
+                if($quote->freight_percentage){
+                    $freightAmount = round($total * $quote->freight_percentage / 100);
+                    $quote->freight = $freightAmount;
+                    $quote->save();
+                }
+            }
+        }
+        if($quote && $quote->installation && $quote->installation_percentage){
+            $total = self::getQuoteTotal($quote->id)['totalAmount'];
+            if($total > 0){
+                if($quote->installation_percentage){
+                    $installationAmount = round($total * $quote->installation_percentage / 100);
+                    $quote->installation = $installationAmount;
+                    $quote->save();
+                }
+            }
+        }
+        return [
+            'total' => $total
         ];
     }
 }

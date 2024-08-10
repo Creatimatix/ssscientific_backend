@@ -131,7 +131,7 @@
 <table cellspacing="0" height="100%" cellpadding="0" class='center'>
     <tr>
         <td style="border: none;">
-            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">S S Scientific</p>
+            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
                 Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
             <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
@@ -166,17 +166,7 @@
     <tr>
         <td colspan='4'>
             <p>
-                {{ $model->property_address }}
-            </p>
-        </td>
-        <td colspan='4'>
-            <p>{{ $model->shipto_address }}</p>
-        </td>
-    </tr>
-    <tr><td style="width:5%" class="no-border"></br></td></tr>
-    <tr>
-        <td colspan='4'>
-            <p>
+                <b>{{ $model->user->company_name }}</b> <br />
                 {{ $model->user->full_name }} <br />
                 {{ $model->property_address }}
             </p>
@@ -184,9 +174,10 @@
         <td colspan='4'>
             <p>QTN.No.: {{ $model->quote_no }}</p>
             @if($model->order_type == \App\Models\Admin\Quote::ORDER_TYPE_TENDOR)
-                <p>Tendor No.: {{ $model->tendor_no }}</p>
+                 <p>Tendor No.: {{ $model->tendor_no }}</p>
                 <p>Due Date: {{ date('d-m-Y', strtotime($model->due_date)) }}</p>
             @endif
+            <p>Date: {{ date('d-m-Y', strtotime($model->created_at)) }}</p>
         </td>
     </tr>
 
@@ -241,7 +232,7 @@
             <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
                 @if($item->product)
                     @foreach($item->product->images as $image)
-{{--                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" />--}}
+{{--                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" /> --}}
                         <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" style="width:80px;height:60px;" />
                     @endforeach
                 @endif
@@ -335,47 +326,52 @@
         $finalTotal = round($finalTotal, 2);
     @endphp
   <tr>
-        <td colspan='3' class='no-border' >Payment Terms:</td>
+        <td colspan='3' class='no-border' >Payment Terms: {{ $model->payment_terms }}</td>
         <td colspan='3' class='no-border text-right'>Ex-Warehouse</td>
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</span></td>
     </tr>
   @if($model->discount > 0)
         <tr>
-            <td colspan='3' class='no-border' >Delivery Period:</td>
+            <td colspan='3' class='no-border' >Validity: {{ $model->validity }}</td>
             <td colspan='3' class='no-border text-right'>Discount Applied</td>
             <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</span></td>
         </tr>
     @endif
     <tr>
-        <td colspan='3' class='no-border' >Validity - 90 Days</td>
+        <td colspan='3' class='no-border'>Warranty: {{ $model->warranty_note }}</td>
         <td colspan='3' class='no-border text-right'>Freight</td>
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
     </tr>
     <tr>
-        <td colspan='3' class='no-border' ></td>
-        <td colspan='3' class='no-border text-right'>Installation</td>
-        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation }}</span></td>
-    </tr>
-    <tr>
-        <td colspan='3' class='no-border' ></td>
-        <td colspan='3' class='no-border text-right'>{{($model->i_gst > 0 ? "IGST" : "CGST")}} </td>
-        <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst : $model->c_gst)}}%</td>
-    </tr>
-       @if($model->s_gst > 0)
-    <tr>
         <td colspan='3' class='no-border'></td>
-        <td colspan='3' class='no-border text-right'>{{($model->s_gst > 0 ? "SGST" : "")}}</td>
-        <td colspan='2'class=''>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
+        <td colspan='3' class='no-border text-right'>Installation</td>
+        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ $model->installation > 0 ?(\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation) : 'Free of Cost' }}</span></td>
     </tr>
+    @if($model->delivery_type == \App\Models\Admin\Quote::INTER_STATE)
+        <tr>
+            <td colspan='3' class='no-border' ></td>
+            <td colspan='3' class='no-border text-right'>CGST</td>
+            <td colspan='2'>{{($model->c_gst > 0 ? $model->c_gst."%" : "")}}</td>
+        </tr>
+        <tr>
+            <td colspan='3' class='no-border'></td>
+            <td colspan='3' class='no-border text-right'>SGST</td>
+            <td colspan='2'class=''>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
+        </tr>
+    @else
+        <tr>
+            <td colspan='3' class='no-border' ></td>
+            <td colspan='3' class='no-border text-right'>IGST</td>
+            <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst."%" : "")}}</td>
+        </tr>
     @endif
      <tr>
-        <td colspan='3' class='no-border' id="total"></td>
+        <td colspan='3' class='no-border' id="total"> </td>
         <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
         <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
-   <!-- <script>
-
-document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}})+" ONLY.";
-    </script> -->
+    </tr>
+    <tr>
+        <td colspan='8' class='no-border' id="total"><b>{{ priceToWords($finalTotal) }}</b></td>
     </tr>
     <tr class="" style="position:relative; top:-20px; height:10px;">
         <td colspan='8' class='left-align no-border'>
@@ -478,81 +474,6 @@ document.getElementById('total').innerHTML = convertNumberToWords({{$finalTotal}
         text-align: center; font-size:12pt;
     }
 </style>
-<script>
-        // Define an object that maps numbers to their word form
-const numbersToWords = {
-  0: "zero",
-  1: "one",
-  2: "two",
-  3: "three",
-  4: "four",
-  5: "five",
-  6: "six",
-  7: "seven",
-  8: "eight",
-  9: "nine",
-  10: "ten",
-  11: "eleven",
-  12: "twelve",
-  13: "thirteen",
-  14: "fourteen",
-  15: "fifteen",
-  16: "sixteen",
-  17: "seventeen",
-  18: "eighteen",
-  19: "nineteen",
-  20: "twenty",
-  30: "thirty",
-  40: "forty",
-  50: "fifty",
-  60: "sixty",
-  70: "seventy",
-  80: "eighty",
-  90: "ninety",
-};
-
-// Define the convertNumberToWords function
-function convertNumberToWords(number) {
-  // if number present in object no need to go further
-  if (number in numbersToWords) return numbersToWords[number];
-
-  // Initialize the words variable to an empty string
-  let words = "";
-
-  // If the number is greater than or equal to 100, handle the hundreds place (ie, get the number of hundres)
-  if (number >= 100) {
-    // Add the word form of the number of hundreds to the words string
-    words += convertNumberToWords(Math.floor(number / 100)) + " hundred";
-
-    // Remove the hundreds place from the number
-    number %= 100;
-  }
-
-  // If the number is greater than zero, handle the remaining digits
-  if (number > 0) {
-    // If the words string is not empty, add "and"
-    if (words !== "") words += " and ";
-
-    // If the number is less than 20, look up the word form in the numbersToWords object
-    if (number < 20) words += numbersToWords[number];
-    else {
-      // Otherwise, add the word form of the tens place to the words string
-      //if number = 37, Math.floor(number /10) will give you 3 and 3 * 10 will give you 30
-      words += numbersToWords[Math.floor(number / 10) * 10];
-
-      // If the ones place is not zero, add the word form of the ones place
-      if (number % 10 > 0) {
-        words += "-" + numbersToWords[number % 10];
-      }
-    }
-  }
-
-  // Return the word form of the number
-  return words.toUpperCase();
-}
-
-document.getElementById('total').innerHTML = "Some Value";
-    </script>
 </body>
 </html>
       @endforeach

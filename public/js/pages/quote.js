@@ -703,6 +703,7 @@ $(document).on('change','.is_payable',function(e){
 function getInstalltion(){
     quoteId = $('#quote_id').val();
     type = $('#getInstallationCharge').val();
+    $('#installation').val('');
     if(type == '%'){
         $('#percentage').show();
     }else{
@@ -724,6 +725,7 @@ function getInstalltion(){
 function getFreight(){
     quoteId = $('#quote_id').val();
     type = $('#getFreightCharge').val();
+    $('#freight').val('');
     if(type == '%'){
         $('#freight_percentage').show();
     }else{
@@ -756,6 +758,7 @@ function getAccessories(textSearch = '', itemId){
 
 $(document).on('change','#discount_type',function(e){
     type = $('#discount_type').val();
+    $('#discount').val('');
     if(type == '%'){
         $('#discount_percentage').show();
         $('#discount').attr('disabled', true);

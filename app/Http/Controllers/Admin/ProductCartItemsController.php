@@ -38,6 +38,8 @@ class ProductCartItemsController extends Controller
                 $cartItem->item_id = $request->get('itemId');
             }
             $cartItem->save();
+
+            Quote::quoteRecalculation($quote_id);
         }
 
         return response()->json([
@@ -125,6 +127,7 @@ class ProductCartItemsController extends Controller
         $productCartItem = ProductCartItems::where('id', $itemId)->get()->first();
         if($productCartItem){
             $productCartItem->delete();
+            Quote::recalculationDiscount($productCartItem->quote_id);
             return redirect()->back()->with('quoteSuccessMsg','Cart item deleted successfully');
         }
         return redirect()->back()->with('quoteErrorMsg','Something went wrong.');
@@ -134,6 +137,7 @@ class ProductCartItemsController extends Controller
         $quote = Quote::where('id', $quote_id)->get()->first();
         if($quote){
             $quote->discount = null;
+            $quote->discount_percentage = null;
             $quote->save();
             return redirect()->back()->with('quoteSuccessMsg','discount remove successfully');
         }

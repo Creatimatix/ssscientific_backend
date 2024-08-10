@@ -46,7 +46,7 @@
                                                 <option value="">Select Company</option>
                                                 @if(isset($model->user))
                                                     <option value="{{$model->user->id}}"
-                                                            selected>{{$model->user->getFullname()}}
+                                                            selected>{{$model->user->company_name}}
                                                         ({{$model->user->email}})
                                                     </option>
                                                 @endif

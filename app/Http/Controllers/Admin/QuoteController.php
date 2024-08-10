@@ -215,13 +215,13 @@ class QuoteController extends Controller
         $quote->notes = $request->input('notes');
         $quote->created_by = Auth::user()->id;
         if ($request->get('order_type') == Quote::ORDER_TYPE_TENDOR) {
-            $quote->tendor_no = $request->get('tendor_no');
+            $quote->tendor_no = $request->get('tendor_no', null);
             $quote->due_date = date('Y-m-d', strtotime($request->get('due_date')));
-            $quote->tender_quote_type = $request->get('bid_type');
+            $quote->tender_quote_type = $request->get('bid_type', null);
         } else {
-            $quote->tendor_no = '';
-            $quote->due_date = '';
-            $quote->tender_quote_type = '';
+            $quote->tendor_no = null;
+            $quote->due_date = null;
+            $quote->tender_quote_type = null;
         }
         if (array_key_exists('change_quote_no', $request->all()) && !empty($request->get('change_quote_no'))) {
             $quoteNo = explode('/', $quote->quote_no);
@@ -236,6 +236,21 @@ class QuoteController extends Controller
         $quote->status = $request->get('status');
         $quote->delivery_type = $request->get('delivery_type');
         $quote->save();
+
+        if($quote->delivery_type){
+            if($quote->delivery_type == Quote::INTER_STATE){
+                if(!empty($quote->i_gst)){
+                    $quote->i_gst = null;
+                    $quote->save();
+                }
+            } else {
+                if(!empty($quote->c_gst) && !empty($quote->s_gst)){
+                    $quote->c_gst = null;
+                    $quote->s_gst = null;
+                    $quote->save();
+                }
+            }
+        }
 
 
         return response()->json([
