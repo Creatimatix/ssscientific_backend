@@ -321,7 +321,7 @@
             $totalPrice = $totalPrice - $quote->discount;
         @endphp
         <tr class="table-summary">
-            <td colspan="4" class="text-right">(-)Discount Applied {{ $quote->discount_percentage?"<strong>(".$quote->discount_percentage."%)</strong>":"" }}
+            <td colspan="4" class="text-right">(-)Discount Applied {!! $quote->discount_percentage?"<strong>(".$quote->discount_percentage."%)</strong>":"" !!}
                 <i class="icofont icofont-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rental/Buy/Sale Furniture Subtotal : $0<br>Sales Tax (10.25%) on Rental/Buy/Sale Furniture : $0<br>Total : $0" data-html="true"></i></td>
             <td class="text-right">
                 <span style="font-family: DejaVu Sans; sans-serif;">
