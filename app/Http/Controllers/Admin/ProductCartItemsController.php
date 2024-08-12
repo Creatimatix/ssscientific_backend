@@ -127,7 +127,7 @@ class ProductCartItemsController extends Controller
         $productCartItem = ProductCartItems::where('id', $itemId)->get()->first();
         if($productCartItem){
             $productCartItem->delete();
-            Quote::recalculationDiscount($productCartItem->quote_id);
+            Quote::quoteRecalculation($productCartItem->quote_id);
             return redirect()->back()->with('quoteSuccessMsg','Cart item deleted successfully');
         }
         return redirect()->back()->with('quoteErrorMsg','Something went wrong.');

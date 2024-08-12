@@ -6,15 +6,15 @@
         .form-popup {
             display: none;
             position: absolute;
-            bottom: 5;
-            right: 150px;
+            bottom: 2;
+            left: 740px;
             border: 3px solid #f1f1f1;
-            border-radius : 15px;
+            border-radius: 15px;
             z-index: 2;
             max-width: 300px;
             padding: 10px;
             background-color: white;
-            margin-top:-20px;
+            margin-top: -40px;
         }
 
         .desc-text{
