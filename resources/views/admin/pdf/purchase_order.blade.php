@@ -100,7 +100,9 @@
     <tr>
         <td colspan='4'>
             <p>
+                <b>{{ $purchaseOrder->vendor->company_name }}</b> <br />
                 {{ $purchaseOrder->vendor->full_name }} <br />
+                {{ $purchaseOrder->vendor->address }} <br />
             </p>
         </td>
         <td colspan='4'>

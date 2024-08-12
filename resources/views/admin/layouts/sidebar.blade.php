@@ -16,7 +16,7 @@
     <a href="javascript:void(0)" class="brand-link">
         <img src="{{ asset('images/proposal-pdf/fire.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="width: 39px;opacity: .8;height: 33px;">
-        <span class="brand-text font-weight-light">Ssscientific</span>
+        <span class="brand-text font-weight-light">SS Scientific</span>
     </a>
 
     <!-- Sidebar -->

@@ -321,7 +321,7 @@
             $totalPrice = $totalPrice - $quote->discount;
         @endphp
         <tr class="table-summary">
-            <td colspan="4" class="text-right">(-)Discount Applied
+            <td colspan="4" class="text-right">(-)Discount Applied {{ $quote->discount_percentage?"<strong>(".$quote->discount_percentage."%)</strong>":"" }}
                 <i class="icofont icofont-info-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Rental/Buy/Sale Furniture Subtotal : $0<br>Sales Tax (10.25%) on Rental/Buy/Sale Furniture : $0<br>Total : $0" data-html="true"></i></td>
             <td class="text-right">
                 <span style="font-family: DejaVu Sans; sans-serif;">
@@ -403,27 +403,25 @@
              $iGstTotal =  (($totalPrice * $quote->i_gst)/100);
         @endphp
     <tr class="table-summary">
-        <td colspan="4" class="text-right">I GST:
+        <td colspan="4" class="text-right">I GST <strong>({{ $quote?$quote->i_gst:0 }}%)</strong>:
             <br>
         </td>
         <td class="text-right">
             <strong>
-                %{{ $quote?$quote->i_gst:0 }}
+               <span style="font-family: DejaVu Sans; sans-serif;">
+                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].round($iGstTotal, 2) }}
+               </span>
             </strong>
         </td>
-        <td>
-           <span style="font-family: DejaVu Sans; sans-serif;">
-            {{ \App\Models\Admin\ProductCartItems::CURRENCY[$quote->currency_type].round($iGstTotal, 2) }}
-           </span>
-        </td>
+        <td> </td>
     </tr>
     @endif
     @if($quote->c_gst)
         @php
             $cGSTTotal = (($totalPrice * $quote->c_gst)/100);
         @endphp
-    <tr class="table-summary">
-        <td colspan="4" class="text-right">C GST Charges:
+        <tr class="table-summary">
+        <td colspan="4" class="text-right">C GST <strong>({{ $quote?$quote->c_gst:0 }}%)</strong>:
             <br>
         </td>
         <td class="text-right">
@@ -443,7 +441,7 @@
             $sGSTTotal = (($totalPrice * $quote->s_gst)/100);
         @endphp
         <tr class="table-summary">
-        <td colspan="4" class="text-right">S GST Charges:
+            <td colspan="4" class="text-right">S GST <strong>({{ $quote?$quote->s_gst:0 }}%)</strong>:
             <br>
         </td>
         <td class="text-right">
@@ -453,9 +451,7 @@
                 </span>
             </strong>
         </td>
-        <td>
-
-        </td>
+        <td></td>
     </tr>
     @endif
 

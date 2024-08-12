@@ -27,28 +27,30 @@ function initializeVendorSelect2(){
         minimumInputLength: 1,
         // dropdownParent: $('#poForm'),
         templateResult: function (user) {
+            console.log('user',user);
             if (!user.id) {
                 return user.first_name + ' ' + user.last_name;
             }
+            var companyName =  (typeof(user.company_name) !== "undefined" && user.company_name !== null )? user.company_name : '';
             var $state = $(
-                '<span clas="user-list">' + user.first_name + ' ' + user.last_name + '(<em>' + user.email + '</em>)</span>'
+                // '<span clas="user-list">' + user.first_name + ' ' + user.last_name + '(<em>' + user.email + '</em>)</span>'
+                '<span class="user-list">' + companyName + ' ' + '(<em>' + user.first_name + ' ' + user.last_name + '</em>)</span>'
             );
             return $state;
         },
         templateSelection: function (user) {
-            console.log('user 1',user);
             if (!user.id) {
-                return 'Select Vendor';
+                return 'Select Company';
             }
+            var companyName =  (typeof(user.company_name) !== "undefined" && user.company_name !== null )? user.company_name : '';
             var $state = $(
-                '<span>' + user.full_name + ' (' + user.email + ')</span>'
+                '<span>' + companyName + ' (' +  user.first_name + ' ' + user.last_name + ')</span>'
             );
-            if (typeof user.full_name === typeof undefined && typeof user.email === typeof undefined) {
+            if (typeof user.company_name === typeof undefined && typeof user.email === typeof undefined) {
                 $state = $(
                     '<span>' + user.text + '</span>'
                 );
             }
-
             return $state;
         }
     });

@@ -69,10 +69,10 @@ class HomeController extends Controller
                 if (preg_match('/^[0-9]+$/', $searchTerm)) {
                     $query->where($tblUser.'.id', '=', $searchTerm);
                 } else {
-                    $query->where($tblUser.'.email', 'LIKE', $searchTerm.'%')
-                        ->orWhere($tblUser.'.company_name', 'LIKE', $searchTerm . '%')
-                        ->orWhere($tblUser.'.first_name', 'LIKE', $searchTerm . '%')
-                        ->orWhere($tblUser.'.last_name', 'LIKE', $searchTerm . '%')
+                    $query->where($tblUser.'.email', 'LIKE', '%'.$searchTerm.'%')
+                        ->orWhere($tblUser.'.company_name', 'LIKE', '%'.$searchTerm . '%')
+                        ->orWhere($tblUser.'.first_name', 'LIKE', '%'.$searchTerm . '%')
+                        ->orWhere($tblUser.'.last_name', 'LIKE', '%'.$searchTerm . '%')
                         ->orWhere($tblUser.'.phone_number', 'LIKE', $searchTerm . '%');
                 }
             });

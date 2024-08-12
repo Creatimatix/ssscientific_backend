@@ -43,7 +43,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-12">
+                    <!--  card -->
                     <div class="card">
                         <div class="card-header">
                             <div class="pull-right">
@@ -52,7 +53,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="quoteTable" class="table table-bordered table-striped">
+                            <table id="quoteTable" class="table table-bordered table-striped table-responsive">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">SR No</th>
@@ -79,9 +80,7 @@
                     </div>
                     <!-- /.card -->
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
     </section>

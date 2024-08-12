@@ -35,7 +35,7 @@
                                     <tr>
                                         <th class="subj_name">Id</th>
                                         <th>PO No.</th>
-                                        <th>Vendor</th>
+                                        <th>Vendor Name</th>
                                         <th>Attn</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -48,8 +48,8 @@
                                         <tr>
                                             <td>{{ $purchaseOrder->id }}</td>
                                             <td>{{ $purchaseOrder->po_no }}</td>
-                                            <td>{{ ($purchaseOrder->vendor)?$purchaseOrder->vendor->full_name:'NA' }}</td>
-                                            <td>{{ $purchaseOrder->attn_no }}</td>
+                                            <td>{{ ($purchaseOrder->vendor)?($purchaseOrder->vendor->company_name.' ('. $purchaseOrder->vendor->full_name.')'):'NA' }}</td>
+                                            <td>{{ $purchaseOrder->attn_no?$purchaseOrder->attn_no:$purchaseOrder->vendor->full_name }}</td>
                                             <td>{{ status($purchaseOrder->status) }}</td>
 {{--                                            <td>{{ $purchaseOrder->created_at }}</td>--}}
                                             <td>{{ date('d-M-Y', strtotime($purchaseOrder->created_at)) }}</td>

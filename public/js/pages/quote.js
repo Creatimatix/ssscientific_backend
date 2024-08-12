@@ -44,7 +44,10 @@ var quote = {
                     {className: 'text-center', "targets": [3]},
                     {className: 'text-center', "targets": [4]},
                     {className: 'text-center', "targets": [5]},
-                    {className: 'text-center', "targets": [6]}
+                    {className: 'text-center', "targets": [6]},
+                    {className: 'text-center', "targets": [7]},
+                    {className: 'text-center', "targets": [8]},
+                    {className: 'text-center', "targets": [9]}
                 ],
                 order: [[0, 'desc']],
                 buttons: [

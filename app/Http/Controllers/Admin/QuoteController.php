@@ -285,7 +285,7 @@ class QuoteController extends Controller
     public function actionAjaxIndex(Request $request)
     {
         $user = auth()->user();
-        $columns = ['id', 'company_name', 'cust', 'status', 'quote_no', 'created_at'];
+        $columns = ['id','created_by','quote_no' ,'company_name','contact_person' ,'cust', 'status', 'created_at'];
 
         $sEcho = $request->get('sEcho', 1);
 
