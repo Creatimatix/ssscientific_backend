@@ -136,33 +136,33 @@
 
                         if($quote->i_gst){
                             $defaultIGst = $quote->i_gst;
-                        }else if(!$quote->i_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE){
-                            $defaultIGst = isset($configs['INTRASTATE'])?$configs['INTRASTATE']:'';
+                        }else if(!$quote->i_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE){
+                            $defaultIGst = isset($configs['INTERSTATE'])?$configs['INTERSTATE']:'';
                         }
 
                         if($quote->c_gst){
                             $defaultCGst = $quote->c_gst;
-                        }else if(!$quote->c_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE){
-                            $defaultCGst = isset($configs['INTERSTATE'])?$configs['INTERSTATE']:'';
+                        }else if(!$quote->c_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE){
+                            $defaultCGst = isset($configs['INTRASTATE'])?$configs['INTRASTATE']:'';
                         }
 
                         if($quote->s_gst){
                             $defaultSGst = $quote->s_gst;
-                        }else if(!$quote->s_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE){
-                            $defaultSGst = isset($configs['INTERSTATE'])?$configs['INTERSTATE']:'';
+                        }else if(!$quote->s_gst && $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE){
+                            $defaultSGst = isset($configs['INTRASTATE'])?$configs['INTRASTATE']:'';
                         }
                     @endphp
                     <div class="card-body">
                         <div class="row">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} />
+                                <input type="checkbox" class="form-check-input trm_cond_checkbox" name="is_i_gst" id="is_i_gst" value="igst" {{ ($quote->i_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} />
                                 <div style=" margin-top: 0px;margin-left: 16px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="is_i_gst">
                                         IGST
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ $defaultIGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }}>
+                                            <input type="text" class="form-control form-control-border" id="i_gst" name="i_gst" placeholder="IGST" value="{{ $defaultIGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }}>
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -171,14 +171,14 @@
                         </div>
                         <div class="row">
                             <div class="form-check" style=" display: flex; ">
-                                <input type="checkbox" class="form-check-input trm_cond_checkbox" id="is_c_s_gst" name="is_c_s_gst"  value="c_s_gst" {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} />
+                                <input type="checkbox" class="form-check-input trm_cond_checkbox" id="is_c_s_gst" name="is_c_s_gst"  value="c_s_gst" {{ ($quote->c_gst || $quote->s_gst)?'checked':'' }} {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} />
                                 <div style="margin-top: 0px;margin-left: 13px;width: 130px;display: flex;">
                                     <label class="form-check-label" for="is_c_s_gst">
                                         CGST
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $defaultCGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?  $configs['INTERSTATE']:'disabled' }} >
+                                            <input type="text" class="form-control form-control-border" id="c_gst" name="c_gst" placeholder="CGST" value="{{ $defaultCGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?  $configs['INTRASTATE']:'disabled' }} >
                                             <span>%</span>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                     </label>
                                     <div class="form-group">
                                         <div class="displayFlex">
-                                            <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $defaultSGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTER_STATE?'':'disabled' }} >
+                                            <input type="text" class="form-control form-control-border" id="s_gst" name="s_gst" placeholder="SGST"  value="{{ $defaultSGst }}" style=" margin-top: -4px; margin-left: 16px; " {{ $quote->delivery_type == \App\Models\Admin\Quote::INTRA_STATE?'':'disabled' }} >
                                             <span>%</span>
                                         </div>
                                     </div>

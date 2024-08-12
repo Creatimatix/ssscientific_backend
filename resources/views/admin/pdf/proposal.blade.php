@@ -347,7 +347,7 @@
         <td colspan='3' class='no-border text-right'>Installation</td>
         <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ $model->installation > 0 ?(\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation) : 'Free of Cost' }}</span></td>
     </tr>
-    @if($model->delivery_type == \App\Models\Admin\Quote::INTER_STATE)
+    @if($model->delivery_type == \App\Models\Admin\Quote::INTRA_STATE)
         <tr>
             <td colspan='3' class='no-border' ></td>
             <td colspan='3' class='no-border text-right'>CGST</td>

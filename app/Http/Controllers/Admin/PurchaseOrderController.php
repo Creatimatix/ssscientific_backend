@@ -103,12 +103,11 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function destroy(PurchaseOrder $purchaseOrder){
-        if($purchaseOrder){
-            $id = $purchaseOrder->id;
-            if($purchaseOrder->delete()){
-                PurchaseOrderProduct::where('purchase_order_id',$id)->delete();
-            }
+    public function destroy(Request $request){
+        $poId = $request->get('purchaseOrder');
+        $po = PurchaseOrderProduct::where('purchase_order_id',$poId)->get()->first();
+        if($po){
+            PurchaseOrderProduct::where('purchase_order_id',$poId)->delete();
             return redirect()->route('purchase.orders')->with("poSuccessMsg",'Purchase Order deleted successfully');
         }
         return redirect()->route('purchase.orders')->with("poErrorMsg",'Purchase Order not found');

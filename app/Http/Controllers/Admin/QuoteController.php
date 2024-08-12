@@ -238,7 +238,7 @@ class QuoteController extends Controller
         $quote->save();
 
         if($quote->delivery_type){
-            if($quote->delivery_type == Quote::INTER_STATE){
+            if($quote->delivery_type != Quote::INTER_STATE){
                 if(!empty($quote->i_gst)){
                     $quote->i_gst = null;
                     $quote->save();

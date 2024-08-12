@@ -124,8 +124,8 @@
     <tr>
         <th>S/N</th>
         <th>P/N</th>
-        <th>HSN Code</th>
-        <th colspan='2'>Description of goods</th>
+        <!-- <th>HSN Code</th> -->
+        <th colspan='3'>Description of goods</th>
         <th>Qty</th>
         <th>Unit</th>
         <th>Amount</th>
@@ -137,13 +137,13 @@
             <tr style="text-align:center">
                 <td width="10px">{{ ++$key }}</td>
                 <td>{{ $product->product->pn_no }}</td>
-                <td>{{ $product->product->hsn_no }}</td>
-                <td colspan='2'>{{ $product->product->name }}
-                     @if($product->product->images)
+                <!-- <td>{{ $product->product->hsn_no }}</td> -->
+                <td colspan='3'>{{ $product->product->name }}
+                     <!-- @if($product->product->images)
                         @foreach($product->product->images as $image)
-                            <img src="{{ public_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px" />
+                            <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" style="width:80px;height:60px" />
                         @endforeach
-                    @endif
+                    @endif -->
                 </td>
                 <td>{{ $product->quantity }}</td>
                 <td>{{ $product->product->sale_price }}</td>
