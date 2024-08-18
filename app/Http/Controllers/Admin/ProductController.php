@@ -565,56 +565,57 @@ class ProductController extends Controller
                             $hsnNo = isset($value[26])?$value[26]:null;
                             $sku = isset($value[27])?$value[27]:null;
 
-                            if(!empty($productName) && $category){
-                                $slug = slug($productName);
-                                $product = Product::where('slug', $slug)->get()->first();
-                                if(!$product){
-                                    $product = new Product();
-                                }
+                            try{
+                                if(!empty($productName) && $category){
+                                    $slug = slug($productName);
+                                    $product = Product::where('slug', $slug)->get()->first();
+                                    if(!$product){
+                                        $product = new Product();
+                                    }
 
-                                $product->name = $productName;
-                                $product->sku = $sku;
-                                $product->slug = $slug;
-                                $product->id_category = $category->id;
-                                $product->pn_no = $pnNo;
-                                $product->hsn_no = $hsnNo;
-                                $product->short_description = $shortDesc;
-                                $product->description = $desc;
-                                $product->sale_price = $price;
-                                $product->status = Product::PRODUCT_STATUS;
-                                if($productType == 'Parent'){
-                                    $product->power = $power;
-                                    $product->housing = $housing;
-                                    $product->calibration = $calibration;
-                                    $product->display = $display;
-                                    $product->weighing_units = $weighing_units;
-                                    $product->item_accessories = $accessories;
-                                    $product->id_product = null;
-                                }else{
-                                    $product->id_product = $parentId;
-                                    $product->mpn = $mpn;
-                                    $product->capacity = $capacity;
-                                    $product->readability = $readability;
-                                    $product->pan_size = $pan_size;
-                                    $product->overall_dimensions = $overall_dimensions;
-                                    $product->shipping_dimensions = $shipping_dimensions;
-                                    $product->weight = $weight;
-                                    $product->shipping_weight = $shipping_weight;
+                                    $product->name = $productName;
+                                    $product->sku = $sku;
+                                    $product->slug = $slug;
+                                    $product->id_category = $category->id;
+                                    $product->pn_no = $pnNo;
+                                    $product->hsn_no = $hsnNo;
+                                    $product->short_description = $shortDesc;
+                                    $product->description = $desc;
+                                    $product->sale_price = $price;
+                                    $product->status = Product::PRODUCT_STATUS;
+                                    if($productType == 'Parent'){
+                                        $product->power = $power;
+                                        $product->housing = $housing;
+                                        $product->calibration = $calibration;
+                                        $product->display = $display;
+                                        $product->weighing_units = $weighing_units;
+                                        $product->item_accessories = $accessories;
+                                        $product->id_product = null;
+                                    }else{
+                                        $product->id_product = $parentId;
+                                        $product->mpn = $mpn;
+                                        $product->capacity = $capacity;
+                                        $product->readability = $readability;
+                                        $product->pan_size = $pan_size;
+                                        $product->overall_dimensions = $overall_dimensions;
+                                        $product->shipping_dimensions = $shipping_dimensions;
+                                        $product->weight = $weight;
+                                        $product->shipping_weight = $shipping_weight;
 
-                                }
-                                $product->save();
+                                    }
+                                    $product->save();
 
-                                if($productType == 'Parent'){
-                                    $parentId = $product->id;
-                                    if(isset($value[19]) && !empty($value[19])){
-//                                        if (strpos($value[19], 'https') !== false)
-//                                        {
+                                    if($productType == 'Parent'){
+                                        $parentId = $product->id;
+                                        $imageUrl = isset($value[19])?$value[19]:null;
+                                        $documentUrl = isset($value[24])?$value[24]:null;
+                                        if(!empty($imageUrl)){
                                             $documentPath  = 'products/images/';
                                             $controller = new ImageController($request);
-                                            if (strpos($value[19], 'sharepoint') !== false){
-                                                $imageUrl = $controller->storeSharePointFileToS3($value[19], $documentPath, 'image', $productName);
+                                            if (strpos($imageUrl, 'sharepoint') !== false){
+                                                $imageUrl = $controller->storeSharePointFileToS3($imageUrl, $documentPath, 'image', $productName);
                                             }else{
-                                                $imageUrl = $controller->storeImageFromUrlToS3($value[19], $documentPath, 'image', $productName);
+                                                $imageUrl = $controller->storeImageFromUrlToS3($imageUrl, $documentPath, 'image', $productName);
                                             }
                                             if($imageUrl){
                                                 $productImage = new ProductImage();
@@ -622,9 +623,23 @@ class ProductController extends Controller
                                                 $productImage->image_name = $imageUrl;
                                                 $productImage->save();
                                             }
-//                                        }
+                                        }
+                                        if(!empty($documentUrl)){
+                                            $documentPath  = 'products/documents/';
+                                            $controller = new ImageController($request);
+                                            $imageUrl = $controller->storeDocumentFromUrlToS3($documentUrl, $documentPath, 'document', $productName);
+                                            if($imageUrl){
+                                                $productImage = new ProductImage();
+                                                $productImage->id_product = $parentId;
+                                                $productImage->image_name = $imageUrl;
+                                                $productImage->type = ProductImage::TYPE_DOC;
+                                                $productImage->save();
+                                            }
+                                        }
                                     }
                                 }
+                            }catch (\Exception $e){
+                                return redirect()->back()->with('productUploadErrorMsg', $e->getMessage());
                             }
                         }
                         return redirect()->route('product.upload')->with('productUploadSuccessMsg', 'Product imported successfully.');

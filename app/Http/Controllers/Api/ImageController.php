@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
@@ -83,6 +84,24 @@ class ImageController extends Controller{
 
             $path = $folderPath. $filename;
             $stored = Storage::disk('s3')->put($path, $imageContents);
+
+            if (!$stored) {
+                return false;
+            }
+            $url = Storage::disk('s3')->url($path);
+            return $filename;
+        }catch (\Exception $e){
+            return false;
+        }
+    }
+    public function storeDocumentFromUrlToS3($docUrl, $folderPath, $type = '', $modelName= null) {
+
+        try{
+            $filename = $modelName."_".Str::random(5) . '.pdf';
+            $response = Http::get($docUrl);
+
+            $path = $folderPath. $filename;
+            $stored = Storage::disk('s3')->put($path, $response->body());
 
             if (!$stored) {
                 return false;

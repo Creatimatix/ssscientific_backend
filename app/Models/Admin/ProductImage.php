@@ -15,7 +15,8 @@ class ProductImage extends Model
 
     protected $appends = ['image_url','document_url'];
 
-
+    const TYPE_IMG = 0;
+    const TYPE_DOC = 1;
     protected $fillable = [
         'id_product',
         'image_name',
