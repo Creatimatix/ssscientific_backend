@@ -45,8 +45,8 @@
                                     @foreach($categories as $category)
                                     <tr>
                                         <td class="subj_name">{{ $category->id }}</td>
-                                        <td>{{ $category->category_name }}</td>
-                                        <td>{{ ($category->parentCategory)?$category->parentCategory->category_name:'NA' }}</td>
+                                        <td>{!! $category->category_name !!}</td>
+                                        <td>{!! ($category->parentCategory)?$category->parentCategory->category_name:'NA' !!}</td>
                                         <td>{{ status($category->status) }}</td>
                                         <td>{{ $category->created_at }}</td>
                                         <td>
