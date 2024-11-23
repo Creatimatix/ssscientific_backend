@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function actionAjaxIndex(Request $request){
         $id_category=$request->get('id_category');
-        $columns = ['id','model_no','brand','short_description','status'];
+        $columns = ['id','model_no','brand','status'];
         $sEcho = $request->get('sEcho', 1);
         $start = $request->get('iDisplayStart', 0);
         $limit = $request->get('iDisplayLength', 0);
@@ -110,7 +110,7 @@ class ProductController extends Controller
                 'id' => $property->id,
                 'model_no' => $property->model_no,
                 'brand' => $property->brand,
-                'short_description'=> $property->short_description,
+                // 'short_description'=> $property->short_description,
                 'status' => ($property->status == Product::PRODUCT_STATUS) ? 'Active' : 'Inactive',
                 'controls' => table_buttons($buttons, false)
             ];
@@ -527,7 +527,7 @@ class ProductController extends Controller
                     $filepath = $file->getRealPath();
 
                     $data = Excel::toArray([], $request->file('import_file'));
-                    $data = array_slice($data[0], 1);;
+                    $data = array_slice($data[0], 1);
                     if (isset($data) && count($data) > 0) {
                         $parentId = null;
                         foreach ($data as $key => $value) {
@@ -543,7 +543,7 @@ class ProductController extends Controller
                                 $category->save();
                             }
 
-                            $price = isset($value[28])?$value[28]:0;
+                            $price = 0;
                             $mpn = isset($value[3])?$value[3]:null;
                             $capacity = isset($value[4])?$value[4]:null;
                             $readability = isset($value[5])?$value[5]:null;
@@ -564,7 +564,7 @@ class ProductController extends Controller
                             $pnNo = isset($value[25])?$value[25]:null;
                             $hsnNo = isset($value[26])?$value[26]:null;
                             $sku = isset($value[27])?$value[27]:null;
-
+                            $companyName = isset($value[28])?trim($value[28]):null;
                             try{
                                 if(!empty($productName) && $category){
                                     $slug = slug($productName);
@@ -603,6 +603,7 @@ class ProductController extends Controller
                                         $product->shipping_weight = $shipping_weight;
 
                                     }
+                                    $product->company_name = $companyName;
                                     $product->save();
 
                                     if($productType == 'Parent'){
@@ -639,6 +640,7 @@ class ProductController extends Controller
                                     }
                                 }
                             }catch (\Exception $e){
+                                dd($e->getMessage());
                                 return redirect()->back()->with('productUploadErrorMsg', $e->getMessage());
                             }
                         }

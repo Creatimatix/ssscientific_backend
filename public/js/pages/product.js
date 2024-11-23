@@ -49,7 +49,7 @@ var product = {
                     {data: 'id'},
                     {data: 'model_no'},
                     {data: 'brand'},
-                    {data: 'short_description', className: 'text-center'},
+                    // {data: 'short_description', className: 'text-center'},
                     {data: 'status'},
                     {data: 'controls'}
                 ],
@@ -59,7 +59,7 @@ var product = {
                     {className: 'text-center', "targets": [2]},
                     {className: 'text-center', "targets": [3]},
                     {className: 'text-center', "targets": [4]},
-                    {className: 'text-center', "targets": [5]}
+                    // {className: 'text-center', "targets": [5]}
                 ],
                 order: [[0, 'desc']],
                 buttons: [

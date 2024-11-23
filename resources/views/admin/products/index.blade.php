@@ -47,7 +47,7 @@
                                         <th class="subj_name">Id</th>
                                         <th>Model No</th>
                                         <th>Brand</th>
-                                        <th>Short Description</th>
+                                        {{-- <th>Short Description</th> --}}
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -87,7 +87,7 @@
 {{--                                    </tr>--}}
 {{--                                    @endforeach--}}
                                     <tr>
-                                        <td colspan="6" style="text-align:center">Please wait loading....</td>
+                                        <td colspan="5" style="text-align:center">Please wait loading....</td>
                                     </tr>
                                 </tbody>
                             </table>

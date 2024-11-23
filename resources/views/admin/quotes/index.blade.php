@@ -53,7 +53,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="quoteTable" class="table table-bordered table-striped table-responsive">
+                            <table id="quoteTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="subj_name">SR No</th>

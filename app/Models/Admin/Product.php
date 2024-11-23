@@ -16,6 +16,8 @@ class Product extends BaseModel
     const PRODUCT_STATUS = 1;
     const TYPE_PRODUCT = 0;
     const TYPE_ACCESSORIES = 1;
+
+    protected $fillable = ["name","sku","slug","id_category","pn_no","hsn_no","short_description","description","sale_price","status","power","housing","calibration","display","weighing_units","item_accessories","id_product","id_product","mpn","capacity","readability","pan_size","overall_dimensions","shipping_dimensions","weight","shipping_weight","company_name"];
     public function getDefaultImageAttribute(){
         return $this->image;
     }
