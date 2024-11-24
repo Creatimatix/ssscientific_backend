@@ -17,7 +17,7 @@ class GeneralController extends Controller
 
     public function index()
     {
-        $categories = Category::with('products')->with('childLevelCategories')->get();
+        $categories = Category::whereNull('id_parent')->with('products')->with('childLevelCategories')->get();
 
 
         return response()->json($categories);
