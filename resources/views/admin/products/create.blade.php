@@ -128,7 +128,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="product_image">Upload Product Image:</label>
-                                            <input type="file"  class="form-control product_image" id="product_image" name="images" accept="image/png, image/jpeg, image/jpg, image/gif">
+                                            <input type="file"  class="form-control product_image" id="product_image" name="images[]" accept="image/png, image/jpeg, image/jpg, image/gif" multiple>
                                             @if($errors->has('images'))
                                                 <span class="error">{{ $errors->first('images') }}</span>
                                             @endif

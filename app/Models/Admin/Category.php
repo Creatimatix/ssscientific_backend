@@ -28,7 +28,7 @@ class Category extends BaseModel
     }
 
     public function products(){
-        return $this->hasMany(Product::class,'id_category','id')->with('accessories')->whereNull('id_product');
+        return $this->hasMany(Product::class,'id_category','id')->with('accessories')->with('images')->whereNull('id_product');
     }
 
     public function childLevelCategories()
