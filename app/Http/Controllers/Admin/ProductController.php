@@ -240,20 +240,22 @@ class ProductController extends Controller
             $product->save();
 
             if ($request->hasFile('images')) {
-                $file = $request->file('images');
-
-                $getFileName = explode(".",$file->getClientOriginalName());
-                $imageName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$file->getClientOriginalName();
-                $filePath  = 'products/images/'.$imageName;
-
-                $controller = new ImageController($request);
-                $controller->uploadToS3($file, $filePath);
-
-
-                $productImage = new ProductImage();
-                $productImage->id_product = $product->id;
-                $productImage->image_name = $imageName;
-                $productImage->save();
+                $files = $request->file('images');
+                if($files && isset($files)){
+                    foreach($files as $file){
+                        $getFileName = explode(".",$file->getClientOriginalName());
+                        $imageName = isset($getFileName)?$getFileName[0].'_'.time().'.'.$getFileName[1]:time().'_'.$file->getClientOriginalName();
+                        $filePath  = 'products/images/'.$imageName;
+        
+                        $controller = new ImageController($request);
+                        $controller->uploadToS3($file, $filePath, 'image');
+        
+                        $productImage = new ProductImage();
+                        $productImage->id_product = $product->id;
+                        $productImage->image_name = $imageName;
+                        $productImage->save();
+                    }
+                }
             }
 
             if ($request->hasFile('document')) {
