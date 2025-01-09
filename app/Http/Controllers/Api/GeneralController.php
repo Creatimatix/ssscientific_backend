@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use App\Models\Admin\ProductImage;
@@ -11,14 +12,61 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
+
 $id = 0;
 class GeneralController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::whereNull('id_parent')->with('products')->with('childLevelCategories')->get();
+        $category = $request->get("category", null);
+        $searchText = $request->get("product_name", null);
+        // $categories = Category::whereNull('id_parent')->with('products')->with('childLevelCategories')->get();
+        $categories = Category::whereNull('id_parent');
 
+        $categories = $categories->with([
+            'products' => function ($query) use ($category, $searchText) {
+                if ($category) {
+                    $query->where('id_category', $category);
+                }
+                if ($searchText) {
+                    $query->where(function ($q) use ($searchText) {
+                        $q->where('name', 'like', "%$searchText%")
+                          ->orWhere('description', 'like', "%$searchText%");
+                    });
+                }
+            },
+            'childLevelCategories.products' => function ($query) use ($category, $searchText) {
+                if ($category) {
+                    $query->where('id_category', $category);
+                }
+                if ($searchText) {
+                    $query->where(function ($q) use ($searchText) {
+                        $q->where('name', 'like', "%$searchText%")
+                          ->orWhere('description', 'like', "%$searchText%");
+                    });
+                }
+            }
+        ]);
+        
+
+        $categories = $categories->get();
+        // $categories = $categories->with('childLevelCategories')->get();
+
+        // $categories = Category::whereNull('id_parent')
+        // ->whereHas('products', function ($query) {
+        //     $query->where('id_category', 2);
+        // })
+        // ->with([
+        //     'products' => function ($query): void {
+        //         $query->where('id_category', 2);
+        //     },
+        //     'childLevelCategories.products' => function ($query) {
+        //         $query->where('id_category', 2);
+        //     }
+        // ])  
+        // ->get();
 
         return response()->json($categories);
     }
@@ -127,6 +175,52 @@ class GeneralController extends Controller
         // Return the manipulated data as a response
         return response()->json(['messages' => 'data sync']);
 
+    }
+
+    public function getProductBySlug(Request $request, $slug = null){
+		$product = Product::with(['category','images', 'accessories'])->where('slug', $slug)->get()->first();
+		$status = Response::HTTP_OK;
+		if(!$product){
+			$status = Response::HTTP_NOT_FOUND;
+		}
+		return response()->json([
+			'status' => $status, 
+			'product' => $product
+		]);
+	}
+
+
+    public function sendEmail(Request $request)
+    {
+       try{
+        $request->validate([
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s.,!?-_@]+$/',
+            'email' => 'required|email',
+            'phone' => 'nullable|string|max:20',
+            'subject' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s.,!?-_@]+$/',
+            'message' => 'required|string|regex:/^[a-zA-Z0-9\s.,!?-_@]+$/',
+        ]);
+
+        $details = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ];
+
+        Mail::to('codehunt0715@gmail.com')->send(new ContactMail($details));
+
+        return response()->json([
+            'statusCode' => Response::HTTP_OK,
+            'message' => 'Thank you for reaching out! We have received your message, and our team will get back to you soon.'
+        ], 200);
+       }catch(\Exception $e){
+        return response()->json([
+            'statusCode' => Response::HTTP_BAD_REQUEST,
+            'message' => $e->getMessage()
+        ], 500);
+       }
     }
 }
 

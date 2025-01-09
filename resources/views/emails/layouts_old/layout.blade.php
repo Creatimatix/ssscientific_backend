@@ -23,20 +23,18 @@
             overflow: hidden;
         }
         .email-header {
-            background-color: #09445a !important;
+            background-color: #007bff;
             color: #ffffff;
             padding: 20px;
             text-align: center;
-            border-bottom: 1px solid black;
-            display: flex;
         }
         .email-body {
             padding: 20px;
-            color: #black;
+            color: #333333;
         }
         .email-footer {
-            background-color: #09445a;
-            color: #ffffff;
+            background-color: #f1f1f1;
+            color: #666666;
             padding: 15px;
             text-align: center;
             font-size: 12px;
@@ -47,6 +45,19 @@
     <div class="email-container">
         <!-- Header Section -->
         <div class="email-header">
-            <img src="{{ asset('images/logo.png') }}" class="g-img" alt="Logo" style="max-height: 50px; margin-right: 1px;">
-            <h1 style="margin-top: 16px; font-size: 27px; font-weight: bold;">SS Scientific</h1>
+            <h1>{{ $headerTitle ?? 'Company Name' }}</h1>
         </div>
+
+        <!-- Body Section -->
+        <div class="email-body">
+            Creatimatix
+            @yield('content')
+        </div>
+
+        <!-- Footer Section -->
+        <div class="email-footer">
+            <p>&copy; {{ date('Y') }} Company Name. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
