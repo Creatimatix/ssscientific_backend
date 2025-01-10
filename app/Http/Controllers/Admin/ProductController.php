@@ -538,46 +538,63 @@ class ProductController extends Controller
                     if (isset($data) && count($data) > 0) {
                         $parentId = null;
                         foreach ($data as $key => $value) {
-                            $productType = isset($value[1])?$value[1]:null;
-                            $categoryName = isset($value[2])?$value[2]:null;
+                            
                             $productName = isset($value[0])?$value[0]:null;
-
+                            $productType = isset($value[1])?$value[1]:null;
+                            $parentCategoryName = isset($value[2])?$value[2]:null;
+                            $categoryName = isset($value[3])?$value[3]:null;
+                            $parentCategory = null;
+                            if($productType == 'Parent'){
+                                $parentCategory = Category::where('category_name', $parentCategoryName)->get()->first();
+                                
+                                if(!$parentCategory && !empty($parentCategoryName)){
+                                    $parentCategory = new Category();
+                                    $parentCategory->category_name = $parentCategoryName;
+                                    $parentCategory->status = Category::STATUS_ACTIVE;
+                                    $parentCategory->save();
+                                }
+                            }
                             $category = Category::where('category_name', $categoryName)->get()->first();
+                            $categoryParentId = $parentCategory?$parentCategory->id: null;
                             if(!$category && !empty($categoryName)){
                                 $category = new Category();
                                 $category->category_name = $categoryName;
+                                $category->id_parent = $categoryParentId;
                                 $category->status = Category::STATUS_ACTIVE;
                                 $category->save();
                             }
-
+                           
                             $price = 0;
-                            $mpn = isset($value[3])?$value[3]:null;
-                            $capacity = isset($value[4])?$value[4]:null;
-                            $readability = isset($value[5])?$value[5]:null;
-                            $shortDesc = isset($value[6])?$value[6]:null;
-                            $desc = isset($value[7])?$value[7]:null;
-                            $power = isset($value[8])?$value[8]:null;
-                            $housing = isset($value[9])?$value[9]:null;
-                            $calibration = isset($value[10])?$value[10]:null;
-                            $display = isset($value[11])?$value[11]:null;
-                            $weighing_units = isset($value[12])?$value[12]:null;
-                            $pan_size = isset($value[13])?$value[13]:null;
-                            $overall_dimensions = isset($value[14])?$value[14]:null;
-                            $shipping_dimensions = isset($value[15])?$value[15]:null;
-                            $weight = isset($value[16])?$value[16]:null;
-                            $shipping_weight = isset($value[17])?$value[17]:null;
-                            $accessories = isset($value[18])?$value[18]:null;
+                            $mpn = isset($value[4])?$value[4]:null;
+                            $capacity = isset($value[5])?$value[5]:null;
+                            $readability = isset($value[6])?$value[6]:null;
+                            $shortDesc = isset($value[7])?$value[7]:null;
+                            $desc = isset($value[8])?$value[8]:null;
+                            $power = isset($value[9])?$value[9]:null;
+                            $housing = isset($value[10])?$value[10]:null;
+                            $calibration = isset($value[11])?$value[11]:null;
+                            $display = isset($value[12])?$value[12]:null;
+                            $weighing_units = isset($value[13])?$value[13]:null;
+                            $pan_size = isset($value[14])?$value[14]:null;
+                            $overall_dimensions = isset($value[15])?$value[15]:null;
+                            $shipping_dimensions = isset($value[16])?$value[16]:null;
+                            $weight = isset($value[17])?$value[17]:null;
+                            $shipping_weight = isset($value[18])?$value[18]:null;
+                            $accessories = isset($value[19])?$value[19]:null;
 
-                            $pnNo = isset($value[19])?$value[19]:null;
-                            $hsnNo = isset($value[20])?$value[20]:null;
-                            $sku = isset($value[21])?$value[21]:null;
+                            $pnNo = isset($value[20])?$value[20]:null;
+                            $hsnNo = isset($value[21])?$value[21]:null;
+                            $sku = isset($value[22])?$value[22]:null;
 
-                            $companyName = isset($value[24])?trim($value[24]):null;
+                            $companyName = isset($value[25])?trim($value[25]):null;
                             try{
                                 if(!empty($productName) && $category){
-                                    $slug = slug($productName);
+                                    $slug = slug(string: $productName);
                                     $product = Product::where('slug', $slug)->get()->first();
                                     if(!$product){
+                                        $product = new Product();
+                                    }else if($product && $product->id_category != $category->id){
+                                        $slug = $slug."-1";
                                         $product = new Product();
                                     }
 
@@ -612,14 +629,15 @@ class ProductController extends Controller
 
                                     }
                                     $product->company_name = $companyName;
-                                    // $product->save();
+                                    $product->save();
                                     
                                     if($productType == 'Parent'){
                                         $parentId = $product->id;
-                                        $imageUrls = isset($value[22])?$value[22]:[];
-                                        $imageUrls = explode(",", $imageUrls);
-                                        $documentUrl = isset($value[23])?$value[23]:null;
-                                        if(isset($imageUrls) && count($imageUrls) > 0){
+                                        $imageUrls = isset($value[23])?$value[23]:null;
+                                        // $imageUrls = $value[23] ?? [];
+                                        $imageUrls = $imageUrls ? explode(",", $imageUrls) : '';
+                                        $documentUrl = isset($value[24])?$value[24]:null;
+                                        if($imageUrls && isset($imageUrls) && count($imageUrls) > 0){
                                             $documentPath  = 'products/images/';
                                             foreach($imageUrls as $imageUrl){
                                                 $controller = new ImageController($request);
