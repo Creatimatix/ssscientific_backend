@@ -47,6 +47,7 @@
     <div class="email-container">
         <!-- Header Section -->
         <div class="email-header">
-            <img src="{{ asset('images/logo.png') }}" class="g-img" alt="Logo" style="max-height: 50px; margin-right: 1px;">
-            <h1 style="margin-top: 16px; font-size: 27px; font-weight: bold;">SS Scientific</h1>
+            {{-- <img src="{{ url('images/logo.png') }}" class="g-img" alt="Logo" style="max-height: 50px; margin-right: 1px;"> --}}
+            <img src="{{ $message->embed('images/logo.png') }}" class="g-img" alt="Logo" style="max-height: 50px; margin-right: 1px;">
+            <h1 style="margin-top: 8px; font-size: 27px; font-weight: bold;">SS Scientific</h1>
         </div>

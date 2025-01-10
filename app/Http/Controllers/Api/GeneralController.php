@@ -209,7 +209,7 @@ class GeneralController extends Controller
             'message' => $request->message,
         ];
 
-        Mail::to('codehunt0715@gmail.com')->send(new ContactMail($details));
+        Mail::to('sonu.verma0715@gmail.com')->send(new ContactMail($details));
 
         return response()->json([
             'statusCode' => Response::HTTP_OK,
