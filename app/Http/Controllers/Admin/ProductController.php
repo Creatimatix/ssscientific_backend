@@ -568,10 +568,11 @@ class ProductController extends Controller
                             $shipping_weight = isset($value[17])?$value[17]:null;
                             $accessories = isset($value[18])?$value[18]:null;
 
-                            $pnNo = isset($value[25])?$value[25]:null;
-                            $hsnNo = isset($value[26])?$value[26]:null;
-                            $sku = isset($value[27])?$value[27]:null;
-                            $companyName = isset($value[28])?trim($value[28]):null;
+                            $pnNo = isset($value[19])?$value[19]:null;
+                            $hsnNo = isset($value[20])?$value[20]:null;
+                            $sku = isset($value[21])?$value[21]:null;
+
+                            $companyName = isset($value[24])?trim($value[24]):null;
                             try{
                                 if(!empty($productName) && $category){
                                     $slug = slug($productName);
@@ -584,10 +585,10 @@ class ProductController extends Controller
                                     $product->sku = $sku;
                                     $product->slug = $slug;
                                     $product->id_category = $category->id;
-                                    $product->pn_no = $pnNo;
+                                    $product->pn_no = $pnNo;    
                                     $product->hsn_no = $hsnNo;
-                                    $product->short_description = $shortDesc;
-                                    $product->description = $desc;
+                                    $product->short_description = convertToHtml($shortDesc);
+                                    $product->description = convertToHtml($desc);
                                     $product->sale_price = $price;
                                     $product->status = Product::PRODUCT_STATUS;
                                     if($productType == 'Parent'){
@@ -611,25 +612,28 @@ class ProductController extends Controller
 
                                     }
                                     $product->company_name = $companyName;
-                                    $product->save();
-
+                                    // $product->save();
+                                    
                                     if($productType == 'Parent'){
                                         $parentId = $product->id;
-                                        $imageUrl = isset($value[19])?$value[19]:null;
-                                        $documentUrl = isset($value[24])?$value[24]:null;
-                                        if(!empty($imageUrl)){
+                                        $imageUrls = isset($value[22])?$value[22]:[];
+                                        $imageUrls = explode(",", $imageUrls);
+                                        $documentUrl = isset($value[23])?$value[23]:null;
+                                        if(isset($imageUrls) && count($imageUrls) > 0){
                                             $documentPath  = 'products/images/';
-                                            $controller = new ImageController($request);
-                                            if (strpos($imageUrl, 'sharepoint') !== false){
-                                                $imageUrl = $controller->storeSharePointFileToS3($imageUrl, $documentPath, 'image', $productName);
-                                            }else{
-                                                $imageUrl = $controller->storeImageFromUrlToS3($imageUrl, $documentPath, 'image', $productName);
-                                            }
-                                            if($imageUrl){
-                                                $productImage = new ProductImage();
-                                                $productImage->id_product = $parentId;
-                                                $productImage->image_name = $imageUrl;
-                                                $productImage->save();
+                                            foreach($imageUrls as $imageUrl){
+                                                $controller = new ImageController($request);
+                                                if (strpos($imageUrl, 'sharepoint') !== false){
+                                                    $imageUrl = $controller->storeSharePointFileToS3($imageUrl, $documentPath, 'image', $productName);
+                                                }else{
+                                                    $imageUrl = $controller->storeImageFromUrlToS3($imageUrl, $documentPath, 'image', $productName);
+                                                }
+                                                if($imageUrl){
+                                                    $productImage = new ProductImage();
+                                                    $productImage->id_product = $parentId;
+                                                    $productImage->image_name = $imageUrl;
+                                                    $productImage->save();
+                                                }
                                             }
                                         }
                                         if(!empty($documentUrl)){

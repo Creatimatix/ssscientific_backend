@@ -111,3 +111,15 @@ function priceToWords($price) {
 
     return $result . ' Only';
 }
+
+function convertToHtml($data)
+{
+    // Convert bullet points (•) to HTML <ul><li> format
+    $data = preg_replace('/•\s*(.*?)(?=\n|$)/', '<li>$1</li>', $data);  // Directly using the bullet point (•)
+    $data = '<ul>' . $data . '</ul>';
+
+    // Convert any bold text (e.g., wrapped in **text**) to <strong> tags
+    $data = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $data);
+
+    return $data;
+}
