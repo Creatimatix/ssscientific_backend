@@ -204,7 +204,7 @@ class GeneralController extends Controller
         $details = [
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $request->phone_number,
             'subject' => $request->subject,
             'message' => $request->message,
         ];
