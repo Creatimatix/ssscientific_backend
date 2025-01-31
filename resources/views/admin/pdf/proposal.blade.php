@@ -1,19 +1,26 @@
 @php
-    $totalAmount = 0;
-    $subPrice = 0;
-    $iGst = 0;
-    $cGst = 0;
-    $sGst = 0;
-    $totalItems = count($model->items);
+$totalAmount = 0;
+$subPrice = 0;
+$iGst = 0;
+$cGst = 0;
+$sGst = 0;
+$totalItems = count($model->items);
 @endphp
-    <!-- Repeatable -->
+<!-- Repeatable -->
 @if($model && $model->items)
-    @foreach($model->items as $key => $item)
-        @php
-            $itemKey = ++$key;
-            $totalAmount = $totalAmount + ($item->quantity * $item->asset_value);
-            $subPrice += $item->asset_value * $item->quantity;
-        @endphp
+@foreach($model->items as $key => $item)
+    @php
+        $itemSrNo = ++$key;
+        $itemKey = ++$key;
+        $totalAmount = $totalAmount + ($item->quantity * $item->asset_value);
+        $subPrice += $item->asset_value * $item->quantity;
+    @endphp
+
+
+ @php
+    $desc = $item->product->description;
+    $descriptions = str_split($desc, 1300);
+@endphp
 <!DOCTYPE  html>
 <html lang="en">
 <head>
@@ -126,273 +133,283 @@
 
 </head>
 <body>
-<p style="text-indent: 0pt;text-align: left; pading-top:-10px; ">
-        <span style="margin-bottom:30px">
-<table cellspacing="0" height="100%" cellpadding="0" class='center'>
-    <tr>
-        <td style="border: none;">
-            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific</p>
-            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
-                Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
-            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
-            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">GST: 27AYQPS9651P1Z2</p>
-        </td>
-        <td style='text-align:right;border: none;'>
-        <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
-        </td>
-    </tr>
-</table>
-<!-- </span>
-</p> -->
-
-<table id="Products_table" class='center table-quotation no-border' >
-<tr class='no-border'>
-        <th class='no-border'>&nbsp;</th>
-    </tr>
-<tr>
-        <th style="text-align:center;" colspan='8'>
-            QUOTATION
-            <!-- <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1> -->
-        </th>
-    </tr>
-    <tr class='no-border'>
-        <th class='no-border'>&nbsp;</th>
-    </tr>
-    <tr>
-        <th colspan='4' class='left-align'>To</th>
-        <th colspan='4' class='left-align'></th>
-    </tr>
-
-    <tr>
-        <td colspan='4'>
-            <p>
-                <b>{{ $model->user->company_name }}</b> <br />
-                {{ $model->user->full_name }} <br />
-                {{ $model->property_address }}
-            </p>
-        </td>
-        <td colspan='4'>
-            <p>QTN.No.: {{ $model->quote_no }}</p>
-            @if($model->order_type == \App\Models\Admin\Quote::ORDER_TYPE_TENDOR)
-                 <p>Tendor No.: {{ $model->tendor_no }}</p>
-                <p>Due Date: {{ date('d-m-Y', strtotime($model->due_date)) }}</p>
-            @endif
-            <p>Date: {{ date('d-m-Y', strtotime($model->created_at)) }}</p>
-        </td>
-    </tr>
-
-    <tr>
-        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->contact_person }}</td>
-    </tr>
-    <tr>
-        <td  class='no-border left-align' colspan='8' style="font-size: 15px;display: table-cell;padding-bottom: 22px;">
-            <span style="margin-right: 1px;float: left;">TEL: {{ $model->user->phone_number }}</span>
-            <span style="padding-right: 13px;float: right;">Email: {{ $model->contact_person_email }}</span>
-        </td>
-    </tr>
-    <!-- </table>
-    <table style="table-layout:fixed; height:90vh;" class="center no-border Product_table"> -->
-
-    @if($key != $totalItems)
-    <!-- Blank table for background -->
-    <div style="position:fixed; z-index:9; width:100%">
-
-        <table style="width:90%; border-size:2px; margin-left:0px;"  cellspacing="0" class="center Product_table" cellpadding="0" >
-        <tr>
-            <th style="width:5%">&nbsp;</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></th>
-            <th style="width:10%"></th>
-            <!-- <th></th> -->
-            <th colspan='3'></th>
-            <th style="width:5%"></th>
-            <th style="width:15%"></th>
-            <th style="width:15%"></th>
-        </tr>
-        </table>
-    </div>
-   @endif
-
-    <tr class="border-bottom"style="border: solid thin;">
-        <th style="width:5%" class='no-side-border'>S/N</th>
-        <th style="width:10%"  class='no-side-border'>P/N</th>
-        <!-- <th  class='no-side-border'>HSN Code</th> -->
-        <th class='no-side-border' colspan='3'>Description of goods</th>
-        <th style="width:5%" class='no-side-border'>Qty</th>
-        <th style="width:15%" class='no-side-border'>Unit {{ $model->currency_type }}</th>
-        <th style="width:15%" class='no-side-border'>Amount {{ $model->currency_type }}</th>
-    </tr>
-    <!-- <tr style="border-bottom:2px"></tr> -->
-    <!-- <div> -->
-    <tr style="text-align: center;"  class='no-border'>
-        <td style="width:5%" style="padding: 0px 0px 10px 0px; width:5%" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
-        <td  style="width:10%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
-        <!-- <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>--}} -->
-        <td  colspan='3'  class='{{($key != $totalItems ? "no-border" : "")}} left-align text-top no-bottom-border'>
-            <b class='left-align'>{{ $item->product->name }}</b>
-            <br />
-            <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
-                @if($item->product)
-                    @foreach($item->product->images as $image)
-{{--                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" /> --}}
-                        <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" style="width:80px;height:60px;" />
-                    @endforeach
-                @endif
-            </div>
-            <br />
-            {{ $item->product->short_description }}
-            <br />
-            {!! $item->product->description !!}
-        </td>
-        <td  style="width:5%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'>{{ $item->quantity }}</td>
-        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
-        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
-    </tr>
-    @foreach($item->accessories as $aKey => $accessory)
+    @if(count($descriptions) > 0)
+        @foreach($descriptions as $descKey => $description)
         @php
-            if($accessory->is_payable){
-                $subPrice += $accessory->asset_value * $accessory->quantity;
-                $totalAmount += $accessory->asset_value * $accessory->quantity;
-            }
+            $descIndex = $descKey;
         @endphp
-        <tr style="text-align: center;  outline: thin solid">
-            <td style="width:5%" style="padding: 10px 0px 10px 0px" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $itemKey.'.'.++$aKey }}</td>
-            <td style="width:10%" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->pn_no }}</td>
-            <!-- <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->hsn_no }}</td> -->
-            <td colspan='3' class='no-top-border text-left text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
-                <b>{{ $accessory->product->name }}</b>{{ sizeof($item->accessories) }}
-                <br />
-                {{ $accessory->product->short_description }}
-            </td>
-            <td style="width:5%" class='no-top-border text-center text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->quantity }}</td>
-            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}' ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
-            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
-                @if($accessory->is_payable)
-                    <span style="font-family: DejaVu Sans; sans-serif;">
-                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
-                    </span>
-                @endif
-            </td>
-        </tr>
-        <!-- </div> -->
-    @endforeach
-    <!-- repeatable -->
-    @if($key++ == $totalItems)
-    <tr>
-        <td colspan='4'>
-            <p class="addressinfo"><b>Bank Account Details:</b></p>
-            <p class="addressinfo">UNION BANK OF INDIA</p>
-            <p class="addressinfo">WADALA (EAST) BRANCH</p>
-            <p class="addressinfo">JUPITER BLDG., WADALA (EAST)</p>
-            <p class="addressinfo">SHANKARMISTRY ROAD,</p>
-            <p class="addressinfo">MUMBAI - 400037</p>
-            <p class="addressinfo">A/C No.: 583505080000001</p>
-            <p class="addressinfo">IFSC: UBIN0558354</p>
-        </td>
-        <td colspan='4'>
-            <p class="addressinfo"><b>Place the Order to:</b></p>
-            <p class="addressinfo">S. S Scientific</p>
-            <p class="addressinfo">Shop No. 11, Jamal Mansion,</p>
-            <p class="addressinfo">Navroji Hill Road No. 1, Dongri,</p>
-            <p class="addressinfo">Mumbai - 400 009</p>
-            <p class="addressinfo">Contact No.: {{ $model->createdBy->full_name }}</p>
-            <p class="addressinfo">Email: {{ $model->createdBy->email }} </p>
-            <p class="addressinfo">Mobile No.: {{ $model->createdBy->phone_number }}</p>
-        </td>
-    </tr>
-     @php
-        $finalTotal = $totalAmount;
-        if($model->discount){
-            $finalTotal = $finalTotal - $model->discount;
-        }
+            <p style="text-indent: 0pt;text-align: left; pading-top:-10px; ">
+                <span style="margin-bottom:30px">
+                <table cellspacing="0" height="100%" cellpadding="0" class='center'>
+                    <tr>
+                        <td style="border: none;">
+                            <p style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">SS Scientific</p>
+                            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Shop No. 11, Jamal
+                                Mansion,<br>Dr, Meisheri Road, Dongri,<br>Mumbai - 400 009.</p>
+                            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">Maharashtra,<br>India</p>
+                            <p style="padding-left: 7pt;text-indent: 0pt;line-height: 109%;text-align: left;">GST: 27AYQPS9651P1Z2</p>
+                        </td>
+                        <td style='text-align:right;border: none;'>
+                        <img src="{{ public_path('images/quotation logo.png') }}" style="width:140px;height:120px;" />
+                        </td>
+                    </tr>
+                </table>
 
-        if($model->freight){
-            $finalTotal = $finalTotal + $model->freight;
-        }
-        if($model->installation){
-            $finalTotal = $finalTotal + $model->installation;
-        }
+                <table id="Products_table" class='center table-quotation no-border' >
+                    <tr class='no-border'>
+                        <th class='no-border'>&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align:center;" colspan='8'>
+                            QUOTATION
+                            <!-- <h1 style="padding-top: 1pt;text-align:center; font-size:13pt">QUOTATION</h1> -->
+                        </th>
+                    </tr>
+                    <tr class='no-border'>
+                        <th class='no-border'>&nbsp;</th>
+                    </tr>
+                    <tr>
+                        <th colspan='4' class='left-align'>To</th>
+                        <th colspan='4' class='left-align'></th>
+                    </tr>
+                    <tr>
+                        <td colspan='4'>
+                            <p>
+                                <b>{{ $model->user->company_name }}</b> <br />
+                                {{ $model->user->full_name }} <br />
+                                {{ $model->property_address }}
+                            </p>
+                        </td>
+                        <td colspan='4'>
+                            <p>QTN.No.: {{ $model->quote_no }}</p>
+                            @if($model->order_type == \App\Models\Admin\Quote::ORDER_TYPE_TENDOR)
+                                <p>Tendor No.: {{ $model->tendor_no }}</p>
+                                <p>Due Date: {{ date('d-m-Y', strtotime($model->due_date)) }}</p>
+                            @endif
+                            <p>Date: {{ date('d-m-Y', strtotime($model->created_at)) }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='no-border left-align' colspan='8' style=" font-size: 15px; line-height: 38px; ">ATTN: {{ $model->contact_person }}</td>
+                    </tr>
+                    <tr>
+                        <td  class='no-border left-align' colspan='8' style="font-size: 15px;display: table-cell;padding-bottom: 22px;">
+                            <span style="margin-right: 1px;float: left;">TEL: {{ $model->user->phone_number }}</span>
+                            <span style="padding-right: 13px;float: right;">Email: {{ $model->contact_person_email }}</span>
+                        </td>
+                    </tr>
+                    <!-- </table>
+                    <table style="table-layout:fixed; height:90vh;" class="center no-border Product_table"> -->
 
-        if($model->i_gst){
-            $iGst =(($finalTotal * $model->i_gst)/100);
-        }
-        if($model->c_gst){
-            $cGst =(($finalTotal * $model->c_gst)/100);
-        }
-        if($model->s_gst){
-            $sGst =(($finalTotal * $model->s_gst)/100);
-        }
+                    {{-- @if($key != $totalItems)
+                    <!-- Blank table for background -->
+                    <div style="position:fixed; z-index:9; width:100%">
 
-        $finalTotal += $iGst + $cGst + $sGst;
+                        <table style="width:90%; border-size:2px; margin-left:0px;" cellspacing="0" class="center Product_table" cellpadding="0" >
+                        <tr>
+                            <th style="width:5%">&nbsp;</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></th>
+                            <th style="width:10%"></th>
+                            <!-- <th></th> -->
+                            <th colspan='3'></th>
+                            <th style="width:5%"></th>
+                            <th style="width:15%"></th>
+                            <th style="width:15%"></th>
+                        </tr>
+                        </table>
+                    </div>
+                @endif --}}
 
-        $finalTotal = round($finalTotal, 2);
-    @endphp
-  <tr>
-        <td colspan='3' class='no-border' >Payment Terms: {{ $model->payment_terms }}</td>
-        <td colspan='3' class='no-border text-right'>Ex-Warehouse</td>
-        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</span></td>
-    </tr>
-  @if($model->discount > 0)
-        <tr>
-            <td colspan='3' class='no-border' >Validity: {{ $model->validity }}</td>
-            <td colspan='3' class='no-border text-right'>Discount Applied</td>
-            <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</span></td>
-        </tr>
+                
+
+                    <!-- <tr style="border-bottom:2px"></tr> -->
+                    <!-- <div> -->
+
+                    
+                    <tr class="border-bottom"style="border: solid thin;">
+                        <th style="width:5%" class='no-side-border'>S/N</th>
+                        <th style="width:10%"  class='no-side-border'>P/N</th>
+                        <!-- <th  class='no-side-border'>HSN Code</th> -->
+                        <th class='no-side-border' colspan='3'>Description of goods {{  $descKey++ > 0 ? '(Continue...)' : '' }}</th>
+                        <th style="width:5%" class='no-side-border'>Qty</th>
+                        <th style="width:15%" class='no-side-border'>Unit {{ $model->currency_type }}</th>
+                        <th style="width:15%" class='no-side-border'>Amount {{ $model->currency_type }}</th>
+                    </tr>
+                    <tr style="text-align: center;"  class='no-border detail-product-list'>
+                        <td style="width:5%" style="padding: 0px 0px 10px 0px; width:5%" class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'><b>{{ $itemKey }}</b></td>
+                        <td  style="width:10%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->pn_no }}</td>
+                        <!-- <td   class='{{($key != $totalItems ? "no-border" : "")}} text-top no-bottom-border'>{{ $item->product->hsn_no }}</td>--}} -->
+                        <td  colspan='3'  class='{{($key != $totalItems ? "no-border" : "")}} left-align text-top no-bottom-border'>
+                            <b class='left-align'>{{ $item->product->name }}</b>
+                            <br />
+                            <div class='{{($key != $totalItems ? "no-border" : "")}} text-center'>
+                                @if($item->product)
+                                    @foreach($item->product->images as $image)
+                {{--                        <img src="{{ storage_path('images/products/'.$image->image_name) }}" style="width:80px;height:60px;" /> --}}
+                                        <img src="{{ env('AWS_ATTACHEMENT_URL').'products/images/'.$image->image_name }}" style="width:80px;height:60px;" />
+                                    @endforeach
+                                @endif
+                            </div>
+                            {{-- <br />
+                            <p>
+                                {!! $item->product->short_description !!}
+                            </p> --}}
+                            <br />
+                            {!! $description !!}
+                        </td>
+                        <td  style="width:5%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'>{{ $item->quantity }}</td>
+                        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->asset_value) }}</span></td>
+                        <td  style="width:15%"  class='{{($key != $totalItems ? "no-border" : "")}} text-top text-center no-bottom-border'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($item->quantity * $item->asset_value) }}</span></td>
+                    </tr>
+                
+                    
+                    @foreach($item->accessories as $aKey => $accessory)
+                        @php
+                            if($accessory->is_payable){
+                                $subPrice += $accessory->asset_value * $accessory->quantity;
+                                $totalAmount += $accessory->asset_value * $accessory->quantity;
+                            }
+                        @endphp
+                        <tr style="text-align: center;  outline: thin solid">
+                            <td style="width:5%" style="padding: 10px 0px 10px 0px" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $itemKey.'.'.++$aKey }}</td>
+                            <td style="width:10%" class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->pn_no }}</td>
+                            <!-- <td class='no-top-border text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->product->hsn_no }}</td> -->
+                            <td colspan='3' class='no-top-border text-left text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
+                                <b>{{ $accessory->product->name }}</b>{{ sizeof($item->accessories) }}
+                                <br />
+                                {{ $accessory->product->short_description }}
+                            </td>
+                            <td style="width:5%" class='no-top-border text-center text-top no-bottom-border {{($key != $totalItems ? "no-border" : "")}} '>{{ $accessory->quantity }}</td>
+                            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}' ><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}</span></td>
+                            <td style="width:15%" class='text-top text-center no-top-border no-bottom-border {{($key != $totalItems ? "no-border" : "")}}'>
+                                @if($accessory->is_payable)
+                                    <span style="font-family: DejaVu Sans; sans-serif;">
+                                {{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].($accessory->quantity * $accessory->asset_value) }}
+                                    </span>
+                                @endif
+                            </td>
+                        </tr>
+                        <!-- </div> -->
+                    @endforeach
+                    <!-- repeatable -->
+                
+                    @if($itemSrNo == $totalItems)
+                        <tr>
+                            <td colspan='4'>
+                                <p class="addressinfo"><b>Bank Account Details:</b></p>
+                                <p class="addressinfo">UNION BANK OF INDIA</p>
+                                <p class="addressinfo">WADALA (EAST) BRANCH</p>
+                                <p class="addressinfo">JUPITER BLDG., WADALA (EAST)</p>
+                                <p class="addressinfo">SHANKARMISTRY ROAD,</p>
+                                <p class="addressinfo">MUMBAI - 400037</p>
+                                <p class="addressinfo">A/C No.: 583505080000001</p>
+                                <p class="addressinfo">IFSC: UBIN0558354</p>
+                            </td>
+                            <td colspan='4'>
+                                <p class="addressinfo"><b>Place the Order to:</b></p>
+                                <p class="addressinfo">S. S Scientific</p>
+                                <p class="addressinfo">Shop No. 11, Jamal Mansion,</p>
+                                <p class="addressinfo">Navroji Hill Road No. 1, Dongri,</p>
+                                <p class="addressinfo">Mumbai - 400 009</p>
+                                <p class="addressinfo">Contact No.: {{ $model->createdBy->full_name }}</p>
+                                <p class="addressinfo">Email: {{ $model->createdBy->email }} </p>
+                                <p class="addressinfo">Mobile No.: {{ $model->createdBy->phone_number }}</p>
+                            </td>
+                        </tr>
+                        @php
+                            $finalTotal = $totalAmount;
+                            if($model->discount){
+                                $finalTotal = $finalTotal - $model->discount;
+                            }
+
+                            if($model->freight){
+                                $finalTotal = $finalTotal + $model->freight;
+                            }
+                            if($model->installation){
+                                $finalTotal = $finalTotal + $model->installation;
+                            }
+
+                            if($model->i_gst){
+                                $iGst =(($finalTotal * $model->i_gst)/100);
+                            }
+                            if($model->c_gst){
+                                $cGst =(($finalTotal * $model->c_gst)/100);
+                            }
+                            if($model->s_gst){
+                                $sGst =(($finalTotal * $model->s_gst)/100);
+                            }
+
+                            $finalTotal += $iGst + $cGst + $sGst;
+
+                            $finalTotal = round($finalTotal, 2);
+                        @endphp
+                        <tr>
+                            <td colspan='3' class='no-border' >Payment Terms: {{ $model->payment_terms }}</td>
+                            <td colspan='3' class='no-border text-right'>Ex-Warehouse</td>
+                            <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$totalAmount }}</span></td>
+                        </tr>
+                        @if($model->discount > 0)
+                            <tr>
+                                <td colspan='3' class='no-border' >Validity: {{ $model->validity }}</td>
+                                <td colspan='3' class='no-border text-right'>Discount Applied</td>
+                                <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->discount }}</span></td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td colspan='3' class='no-border'>Warranty: {{ $model->warranty_note }}</td>
+                            <td colspan='3' class='no-border text-right'>Freight</td>
+                            <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan='3' class='no-border'></td>
+                            <td colspan='3' class='no-border text-right'>Installation</td>
+                            <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ $model->installation > 0 ?(\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation) : 'Free of Cost' }}</span></td>
+                        </tr>
+                        @if($model->delivery_type == \App\Models\Admin\Quote::INTRA_STATE)
+                            <tr>
+                                <td colspan='3' class='no-border' ></td>
+                                <td colspan='3' class='no-border text-right'>CGST</td>
+                                <td colspan='2'>{{($model->c_gst > 0 ? $model->c_gst."%" : "")}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan='3' class='no-border'></td>
+                                <td colspan='3' class='no-border text-right'>SGST</td>
+                                <td colspan='2'class=''>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan='3' class='no-border' ></td>
+                                <td colspan='3' class='no-border text-right'>IGST</td>
+                                <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst."%" : "")}}</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td colspan='3' class='no-border' id="total"> </td>
+                            <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
+                            <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan='8' class='no-border' id="total"><b>{{ priceToWords($finalTotal) }}</b></td>
+                        </tr>
+                        <tr class="" style="position:relative; top:-20px; height:10px;">
+                            <td colspan='8' class='left-align no-border'>
+                        </br></br></br></br>
+                                For, S. S SCIENTIFIC</br>
+                                <img width="130px" height="85px" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
+                                AUTHORIZED SIGNATORY
+                            </td>
+                        </tr>
+                    @endif
+                </table>
+                <div id='footer' style="position: fixed;
+                    bottom: 20px;
+                    width: 100%;
+                    text-align: center; font-size:12pt" >
+                    <b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
+                <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
+                </span>
+            </p>
+      @endforeach
     @endif
-    <tr>
-        <td colspan='3' class='no-border'>Warranty: {{ $model->warranty_note }}</td>
-        <td colspan='3' class='no-border text-right'>Freight</td>
-        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->freight }}</span></td>
-    </tr>
-    <tr>
-        <td colspan='3' class='no-border'></td>
-        <td colspan='3' class='no-border text-right'>Installation</td>
-        <td colspan='2'><span style="font-family: DejaVu Sans; sans-serif;">{{ $model->installation > 0 ?(\App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$model->installation) : 'Free of Cost' }}</span></td>
-    </tr>
-    @if($model->delivery_type == \App\Models\Admin\Quote::INTRA_STATE)
-        <tr>
-            <td colspan='3' class='no-border' ></td>
-            <td colspan='3' class='no-border text-right'>CGST</td>
-            <td colspan='2'>{{($model->c_gst > 0 ? $model->c_gst."%" : "")}}</td>
-        </tr>
-        <tr>
-            <td colspan='3' class='no-border'></td>
-            <td colspan='3' class='no-border text-right'>SGST</td>
-            <td colspan='2'class=''>{{($model->s_gst > 0 ? $model->s_gst."%" : "")}}</td>
-        </tr>
-    @else
-        <tr>
-            <td colspan='3' class='no-border' ></td>
-            <td colspan='3' class='no-border text-right'>IGST</td>
-            <td colspan='2'>{{($model->i_gst > 0 ? $model->i_gst."%" : "")}}</td>
-        </tr>
-    @endif
-     <tr>
-        <td colspan='3' class='no-border' id="total"> </td>
-        <td colspan='3' class='no-border text-right'>TOTAL FOR, DESTINATION</td>
-        <td colspan='2' class=''><span style="font-family: DejaVu Sans; sans-serif;">{{ \App\Models\Admin\ProductCartItems::CURRENCY[$model->currency_type].$finalTotal }}</span></td>
-    </tr>
-    <tr>
-        <td colspan='8' class='no-border' id="total"><b>{{ priceToWords($finalTotal) }}</b></td>
-    </tr>
-    <tr class="" style="position:relative; top:-20px; height:10px;">
-        <td colspan='8' class='left-align no-border'>
-    </br></br></br></br>
-            For, S. S SCIENTIFIC</br>
-            <img width="130px" height="85px" src="{{ public_path('images/proposal-pdf/stamp.png') }}"/></br>
-            AUTHORIZED SIGNATORY
-        </td>
-    </tr>
-    @endif
-</table>
-<div id='footer' style="position: fixed;
-            bottom: 20px;
-            width: 100%;
-            text-align: center; font-size:12pt" >
-
-    <b>Work Address:</b> 401, 4th floor, 3, Navjeevan Society, Dr. D. B. Marg, Mumbai Central, Mumbai  - 400 008. </br>
-           <b>Email:</b> support@ssscientific.net / sales@ssscientific.net <b>Web:</b>  www.ssscientific.net  <b>Mob.:</b> +91 98332 41875</div>
-
-</span>
-</p>
 <style>
     @page {
         size: A4;
@@ -473,8 +490,12 @@
         width: 100%;
         text-align: center; font-size:12pt;
     }
+    .detail-product-list td{
+        border: 1px solid black !important; 
+    }
 </style>
 </body>
 </html>
-      @endforeach
-   @endif
+
+@endforeach
+@endif
